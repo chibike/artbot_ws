@@ -301,6 +301,58 @@ namespace blink
 		view.stop();
 	}
 
+	void test_pathfinder_b()
+	{
+		cv::Mat frame;
+		cv::Scalar red_color(0,0,255);
+		cv::Scalar blue_color(255,0,0);
+		cv::Scalar green_color(0,255,0);
+
+		std::vector<Point> points;
+		std::vector<Line> lines;
+
+		// #Test Case #01
+		points.push_back(Point(100, 100));
+		points.push_back(Point(100, 200));
+		points.push_back(Point(200, 200));
+		points.push_back(Point(200, 100));
+
+		Path path_1 = Path(points, false);
+
+		std::vector<Path> exclude_regions;
+		exclude_regions.push_back(path_1);
+
+		Pathfinder pathfinder;
+		std::vector<Line> shade_lines = pathfinder.shade_frame(20, 20, 440, 440, 30, 0., exclude_regions);
+		std::vector<Line> shade_lines_2 = pathfinder.shade_frame(20, 20, 440, 440, 30, 1.5707, exclude_regions);
+
+		frame = cv::Mat(480, 480, CV_8UC3, cv::Scalar(0,0,0));
+		path_1.draw(frame, blue_color);
+
+		for (int i=0; i<shade_lines.size(); i++)
+		{
+			Line line = shade_lines.at(i);
+			line.draw(frame, red_color);
+		}
+
+		for (int i=0; i<shade_lines_2.size(); i++)
+		{
+			Line line = shade_lines_2.at(i);
+			line.draw(frame, red_color);
+		}
+
+		Viewer view(0.1, "objects"); view.start();
+		while (1)
+		{
+			int key = view.show_frame(frame);
+			if ( key == 113 || key < 0 )
+			{
+				break;
+			}
+		}
+		view.stop();
+	}
+
 	void test_pathfinder_a()
 	{
 		cv::Mat frame;

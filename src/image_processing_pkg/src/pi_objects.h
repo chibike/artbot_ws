@@ -3,10 +3,11 @@
 
 #include <vector>
 #include <math.h>
-#include "Eigen/Dense"
-#include "opencv2/opencv.hpp"
-#include <iostream>
 #include <sstream>
+#include <iostream>
+#include "Eigen/Dense"
+#include "pi_arithmetic.h"
+#include "opencv2/opencv.hpp"
 
 namespace blink
 {
@@ -99,6 +100,8 @@ public:
 	Point  get_intersecting_point(Line other);
 	void   draw(cv::Mat image, cv::Scalar color);
 	void   draw(cv::Mat image, cv::Scalar color, int stroke_width, int line_type, int shift);
+
+	std::string get_as_string();
 };
 
 struct RectInfo
@@ -124,8 +127,10 @@ public:
 	bool closed;
 	RectInfo rect_info;
 
+	Path(cv::Rect rect);
 	Path(std::vector<Point> raw_point_data, bool closed);
 	Path(std::vector<cv::Point> raw_point_data, bool closed);
+	Path(Point center, double radius, double angle, unsigned int steps);
 
 	Point get_start_point();
 	Point get_end_point();
@@ -141,6 +146,7 @@ public:
 	bool is_within(Line line);
 	void rotate(double angle);
 	void rotate(double angle, Point pivot);
+	void mask(cv::Mat image_in, cv::Mat &image_out, bool override_image_out, cv::Scalar empty_color, int translation_x, int translation_y);
 	void draw(cv::Mat image, cv::Scalar color);
 	void draw(cv::Mat image, cv::Scalar color, int stroke_width, int line_type, int shift);
 
@@ -182,102 +188,6 @@ public:
 		return current.x < next.x;
 	}
 };
-
-
-
-std::vector<Line> Pathfinder::shade_frame(double top_x, double top_y, double frame_width, double frame_height, std::vector<Path> exclude_regions)
-{
-	return shade_frame(top_x, top_y, frame_width, frame_height, 10, 0., exclude_regions);
-}
-
-std::vector<Line> Pathfinder::shade_frame(double top_x, double top_y, double frame_width, double frame_height, double spacing, double angle, std::vector<Path> exclude_regions)
-{
-	std::vector<Point> points;
-	points.push_back(Point(top_x, top_y));
-	points.push_back(Point(top_x + frame_width, top_y));
-	points.push_back(Point(top_x + frame_width, top_y + frame_height));
-	points.push_back(Point(top_x, top_y + frame_height));
-
-	Path frame_path = Path(points, false);
-	std::vector<Line> intersecting_lines = frame_path.get_intersecting_lines(spacing, angle);
-	std::vector<Line> exclude_regions_boundary_lines;
-
-	// std::vector<Line> intersecting_lines;
-	// double _h = 90;
-	// Point p1 = Point(top_x,_h);
-	// Point p2 = Point(top_x + frame_width, _h);
-	// intersecting_lines.push_back(Line(p1, p2));
-
-	for (int i=0; i<exclude_regions.size(); i++)
-	{
-		Path region = exclude_regions.at(i);
-		exclude_regions_boundary_lines.insert(exclude_regions_boundary_lines.end(), region.boundary_lines.begin(), region.boundary_lines.end());
-	}
-
-	std::vector<Line> shading_lines;
-	for (int i=0; i<intersecting_lines.size(); i++)
-	{
-		Line intersecting_line = intersecting_lines.at(i);
-		
-		std::vector<Point> intersection_points;
-		for (int j=0; j<exclude_regions_boundary_lines.size(); j++)
-		{
-			Line line = exclude_regions_boundary_lines.at(j);
-			Point intersection_point = intersecting_line.get_intersecting_point(line);
-			if (!intersection_point.isinf())
-			{
-				intersection_points.push_back(intersection_point);
-			}
-		}
-
-		std::sort(intersection_points.begin(), intersection_points.end(), _filter_x_function);
-
-		intersection_points.insert(intersection_points.begin(), intersecting_line.start);
-		intersection_points.insert(intersection_points.end(), intersecting_line.end);
-
-		Point p1 = intersection_points.at(0);
-		for (int j=1; j<intersection_points.size(); j++)
-		{
-			if (intersection_points.at(j).x - p1.x < 0.001)
-			{
-				continue;
-			}
-
-			Line line = Line(p1, intersection_points.at(j));
-			p1 = intersection_points.at(j);
-
-			shading_lines.push_back(line);
-		}
-	}
-
-	// filter shading lines
-	std::vector<Line> shading_lines_buffer;
-	for (int i=0; i<shading_lines.size(); i++)
-	{
-		Line shading_line = shading_lines.at(i);
-		bool is_within_exclude_region = false;
-
-		for (int j=0; j<exclude_regions.size(); j++)
-		{
-			Path region = exclude_regions.at(j);
-			is_within_exclude_region = region.is_within(shading_line);
-
-			if (is_within_exclude_region)
-			{
-				break;
-			}
-		}
-
-		cout << "------------------" << endl << endl << endl;
-
-		if (!is_within_exclude_region)
-		{
-			shading_lines_buffer.push_back(shading_line);
-		}
-	}
-
-	return shading_lines_buffer;
-}
 
 Point::Point()
 {
@@ -563,6 +473,17 @@ void Line::draw(cv::Mat image, cv::Scalar color, int stroke_width, int line_type
 	cv::line(image, start_point, end_point, color, stroke_width, line_type, shift);
 }
 
+std::string Line::get_as_string()
+{
+	// '[[0, 4], [1, 5]]'
+	std::stringstream ss;
+	ss << "[";
+	ss << "[" << start.x << "," << start.y << "],";
+	ss << "[" << end.x   << "," << end.y   << "]" ;
+	ss << "]";
+	return ss.str();
+}
+
 
 Path::Path(std::vector<Point> raw_point_data, bool is_closed)
 {
@@ -598,6 +519,65 @@ Path::Path(std::vector<cv::Point> raw_point_data, bool is_closed)
 
 	data_points = points;
 	closed = is_closed;
+
+	calculate();
+}
+
+Path::Path(cv::Rect rect)
+{
+	std::vector<Point> points;
+
+	Point point_1 = Point(rect.x,              rect.y);
+	Point point_2 = Point(rect.x + rect.width, rect.y);
+	Point point_3 = Point(rect.x + rect.width, rect.y + rect.height);
+	Point point_4 = Point(rect.x,              rect.y + rect.height);
+
+	points.push_back(point_1);
+	points.push_back(point_2);
+	points.push_back(point_3);
+	points.push_back(point_4);
+
+	data_points = points;
+	closed = false;
+
+	calculate();
+}
+
+// Path::Path(Line line)
+// {
+// 	std::vector<Point> points;
+// 	points.push_back(line.start);
+// 	points.push_back(line.end);
+
+// 	data_points = points;
+// 	closed = true;
+
+// 	calculate();
+// }
+
+Path::Path(Point center, double radius, double angle=2.0*M_PI, unsigned int steps=32)
+{
+	std::vector<Point> points;
+
+	double theta = 0.0;
+	double increment = 2 * M_PI / steps;
+	angle = constrainf(std::abs(angle), 0.0, 2*M_PI);
+	radius = std::abs(radius);
+
+	double x, y;
+	while (theta < angle)
+	{
+		x = center.x + radius * std::cos(theta);
+		y = center.y + radius * std::sin(theta);
+
+		Point point = Point(x,y);
+		points.push_back(point);
+
+		theta += increment;
+	}
+
+	data_points = points;
+	closed = false;
 
 	calculate();
 }
@@ -802,34 +782,34 @@ bool Path::is_within(Line line)
 {
 	std::vector<Point> points = get_intersecting_points(line);
 
-	cout << "--- line is within ---" << endl;
-	cout << "y = " << (double)line.start.y << endl;
-	cout << "start, end = " << (double)line.start.x << " - " << (double)line.end.x << endl;
-	cout << "length = " << (double)line.get_length() << endl;
-	cout << "--- intersection points ---" << endl;
-	cout << "\t";
-	cout << "points = ";
-	for (int i=0; i<points.size(); i++)
-	{
-		Point p = points.at(i);
-		cout << "px_" << ((double) p.x) << ", ";
-	}
-	cout << endl;
+	// cout << "--- line is within ---" << endl;
+	// cout << "y = " << (double)line.start.y << endl;
+	// cout << "start, end = " << (double)line.start.x << " - " << (double)line.end.x << endl;
+	// cout << "length = " << (double)line.get_length() << endl;
+	// cout << "--- intersection points ---" << endl;
+	// cout << "\t";
+	// cout << "points = ";
+	// for (int i=0; i<points.size(); i++)
+	// {
+	// 	Point p = points.at(i);
+	// 	cout << "px_" << ((double) p.x) << ", ";
+	// }
+	// cout << endl;
 
 
 	if (points.size() == 1)
 	{
 		if (is_touching(line.start) && !(line.start.equal(points.at(0))))
 		{
-			cout << "01 is_within: " << "true";
-			cout << " d" << points.at(0).x - line.start.x << " d";
-			cout << endl;
+			// cout << "01 is_within: " << "true";
+			// cout << " d" << points.at(0).x - line.start.x << " d";
+			// cout << endl;
 			return true;
 		}
 		else if (is_touching(line.end) && !(line.end.equal(points.at(0))))
 		{
-			cout << "02 is_within: " << "true";
-			cout << endl;
+			// cout << "02 is_within: " << "true";
+			// cout << endl;
 			return true;
 		}
 	}
@@ -845,27 +825,27 @@ bool Path::is_within(Line line)
 		double dx_0 = other_points.at(0).x - points.at(0).x;
 		double dx_1 = points.at(1).x - other_points.at(1).x;
 
-		cout << " dx_" << dx_0 << "__" << dx_1 << "_";
+		// cout << " dx_" << dx_0 << "__" << dx_1 << "_";
 
 		return (dx_0 >= -0.0001 && dx_1 >= -0.0001);
 	}
 
 	if (is_within(line.start)  || is_within(line.end))
 	{
-		cout << "03a is_within: " << "true";
-		cout << endl;
+		// cout << "03a is_within: " << "true";
+		// cout << endl;
 		return true;
 	}
 	else if ( is_touching(line.start) && is_touching(line.end) )
 	{
-		cout << "03c is_within: " << "true";
-		cout << endl;
+		// cout << "03c is_within: " << "true";
+		// cout << endl;
 		return true;
 	}
 	else
 	{
-		cout << "04 is_within: " << "false";
-		cout << endl;
+		// cout << "04 is_within: " << "false";
+		// cout << endl;
 		return false;
 	}
 }
@@ -898,6 +878,32 @@ void Path::draw(cv::Mat image, cv::Scalar color, int stroke_width, int line_type
 	{
 		Line line = boundary_lines.at(i);
 		line.draw(image, color, stroke_width, line_type, shift);
+	}
+}
+
+void Path::mask(cv::Mat image_in, cv::Mat &image_out, bool override_image_out=true, cv::Scalar empty_color=cv::Scalar(0,0,0), int translation_x=0, int translation_y=0)
+{
+	if (override_image_out || image_out.empty())
+	{
+		image_out = image_in.clone();
+		image_out.setTo(empty_color);
+	}
+
+	for (int row=0; row<image_in.rows; row++)
+	{
+		for (int col=0; col<image_in.cols; col++)
+		{
+			// Point point = Point(col, row);
+			// if (is_within(point))
+			// {
+			// 	int new_row = row + translation_x; int new_col = col + translation_y;
+
+			// 	if (new_col >= 0 && new_row >= 0 && new_col < image_out.cols && new_row < image_out.rows)
+			// 	{
+			// 		image_out.at<cv::Vec3b>(new_row, new_col) = image_in.at<cv::Vec3b>(row, col);
+			// 	}
+			// }
+		}
 	}
 }
 
@@ -988,6 +994,11 @@ Path Pathfinder::unite(Path path_1, Path path_2)
 		Line current_line = boundary_lines_1.at(i);
 		outline.push_back(current_line.start);
 
+		//Point intersecting_point = Point(std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity());
+		/*
+		* x and y should be the largest value with the same gradient 
+		*/
+		// Point intersecting_point = Point(99999*current_line.end.x, 99999*current_line.end.y);
 		Point intersecting_point = Point(std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity());
 		double distance_of_point = measure(current_line.start, intersecting_point);
 		int index = 0;
@@ -1124,6 +1135,100 @@ Path Pathfinder::subtract(Path path_1, Path path_2)
 
 	Path path = Path(outline, false);
 	return path;
+}
+
+std::vector<Line> Pathfinder::shade_frame(double top_x, double top_y, double frame_width, double frame_height, std::vector<Path> exclude_regions)
+{
+	return shade_frame(top_x, top_y, frame_width, frame_height, 10, 0., exclude_regions);
+}
+
+std::vector<Line> Pathfinder::shade_frame(double top_x, double top_y, double frame_width, double frame_height, double spacing, double angle, std::vector<Path> exclude_regions)
+{
+	std::vector<Point> points;
+	points.push_back(Point(top_x, top_y));
+	points.push_back(Point(top_x + frame_width, top_y));
+	points.push_back(Point(top_x + frame_width, top_y + frame_height));
+	points.push_back(Point(top_x, top_y + frame_height));
+
+	Path frame_path = Path(points, false);
+	std::vector<Line> intersecting_lines = frame_path.get_intersecting_lines(spacing, angle);
+	std::vector<Line> exclude_regions_boundary_lines;
+
+	// std::vector<Line> intersecting_lines;
+	// double _h = 90;
+	// Point p1 = Point(top_x,_h);
+	// Point p2 = Point(top_x + frame_width, _h);
+	// intersecting_lines.push_back(Line(p1, p2));
+
+	for (int i=0; i<exclude_regions.size(); i++)
+	{
+		Path region = exclude_regions.at(i);
+		exclude_regions_boundary_lines.insert(exclude_regions_boundary_lines.end(), region.boundary_lines.begin(), region.boundary_lines.end());
+	}
+
+	std::vector<Line> shading_lines;
+	for (int i=0; i<intersecting_lines.size(); i++)
+	{
+		Line intersecting_line = intersecting_lines.at(i);
+		
+		std::vector<Point> intersection_points;
+		for (int j=0; j<exclude_regions_boundary_lines.size(); j++)
+		{
+			Line line = exclude_regions_boundary_lines.at(j);
+			Point intersection_point = intersecting_line.get_intersecting_point(line);
+			if (!intersection_point.isinf())
+			{
+				intersection_points.push_back(intersection_point);
+			}
+		}
+
+		std::sort(intersection_points.begin(), intersection_points.end(), _filter_x_function);
+
+		intersection_points.insert(intersection_points.begin(), intersecting_line.start);
+		intersection_points.insert(intersection_points.end(), intersecting_line.end);
+
+		Point p1 = intersection_points.at(0);
+		for (int j=1; j<intersection_points.size(); j++)
+		{
+			if (intersection_points.at(j).x - p1.x < 0.001)
+			{
+				continue;
+			}
+
+			Line line = Line(p1, intersection_points.at(j));
+			p1 = intersection_points.at(j);
+
+			shading_lines.push_back(line);
+		}
+	}
+
+	// filter shading lines
+	std::vector<Line> shading_lines_buffer;
+	for (int i=0; i<shading_lines.size(); i++)
+	{
+		Line shading_line = shading_lines.at(i);
+		bool is_within_exclude_region = false;
+
+		for (int j=0; j<exclude_regions.size(); j++)
+		{
+			Path region = exclude_regions.at(j);
+			is_within_exclude_region = region.is_within(shading_line);
+
+			if (is_within_exclude_region)
+			{
+				break;
+			}
+		}
+
+		// cout << "------------------" << endl << endl << endl;
+
+		if (!is_within_exclude_region)
+		{
+			shading_lines_buffer.push_back(shading_line);
+		}
+	}
+
+	return shading_lines_buffer;
 }
 
 }

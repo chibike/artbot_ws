@@ -34,6 +34,7 @@ template <class T> const T& constrainf(const T& x, const T& min_x, const T& max_
 
 const std::string home_path = "/home/odroid/artbot_ws/src/image_processing_pkg";
 const std::string face_cascade_path = home_path + "/parameters/haarcascades/haarcascade_frontalface_default.xml";
+const std::string default_bg_path = home_path + "/images/background.jpg";
 
 const std::string node_name = "image_processing_node";
 const std::string render_image_topic = "/processed_image";
@@ -46,7 +47,7 @@ const double dilation_size = 4;
 const double face_cascade_scale_factor = 1.3;
 const double filtered_points_min_threshold = 5;
 
-const cv::Size blur_size(9,9);
+const cv::Size blur_size(5,5);
 
 cv::CascadeClassifier face_cascade;
 sensor_msgs::Image    processed_image;
@@ -90,13 +91,19 @@ void transfer_frame_to_frame(cv::Mat &input, cv::Mat &output, cv::Rect from_regi
     extract.copyTo(output(to_region));
 }
 
-void remove_background(cv::Mat &src, cv::Mat &dst, int focus_padding=2)
+void remove_background(cv::Mat &src, cv::Mat &dst, int focus_padding=1)
 {
     std::vector<cv::Rect> faces;
     face_cascade.detectMultiScale(src, faces, face_cascade_scale_factor, face_cascade_min_neighbour);
 
-	const int max_height = std::min(src.rows - 1, dst.rows - 1);
-	const int max_width  = std::min(src.cols - 1, dst.rows - 1);
+    if (faces.size() <= 0)
+    {
+        dst = src.clone();
+        return;
+    }
+
+    const int max_height = std::min(src.rows - 1, dst.rows - 1);
+    const int max_width  = std::min(src.cols - 1, dst.rows - 1);
 
     for (int i=0; i<faces.size(); i++)
     {
@@ -104,31 +111,19 @@ void remove_background(cv::Mat &src, cv::Mat &dst, int focus_padding=2)
 
         /* Define center of the face */
         cv::Point center( face.x + face.width * 0.5, face.y + face.height * 0.5);
+        
+        /* Define body rect */
+        int body_y = constrainf(face.y + face.height, 0, max_height);
+        int body_height = max_height - body_y;
 
-        /* Define focus rect */
-		int focus_y = constrainf(face.y - face.height, 0, max_height);
-		int focus_height = max_height - focus_y;
+        int body_x = face.x - (face.width * focus_padding);
+        int body_width = constrainf(face.width + 2*(face.width * focus_padding), 0, std::min(max_width - body_x, max_width));
+        body_x = std::max(body_x, 0);
 
-		int focus_x = face.x - (face.width * focus_padding);
-		int focus_width = constrainf(face.width + 2*(face.width * focus_padding), 0, std::min(max_width - focus_x, max_width));
-		focus_x = std::max(focus_x, 0);
+        cv::Rect body_rect(body_x, body_y, body_width, body_height);
 
-		cv::Rect focus_rect(focus_x, focus_y, focus_width, focus_height);
-
-		// copy to dst
-        if (i == 0)
-        {
-            transfer_frame_to_frame(src, dst, focus_rect, focus_rect);
-        }
-        else
-        {
-            transfer_frame_to_frame(dst, dst, focus_rect, focus_rect);
-        }
-    }
-
-    if (faces.size() <= 0)
-    {
-        dst = src.clone();
+        transfer_frame_to_frame(src, dst, face, face);
+        transfer_frame_to_frame(src, dst, body_rect, body_rect);
     }
 }
 
@@ -146,7 +141,7 @@ void publish_image(cv::Mat &frame)
 		out_msg.header.seq = counter++;
 		out_msg.header.stamp = ros::Time::now();
 		out_msg.encoding = sensor_msgs::image_encodings::BGR8;
-		out_msg.image = dst;
+		out_msg.image = frame;
 
 		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
 		processed_image = *im_msg;
@@ -169,7 +164,7 @@ void publish_paths_as_string(std::string paths_as_string)
     paths_as_string_publisher.publish(paths_as_string_msg);
 }
 
-int render_preview(cv::Mat &frame, cv::Mat &view_frame, int focus_padding=2)
+int render_preview(cv::Mat &frame, cv::Mat &view_frame, int focus_padding=1)
 {
     std::vector<cv::Rect> faces;
     face_cascade.detectMultiScale(frame, faces, face_cascade_scale_factor, face_cascade_min_neighbour);
@@ -179,25 +174,33 @@ int render_preview(cv::Mat &frame, cv::Mat &view_frame, int focus_padding=2)
 
 	view_frame = frame.clone();
 
+    blink::Pathfinder pathfinder;
     for (int i=0; i<faces.size(); i++)
     {
         cv::Rect face = faces[i];
+
+        int pad = 0.2 * face.height;
+        face.y = constrainf(face.y - pad, 0, max_height);
+        face.height = constrainf(face.height + pad, 0, max_height);
 
         /* Define center of the face */
         cv::Point center( face.x + face.width * 0.5, face.y + face.height * 0.5);
         double diameter = std::sqrt((face.width * face.width) + (face.height * face.height));
 
-        /* Define focus rect */
-		int focus_y = constrainf(face.y - face.height, 0, max_height);
-		int focus_height = max_height - focus_y;
+        /* Define body rect */
+        int body_x = face.x - (face.width * focus_padding);
+        int body_width = constrainf(face.width + 2*(face.width * focus_padding), 0, std::min(max_width - body_x, max_width));
+        body_x = std::max(body_x, 0);
 
-		int focus_x = face.x - (face.width * focus_padding);
-		int focus_width = constrainf(face.width + 2*(face.width * focus_padding), 0, std::min(max_width - focus_x, max_width));
-		focus_x = std::max(focus_x, 0);
+        int body_y = constrainf(face.y + face.height, 0, max_height);
+        int body_height = max_height - body_y;
 
-		cv::Rect focus_rect(focus_x, focus_y, focus_width, focus_height);
-		cv::rectangle(view_frame, focus_rect, cv::Scalar(0, 0, 255));
-        cv::circle(view_frame, center, diameter/2.0, cv::Scalar(0, 0, 255));
+        cv::Rect body_rect(body_x, body_y, body_width, body_height);
+        
+        blink::Path path_1 = blink::Path(face);
+        blink::Path path_2 = blink::Path(body_rect);
+        blink::Path new_path = pathfinder.unite(path_2, path_1);
+        new_path.draw(view_frame, cv::Scalar(0, 255, 0));
     }
 
     return faces.size();
@@ -205,13 +208,21 @@ int render_preview(cv::Mat &frame, cv::Mat &view_frame, int focus_padding=2)
 
 std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kernel_size, int low_threshold=50, int high_threshold=150, int canny_kernel_size=3)
 {
-    cv::Mat new_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
+    cv::Mat new_frame = cv::imread(default_bg_path, CV_LOAD_IMAGE_COLOR);
+    if (new_frame.empty() || frame.rows != new_frame.rows || frame.cols != new_frame.cols)
+    {
+        std::cout << "ERROR: incompactabile background" << std::endl;
+        std::cout << "rows: " << frame.rows << " cols: " << frame.cols << std::endl;
+        std::cout << "bg-rows: " << new_frame.rows << " bg-cols: " << new_frame.cols << std::endl;
+        new_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
+    }
     remove_background(frame, new_frame);
+    
 
     cv::Mat blur_frame;
     cv::GaussianBlur(new_frame, blur_frame, blur_kernel_size, 0, 0);
 
-    blink::simplify_image(blur_frame, blink::color_space_3d::color_array);
+    // blink::simplify_image(blur_frame, blink::color_space_3d::color_array);
 
     cv::Mat edge_frame;
     cv::Canny(blur_frame, edge_frame, low_threshold, high_threshold, canny_kernel_size);
@@ -229,34 +240,93 @@ std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kern
     cv::findContours(erode_frame, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0,0));
 
     view_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
-    view_frame.setTo(cv::Scalar(180,180,180));
+    view_frame.setTo(cv::Scalar(255,255,255));
+    // view_frame = new_frame;
 
-    std::vector<blink::Path> paths;
     std::stringstream ss; ss << "[" ;
 
+    /*------------------------------------------------------------------------*/
+
+    // std::vector<cv::Rect> faces;
+    // blink::Pathfinder pathfinder;
+    // face_cascade.detectMultiScale(frame, faces, face_cascade_scale_factor, face_cascade_min_neighbour);
+
+    // const int max_height = frame.rows - 1;
+    // const int max_width  = frame.cols - 1;
+    // std::vector<blink::Path> paths;
+    // const int shade_start_pad = 20;
+    // const int focus_padding = 1;
+    // int counter = 0;
+
+    // paths.reserve(faces.size());
+
+    // for (int i=0; i<faces.size(); i++)
+    // {
+    //     cv::Rect face = faces[i];
+
+    //     int pad = 0.2 * face.height;
+    //     face.y = constrainf(face.y - pad, 0, max_height);
+    //     face.height = constrainf(face.height + pad, 0, max_height);
+
+    //     /* Define center of the face */
+    //     cv::Point center( face.x + face.width * 0.5, face.y + face.height * 0.5);
+    //     double diameter = std::sqrt((face.width * face.width) + (face.height * face.height));
+
+    //     /* Define body rect */
+    //     int body_x = face.x - (face.width * focus_padding);
+    //     int body_width = constrainf(face.width + 2*(face.width * focus_padding), 0, std::min(max_width - body_x, max_width));
+    //     body_x = std::max(body_x, 0);
+
+    //     int body_y = constrainf(face.y + face.height, 0, max_height);
+    //     int body_height = max_height - body_y;
+
+    //     cv::Rect body_rect(body_x, body_y, body_width, body_height);
+        
+    //     blink::Path path_1 = blink::Path(face);
+    //     blink::Path path_2 = blink::Path(body_rect);
+    //     blink::Path new_path = pathfinder.unite(path_2, path_1);
+
+    //     paths.push_back(new_path);
+    //     ss << new_path.get_as_string() << ",";
+    //     counter++;
+    //     new_path.draw(view_frame, cv::Scalar(0, 255, 0));
+    // }
+
+    // std::vector<blink::Line> shade_lines = pathfinder.shade_frame(
+    //     shade_start_pad,
+    //     shade_start_pad,
+    //     frame.cols - shade_start_pad,
+    //     frame.rows - shade_start_pad,
+    //     30,
+    //     0.,
+    //     paths
+    //     );
+
+    // for (int i=0; i<shade_lines.size(); i++)
+    // {
+    //     blink::Line line = shade_lines.at(i);
+    //     if (line.length < 10)
+    //     {
+    //         continue;
+    //     }
+
+    //     ss << line.get_as_string() << ",";
+    //     counter++;
+    //     line.draw(view_frame, cv::Scalar(0, 0, 255));
+    // }
+
+    /*------------------------------------------------------------------------*/
     int max_index = contours.size() - 1;
     for (int i=0; i<max_index; i++)
     {
         std::vector<cv::Point> contour = contours.at(i);
-        // std::vector<cv::Point> filtered_points;
-
-        // filter_points(contour, filtered_points, filtered_points_min_threshold);
-        // if (filtered_points.size() <= 0)
-        // {
-        //     continue;
-        // }
-
-
-        // blink::Path path = blink::Path(filtered_points, true);
         blink::Path path = blink::Path(contour, true);
-        if (path.rect_info.perimeter < 20)
+        if (path.rect_info.perimeter < 15)
         {
             continue;
         }
-        paths.push_back(path);
 
         ss << path.get_as_string() << ",";
-
         cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
         path.draw(view_frame, color);
     }
@@ -264,16 +334,11 @@ std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kern
     if (max_index >= 0)
     {
         std::vector<cv::Point> contour = contours.at(max_index);
-        std::vector<cv::Point> filtered_points;
 
-        filter_points(contour, filtered_points, filtered_points_min_threshold);
-        if (filtered_points.size() > 0)
+        blink::Path path = blink::Path(contour, true);
+        if (path.rect_info.perimeter >= 15)
         {
-            blink::Path path = blink::Path(filtered_points, true);
-            paths.push_back(path);
-
             ss << path.get_as_string() << "]";
-
             cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
             path.draw(view_frame, color);
         }

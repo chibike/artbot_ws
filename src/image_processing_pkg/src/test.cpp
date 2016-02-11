@@ -7,8 +7,10 @@ using namespace blink;
 
 int main()
 {
+	test_pathfinder_b();
+
 	// test_simplify_image();
-	test_objects();
+	// test_objects();
 	// test_pathfinder();
 
 	// generate_path_from_image();
