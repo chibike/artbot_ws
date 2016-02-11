@@ -11,9 +11,8 @@ let mainWindow = null
 
 function createWindow ()
 {
-  var window_properties = { width: 1024, height: 600, titleBarStyle: 'hidden', frame: true}
+  var window_properties = { width: 1024, height: 580, titleBarStyle: 'hidden', frame: false}
   mainWindow = new BrowserWindow(window_properties)
-  mainWindow.setFullScreen(true)
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools()
