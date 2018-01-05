@@ -1,0 +1,27 @@
+{
+  "name": "artbot_app",
+  "version": "1.0.0",
+  "description": "An interactive app for engaging with the ABB IRB120 industrial robot",
+  "main": "scripts/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "keywords": [
+    "ABB",
+    "chibuike",
+    "praise",
+    "okpaluba",
+    "middlesex",
+    "university",
+    "mechatronics",
+    "roboticis"
+  ],
+  "author": "Chibuike Okpaluba",
+  "license": "ISC",
+  "dependencies": {
+    "bulma": "^0.6.1",
+    "electron": "^1.7.10",
+    "rosnodejs": "^2.1.1"
+  }
+}

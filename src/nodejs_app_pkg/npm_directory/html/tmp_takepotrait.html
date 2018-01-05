@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=1280, height=800, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <meta http-equiv="refresh" content="30;url=home.html">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../css/generic.css">
+    <link rel="stylesheet" href="../css/takepotrait.css">
+
+    <script src="../p5/p5.min.js"></script>
+    <script src="../p5/addons/p5.dom.min.js"></script>
+    <script src="../p5/addons/p5.sound.min.js"></script>
+    <script src="../scripts/takepotrait_sketch.js"></script>
+
+    <title>MDX ArtBoT!</title>
+	<style>
+	</style>
+</head>
+
+<body>
+	<div id="my_canvas_div" class="fill-div main-color">
+	</div>
+	<div class="panel-container">
+		<div class="side-panel-left color-background-white-01">
+			<table class="fill-div" width="100%">
+				<tr class="fill-div">
+					<td valign="top" colspan="2">
+						<nav class="side-panel">
+							<p class="side-panel-heading color-white">
+								Settings
+							</p>
+							<p class="side-panel-tabs color-white">
+								<a class="is-active">Basic</a>
+								<a>Advanced</a>
+							</p>
+
+							<a class="side-panel-block color-white">
+								<span class="side-panel-icon">
+									<i class="fa fa-book"></i>
+								</span>
+								Threshold
+							</a>
+
+							<div class="slider-container-div">
+								<input type="range" min="0" max="100" value="25" class="slider-control" id="threshold-slider-value">
+								<span id="threshold-slider-indicator"></span>
+							</div>
+
+							<a class="side-panel-block color-white">
+								<span class="side-panel-icon">
+									<i class="fa fa-book"></i>
+								</span>
+								Exposure
+							</a>
+
+							<div class="side-panel-block">
+								<input type="range" min="0" max="100" value="25" class="slider" id="exposure-slider-value">
+								<p><span id="exposure-slider-indicator"></span></p>
+							</div>
+						</nav>
+						
+					</td>
+				</tr>
+				<tr class="fill-div">
+					<td valign="bottom" colspan="2">
+						<div class="side-panel-block-div color-white">
+							<label class="side-panel-block-no-border">
+								<input type="checkbox">
+								Remember me
+							</label>
+							<div class="side-panel-block-no-border">
+								<button class="button is-link is-outlined is-fullwidth">
+									Reset all filters
+								</button>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
+
+<script>
+	var exposure_slider     = document.getElementById("exposure-slider-value");
+	var exposure_indicator  = document.getElementById("exposure-slider-indicator");
+
+	var threshold_slider    = document.getElementById("threshold-slider-value");
+	var threshold_indicator = document.getElementById("threshold-slider-indicator");
+
+	exposure_indicator.innerHTML = exposure_slider.value;
+	threshold_indicator.innerHTML = threshold_slider.value;
+
+	exposure_slider.oninput = function()
+	{
+		exposure_indicator.innerHTML = exposure_slider.value;
+	}
+
+	threshold_slider.oninput = function()
+	{
+		threshold_indicator.innerHTML = threshold_slider.value;
+	}
+
+    // Other files to run in this process
+    require('./../scripts/renderer.js')
+</script>

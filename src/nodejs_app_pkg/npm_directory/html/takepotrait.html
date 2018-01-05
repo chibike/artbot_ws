@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=1280, height=800, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <meta http-equiv="refresh" content="100;url=home.html">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../css/generic.css">
+    <link rel="stylesheet" href="../css/takepotrait.css">
+
+    <script src="../p5/p5.min.js"></script>
+    <script src="../p5/addons/p5.dom.min.js"></script>
+    <script src="../p5/addons/p5.sound.min.js"></script>
+    <script src="../scripts/takepotrait_sketch.js"></script>
+
+    <title>MDX ArtBoT!</title>
+	<style>
+		#shutter_button
+		{
+			width: 100px;
+			height: 100px;
+			margin-top: 150px;
+			margin-right: 20px;
+			float: right;
+		}
+
+		#cancel_button_div
+		{
+			z-index: 2000;
+			width: 100%;
+			position: fixed;
+			text-align: center;
+			bottom: 3%;
+		}
+
+		#cancel_button
+		{
+			color: #FF0000;
+			text-decoration: underline;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="my_canvas_div" class="fill-div main-color">
+	</div>
+	<div class="panel-container">
+		<div style="width: 100%">
+			<div style="height: 100%" class="color-liberty">
+				<div class="side-panel-left color-light-cyan">
+					<a id="btn1" class="side-panel-block-no-border">
+						<img id="gear_icon_image" src="../images/gear_icon_normal.png">
+					</a>
+					<a id="btn2" class="side-panel-block-no-border">
+						<img id="gear_icon_image" src="../images/gear_icon_normal.png">
+					</a>
+					<a id="btn3" class="side-panel-block-no-border">
+						<img id="gear_icon_image" src="../images/gear_icon_normal.png">
+					</a>
+					<a id="btn4" class="side-panel-block-no-border">
+						<img id="gear_icon_image" src="../images/gear_icon_normal.png">
+					</a>
+				</div>
+				<div class="slider-container-div">
+					<input id="range_slider" class="slider-control" type="range" name="brightness" min="0" max="100" value="50">
+				</div>
+			</div>
+
+			<div id="shutter_button">
+				<a id="gear_icon" class="side-panel-block-no-border">
+					<img id="shutter_button_image" src="../images/shutter-icon-large.png">
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="cancel_button_div">
+		<a id="cancel_button" href="home.html">cancel</a>
+	</div>
+</body>
+
+</html>
+
+<script>
+	// Other files to run in this process
+    require('./../scripts/renderer.js')
+
+	var slider = document.getElementById("range_slider");
+	var slider_val = slider.value;
+
+	var buttons = [document.getElementById("btn1"), document.getElementById("btn2"), document.getElementById("btn3"), document.getElementById("btn4")];
+	var buttons_values = [50,50,50,50];
+
+	var shutter_button = document.getElementById("shutter_button");
+	shutter_button.onclick = function()
+	{
+		shutter_button.style.content = "url(../images/shutter-icon-large.png)";
+	}
+
+	shutter_button.onmouseover = function()
+	{
+		shutter_button.style.content = "url(../images/shutter-icon-large.png)";
+	}
+
+	shutter_button.onmouseout = function()
+	{
+		shutter_button.style.content = "url(../images/shutter-icon-large.png)";
+	}
+
+	var active_button_index = 0;
+	var automated_move = false;
+
+	for (var i=0; i<buttons.length; i++)
+	{
+		var btn = buttons[i];
+		btn.onclick = function()
+		{
+			var my_index = buttons.indexOf(this);
+			on_button_pressed(my_index);
+		}
+
+		btn.onmouseover = function()
+		{
+			var my_index = buttons.indexOf(this);
+			on_button_in_focus(my_index);
+		}
+
+		btn.onmouseout = function()
+		{
+			var my_index = buttons.indexOf(this);
+			on_button_focus_out(my_index);
+		}
+	}
+
+	slider.oninput = function()
+	{
+		slider_val = (slider.value - 100) * -1;
+		slider.style.background = 'linear-gradient(to right, #DEFFF2 0%, #DEFFF2 '+slider.value +'%, #4E5FBA '+slider.value +'%, #4E5FBA 100%)';
+
+		if (automated_move == false)
+		{
+			update_button_value(active_button_index, slider_val);
+		}
+	}
+
+	function on_button_pressed(btn_index)
+	{
+		active_button_index = btn_index;
+
+		// Deactivate all button
+		for (var i=0; i<buttons.length; i++)
+		{
+			buttons[i].style.content = "url(../images/gear_icon_normal.png)";
+		}
+
+		var btn = buttons[active_button_index]
+		btn.style.content = "url(../images/gear_icon_hover_01.png)";
+
+		update_slider_position(active_button_index);
+	}
+
+	function on_button_in_focus(btn_index)
+	{
+		// Deactivate all button
+		for (var i=0; i<buttons.length; i++)
+		{
+			buttons[i].style.content = "url(../images/gear_icon_normal.png)";
+		}
+
+		buttons[btn_index].style.content = "url(../images/gear_icon_hover_01.png)";
+
+		update_slider_position(btn_index);
+	}
+
+	function on_button_focus_out(my_index)
+	{
+		if (my_index !== active_button_index)
+		{
+			buttons[my_index].style.content = "url(../images/gear_icon_normal.png)";
+		}
+
+		buttons[active_button_index].style.content = "url(../images/gear_icon_hover_01.png)";
+
+		update_slider_position(active_button_index);
+	}
+
+	function update_button_value(button_index, new_value)
+	{
+		if (button_index == active_button_index)
+		{
+			buttons_values[active_button_index] = new_value;
+		}
+	}
+
+	function update_slider_position(index_in_focus)
+	{
+		var x = 100 - buttons_values[index_in_focus];
+		slider.value = x;
+
+		automated_move = true;
+		slider.oninput();
+		automated_move = false;
+	}
+
+	on_button_pressed(active_button_index);
+</script>

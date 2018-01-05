@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1280, height=800, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../css/generic.css">
+
+    <title>MDX ArtBoT!</title>
+    <style>
+        body, html
+        {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <style>
+        #titlebar
+        {
+            -webkit-app-region: drag
+        }
+    </style>
+    
+    <nav id="titlebar" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="cover.html">
+                <img src="../images/artbot-logo.png" alt="ArtBoT: an interface for the ABB IRB120" width="88.34" height="28">
+            </a>
+
+            <button class="button navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero is-primary fill-div">
+        <div class="hero-body center-text-div main-color">
+            <br>
+
+            <p class="title is-large">
+                MDX ArtBot
+            </p>
+
+            <br>
+            
+            <p class="content is-large">
+                ArtBot is an interactive autonomous drawing tool designed to get users to interact<br>
+                with robot manipulators, such as the ABB IRB 120.
+            </p>
+
+            <br>
+
+            <p class="content is-large">
+                <strong>Click</strong> the Start button below to let the fun begin.
+            </p>
+
+            <br><br>
+
+            <a id="start-button" class="button is-inverted is-link is-outlined xlarger-button">Start</a>
+            <a id="exit-button" class="button is-inverted is-danger is-outlined xlarger-button">Exit</a>
+        </div>
+
+        <div class="darker-color center-text-div">
+            <span>© Copyright Middlesex University 2017</span>
+        </div>
+    </section>
+</body>
+</html>
+
+
+
+
+<script>
+    // Other files to run in this process
+    require('./../scripts/renderer.js')
+
+    var button = document.getElementById("exit-button")
+    button.onclick = function ()
+    {
+        mainProcess.exitApp()
+    }
+
+    var button = document.getElementById("start-button")
+    button.onclick = function ()
+    {
+        window.location.replace("../html/home.html")
+    }
+</script>

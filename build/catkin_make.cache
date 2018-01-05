@@ -1,0 +1,2 @@
+image_processing_pkg:nodejs_app_pkg
+-DCATKIN_DEVEL_PREFIX=/home/odroid/artbot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/odroid/artbot_ws/install -G Unix Makefiles
