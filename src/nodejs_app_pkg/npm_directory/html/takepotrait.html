@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="../css/generic.css">
     <link rel="stylesheet" href="../css/takepotrait.css">
 
-    <script src="../p5/p5.min.js"></script>
-    <script src="../scripts/takepotrait_sketch.js"></script>
+    <!-- <script src="../p5/p5.min.js"></script> -->
+    <!-- <script src="../scripts/takepotrait_sketch.js"></script> -->
 
     <!-- <script src="../p5/addons/p5.dom.min.js"></script> -->
     <!-- <script src="../p5/addons/p5.sound.min.js"></script> -->
@@ -109,6 +109,7 @@
 	{
 		shutter_button.style.content = "url(../images/shutter-icon-large.png)";
 	}
+	shutter_button.onmouseout();
 
 	var active_button_index = 0;
 	var automated_move = false;
@@ -164,6 +165,8 @@
 
 	function on_button_in_focus(btn_index)
 	{
+		active_button_index = btn_index;
+
 		// Deactivate all button
 		for (var i=0; i<buttons.length; i++)
 		{
@@ -207,3 +210,4 @@
 
 	on_button_pressed(active_button_index);
 </script>
+<script type="text/javascript" src="../scripts/takepotrait_sketch_2.js"></script>
