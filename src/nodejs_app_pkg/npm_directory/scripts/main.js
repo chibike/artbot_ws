@@ -5,25 +5,20 @@ const url = require('url')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
-const ros_bridge = require('./ros_middle_man')
+var ros_bridge = require('./ros_middle_man').ROS_Bridge;
 
 let mainWindow = null
 
 function createWindow ()
 {
-  mainWindow = new BrowserWindow({ width: 1280, height: 800, titleBarStyle: 'hidden'})
+  var window_properties = { width: 1280, height: 800, titleBarStyle: 'hidden'}
+  mainWindow = new BrowserWindow(window_properties)
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
 
-  mainWindow.loadURL(
-    url.format(
-    {
-      pathname: path.join(__dirname, '../html/cover.html'),
-      protocol: 'file:',
-      slashes: true
-    })
-  )
+  var entry_url = url.format({pathname: path.join(__dirname, '../html/cover.html'), protocol: 'file:', slashes: true })
+  mainWindow.loadURL(entry_url)
 
   mainWindow.on('closed', function ()
   {
@@ -63,3 +58,4 @@ app.on('activate', function ()
 // code. You can also put them in separate files and require them here.
 
 exports.exitApp = exit_app
+exports.ros_bridge = ros_bridge;

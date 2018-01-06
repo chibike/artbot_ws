@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-
+//!/usr/bin/env node
 'use strict';
 
 class ROS_Bridge
@@ -13,6 +12,8 @@ class ROS_Bridge
 
 		this.rosnodejs = require('../node_modules/rosnodejs/dist/index.js');
 		this.rosnodejs.initNode('/user_interface/nodejs', { onTheFly: true }).then(this.main);
+
+		this.image_update_callback_functions = new Array();
 	}
 
 	main(ros_node)
@@ -36,6 +37,11 @@ class ROS_Bridge
 	image_callback(data)
 	{
 		console.log('image', data);
+		for (var i=0; i<this.image_update_callback_functions.length; i++)
+		{
+			var foo = this.image_update_callback_functions[i];
+			foo(data);
+		}
 	}
 
 	publish_threshold(value)
@@ -49,8 +55,14 @@ class ROS_Bridge
 
 	get_image()
 	{
+		console.log("Fetching image...");
 		return this.img;
+	}
+
+	add_to_image_update_callback_list(function_name)
+	{
+		this.image_update_callback_functions.push(function_name);
 	}
 }
 
-exports.ROS_Bridge = new ROS_Bridge();
+module.exports = { ROS_Bridge: ROS_Bridge }

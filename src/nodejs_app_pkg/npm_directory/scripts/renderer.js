@@ -6,4 +6,3 @@ const electron = require('electron')
 const ipc = electron.ipcRenderer
 const remote = electron.remote
 const mainProcess = remote.require('./main')
-
