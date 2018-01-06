@@ -48,7 +48,8 @@ class ImageCapture
 		ros::NodeHandle nh_;
 		image_transport::ImageTransport it_;
 
-		image_processing_pkg::ProcessedImage __processed_image;
+		//image_processing_pkg::ProcessedImage __processed_image;
+		sensor_msgs::Image __processed_image;
 		ros::Publisher __processed_image_pub;
 		
 		cv::Scalar __face_highlight_color;
@@ -104,7 +105,8 @@ bool ImageCapture::start()
 		return false;
 	}
 
-	__processed_image_pub = nh_.advertise<image_processing_pkg::ProcessedImage>("/processed_image", 1);
+	//__processed_image_pub = nh_.advertise<image_processing_pkg::ProcessedImage>("/processed_image", 1);
+	__processed_image_pub = nh_.advertise<sensor_msgs::Image>("/processed_image", 1);
 	
 	camera = *(new cv::VideoCapture(0));
 	if (!camera.isOpened())
@@ -172,9 +174,10 @@ void ImageCapture::run_once()
 		out_msg.image = __rgb_frame;
 
 		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
+		__processed_image = *im_msg;
 
-		__processed_image.processed_image = *im_msg;
-		__processed_image.number_of_faces = __faces.size();
+		//__processed_image.processed_image = *im_msg;
+		//__processed_image.number_of_faces = __faces.size();
 		__processed_image_pub.publish(__processed_image);
 	}
 	catch (cv_bridge::Exception& e)

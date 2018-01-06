@@ -35,6 +35,6 @@ function update_background(img)
   if (img)
   {
     //background(img);
-    console.log("updating background...");
+    console.log("updating background...", img);
   }
 }
