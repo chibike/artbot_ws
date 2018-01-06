@@ -19,29 +19,28 @@ class ROS_Bridge
 				function (ros_node)
 				{
 					// create subscriber for processed image
-					var bar = { queueSize: 1, throttleMs: 1};
+					var bar = { queueSize: 10, throttleMs: 1000};
 					console.log("subscribing...");
-					var foo = ros_node.subscribe('/processed_image1', 'sensor_msgs/Image', outer_this.image_callback, bar);
+					
+					var foo = ros_node.subscribe('/processed_image', 'sensor_msgs/Image', function(data)
+						{
+							this.img = data.data;
+							var img_height = data.height;
+							var img_width = data.width;
+						},
+						bar
+					);
+
 					//console.log("result", foo);
 					console.log("Done");
 
 					// create publishers for user_interface data
-					var bar = { queueSize: 10, latching: true, throttleMs: 1};
+					var bar = { queueSize: 1, latching: true, throttleMs: 10};
 					outer_this.threshold_pub = ros_node.advertise('/user_interface/nodejs/threshold', 'std_msgs/Int32', bar);
 
 					outer_this.ros_int = rosnodejs.require('std_msgs').msg.Int32;
 				}
 			);
-	}
-
-	image_callback(data)
-	{
-		console.log('image', data);
-		for (var i=0; i<this.image_update_callback_functions.length; i++)
-		{
-			var next_function = this.image_update_callback_functions[i];
-			next_function(data);
-		}
 	}
 
 	publish_threshold(value)
