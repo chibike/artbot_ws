@@ -16,24 +16,6 @@ class ROS_Bridge
 		this.image_update_callback_functions = new Array();
 	}
 
-	main(ros_node)
-	{
-		// create subscriber for processed image
-		var bar = { queueSize: 1, throttleMs: 1};
-		this.ros_node.subscribe('/processed_image', 'image_processing_pkg/ProcessedImage', processed_image_callback, bar);
-
-		// create publishers for user_interface data
-		var bar = { queueSize: 10, latching: true, throttleMs: 1};
-		this.threshold_pub = this.ros_node.advertise('/user_interface/nodejs/threshold', 'std_msgs/Int32', bar);
-
-		this.ros_int = this.rosnodejs.require('std_msgs').msg.Int32;
-	}
-
-	processed_image_callback(data)
-	{
-		this.image_callback(data.processed_image);
-	}
-
 	image_callback(data)
 	{
 		console.log('image', data);
@@ -62,6 +44,19 @@ class ROS_Bridge
 	add_to_image_update_callback_list(function_name)
 	{
 		this.image_update_callback_functions.push(function_name);
+	}
+
+	main(ros_node)
+	{
+		// create subscriber for processed image
+		var bar = { queueSize: 1, throttleMs: 10};
+		ros_node.subscribe('/processed_image1', 'sensor_msgs/Image', function(data){console.log("image",data)}, bar);
+
+		// create publishers for user_interface data
+		//var bar = { queueSize: 10, latching: true, throttleMs: 1};
+		//this.threshold_pub = ros_node.advertise('/user_interface/nodejs/threshold', 'std_msgs/Int32', bar);
+
+		//this.ros_int = this.rosnodejs.require('std_msgs').msg.Int32;
 	}
 }
 
