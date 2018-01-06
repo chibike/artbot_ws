@@ -1,9 +1,8 @@
-
+#include "image_processing_pkg/ProcessedImage.h"
 #include <image_transport/image_transport.h>
 #include <sensor_msgs/image_encodings.h>
 #include <cv_bridge/cv_bridge.h>
 #include "sensor_msgs/Image.h"
-#include "image_processing_pkg/ProcessedImage.h"
 
 #include "opencv2/opencv.hpp"
 
@@ -324,7 +323,7 @@ int main(int argc, char **argv)
 	{
 		my_capture_device.run_once();
 		//my_capture_device.update_window();
-		ros::spinOnce(); //* Allows callbacks to be processed
+		ros::spinOnce(); // *Allows callbacks to be processed
 		loop_rate.sleep();
 	}
 	

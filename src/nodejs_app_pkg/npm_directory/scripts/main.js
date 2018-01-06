@@ -5,6 +5,8 @@ const url = require('url')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
+const ros_bridge = require('./ros_middle_man')
+
 let mainWindow = null
 
 function createWindow ()
