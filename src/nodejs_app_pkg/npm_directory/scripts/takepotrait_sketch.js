@@ -14,14 +14,13 @@ function setup()
   background(img);
 
   ros_bridge = new mainProcess.ros_bridge();
-  ros_bridge.add_to_image_update_callback_list(update_background);
 
   frameRate(5);
-  //noLoop();
 }
 
 function draw()
 {
+  //update_background();
   background(img);
 }
 
@@ -30,11 +29,33 @@ function windowResized()
 	resizeCanvas(windowWidth, windowHeight);
 }
 
-function update_background(img)
+function update_background()
 {
-  if (img)
+  var data = ros_bridge.get_image();
+  if (data)
   {
-    //background(img);
-    //console.log("updating background...", img);
+    var image = data.image;
+    var width = data.width;
+    var height = data.height;
+
+    var new_img = createImage(width, height);
+    new_img.loadPixels();
+
+    for (var x=0; x<width; x++)
+    {
+      for (var y=0; y<height; y++)
+      {
+        var index = x*y*3;
+        var g = image[index];
+        var b = image[index + 1];
+        var r = image[index + 2];
+
+        var color = [r,g,b, 255];
+        new_img.set(x, y, color);
+      }
+    }
+
+    new_img.updatePixels();
+    img = new_img;
   }
 }

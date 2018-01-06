@@ -8,10 +8,11 @@ class ROS_Bridge
 	constructor()
 	{
 		this.img = undefined;
+		this.img_width = undefined;
+		this.img_height = undefined;
+
 		this.ros_int = undefined;
 		this.threshold_pub = undefined;
-
-		this.image_update_callback_functions = new Array();
 
 		var outer_this = this;
 
@@ -22,16 +23,15 @@ class ROS_Bridge
 					var bar = { queueSize: 10, throttleMs: 1000};
 					console.log("subscribing...");
 					
-					var foo = ros_node.subscribe('/processed_image', 'sensor_msgs/Image', function(data)
+					ros_node.subscribe('/processed_image', 'sensor_msgs/Image', function(data)
 						{
-							this.img = data.data;
-							var img_height = data.height;
-							var img_width = data.width;
+							outer_this.img = data.data;
+							outer_this.img_height = data.height;
+							outer_this.img_width = data.width;
 						},
 						bar
 					);
 
-					//console.log("result", foo);
 					console.log("Done");
 
 					// create publishers for user_interface data
@@ -54,19 +54,12 @@ class ROS_Bridge
 
 	get_image()
 	{
-		console.log("Fetching image...");
-		return this.img;
-	}
-
-	add_to_image_update_callback_list(function_name)
-	{
-		this.image_update_callback_functions.push(function_name);
-	}
-
-	main(ros_node)
-	{
-		
-	}
+		if (this.img)
+		{
+			var image = {"image":this.img, "width":this.img_width, "height":this.img_height};
+			return image;
+		}
+	}	
 }
 
 //ROS_Bridge.image_callback
