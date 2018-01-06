@@ -170,7 +170,7 @@ void ImageCapture::run_once()
 		cv_bridge::CvImage out_msg;
 		out_msg.header.seq = counter++;
 		out_msg.header.stamp = ros::Time::now();
-		out_msg.encoding = "bgr";
+		out_msg.encoding = sensor_msgs::image_encodings::TYPE_32FC1;
 		out_msg.image = __rgb_frame;
 
 		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
