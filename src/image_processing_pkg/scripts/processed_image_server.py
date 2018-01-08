@@ -57,5 +57,5 @@ class ProcessedImageServer(object):
 
 MY_IP = os.getenv("MY_IP", "10.14.121.64")
 if __name__ == '__main__':
-    server = ProcessedImageServer(__name__, MY_IP, sys.argv[1])
+    server = ProcessedImageServer(__name__, MY_IP, int(sys.argv[1]))
     server.run()
