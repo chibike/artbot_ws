@@ -34,4 +34,4 @@ def get_image():
 
 if __name__ == '__main__':
     start_listener()
-    app.run(host=MY_IP, port="5001")
+    app.run(host=MY_IP, port=5001)
