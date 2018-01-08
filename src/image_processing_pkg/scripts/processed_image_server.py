@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import sys
 import time
 import rospy
 import thread
@@ -15,8 +16,7 @@ class EndpointAction(object):
         self.response = Response(status=200, headers={})
 
     def __call__(self, *args):
-        self.action()
-        return self.response
+        return self.action()
 
 class ProcessedImageServer(object):
     app = None
