@@ -8,4 +8,3 @@
 
 # modified environment variables
 export PWD="/home/odroid/artbot_ws/build"
-export PYTHONPATH="/home/odroid/artbot_ws/devel/lib/python2.7/dist-packages:$PYTHONPATH"
