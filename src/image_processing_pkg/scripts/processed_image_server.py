@@ -25,7 +25,7 @@ class ProcessedImageServer(object):
     def __init__(self, name, host="localhost", port="5000"):
         super(ProcessedImageServer, self).__init__()
         
-        self.address = address
+        self.host = host
         self.port = port
         self.app = Flask(name)
         self.app.add_url_rule('/', 'test', EndpointAction(self.test))
@@ -59,7 +59,7 @@ class ProcessedImageServer(object):
     def run():
         self.start_listener()
         thread.start_new_thread( rospy.spin, () )
-        self.app.run(host=MY_IP, port=5001)
+        self.app.run(host=self.host, port=self.port)
 
 MY_IP = os.getenv("MY_IP", "10.14.121.64")
 if __name__ == '__main__':
