@@ -192,7 +192,7 @@ void ImageCapture::run_once()
 		out_msg.header.seq = counter++;
 		out_msg.header.stamp = ros::Time::now();
 		out_msg.encoding = sensor_msgs::image_encodings::BGR8;
-		out_msg.image = camera;
+		out_msg.image = __rgb_frame;
 
 		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
 		__processed_image = *im_msg;
