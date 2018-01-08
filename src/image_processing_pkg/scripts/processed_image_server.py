@@ -44,10 +44,10 @@ class ProcessedImageServer(object):
         rospy.init_node('processed_image_server', anonymous=False)
         rospy.Subscriber("processed_image", Image, self.callback)
 
-    def test():
+    def test(self):
         return "Hello!"
 
-    def get_image():
+    def get_image(self):
         if self.processed_image:
             rospy.loginfo("Fetching processed image")
             img_str = cv2.imencode('.jpg', self.processed_image)[1].tostring()
@@ -59,7 +59,7 @@ class ProcessedImageServer(object):
             im.save(io, format='JPEG')
             return Response(io.getvalue(), mimetype='image/jpeg')
 
-    def run():
+    def run(self):
         self.start_listener()
         thread.start_new_thread( rospy.spin, () )
         self.app.run(host=self.host, port=self.port)
