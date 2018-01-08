@@ -174,12 +174,12 @@ void ImageCapture::run_once()
 		highlight_persons(__face_highlight_color, __body_highlight_color);
 
 		__js_image.data.clear();
-		for (int row=0; row<__rgb_frame.rows; row++)
+		for (int y=0; y<__rgb_frame.rows; y++)
 		{
-			for (int col=0; col<__rgb_frame.cols; col++)
+			for (int x=0; x<__rgb_frame.cols; x++)
 			{
-				cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(row, col));
-				
+				cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(x, y));
+
 				//__js_image.data.push_back(color.val[2]);
 				//__js_image.data.push_back(color.val[1]);
 				//__js_image.data.push_back(color.val[0]);
