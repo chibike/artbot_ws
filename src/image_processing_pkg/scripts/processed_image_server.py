@@ -19,7 +19,7 @@ def start_listener():
 
 app = Flask(__name__)
 #MY_IP = os.getenv("MY_IP", "localhost")
-MY_IP = os.getenv("MY_IP", "10.14.122.58")
+MY_IP = os.getenv("MY_IP", "localhost")
 
 @app.route("/")
 def hello():
