@@ -193,7 +193,7 @@ void ImageCapture::run_once()
 		{
 			for (int col=0; col<__rgb_frame.cols; col++)
 			{
-				cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(row, col));
+				//cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(row, col));
 
 				//__js_image.data.push_back(color.val[2]);
 				//__js_image.data.push_back(color.val[1]);
