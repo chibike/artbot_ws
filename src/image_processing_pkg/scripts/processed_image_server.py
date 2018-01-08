@@ -11,6 +11,7 @@ image = None
 
 def callback(data):
     image = data.data
+    rospy.loginfo("Hello")
     
 def start_listener():
     rospy.init_node('processed_image_server', anonymous=False)
@@ -26,7 +27,7 @@ def hello():
 
 @app.route("/image")
 def get_image():
-    im = Image.open(__home_path + "/images/cover_image.jpg")
+    im = py_image.open(__home_path + "/images/cover_image.jpg")
     io = cStringIO.StringIO()
     im.save(io, format='JPEG')
     return Response(io.getvalue(), mimetype='image/jpeg')
