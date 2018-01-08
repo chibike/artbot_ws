@@ -110,13 +110,9 @@ bool ImageCapture::start()
 		return false;
 	}
 
-	__js_image.layout.dim = (std_msgs::MultiArrayDimension *);
-	__js_image.layout.dim[0].label = "js_image";
-	__js_image.layout.dim[0].size = __rgb_frame.cols * __rgb_frame.rows;
-	__js_image.layout.dim[0].stride = 1;
 	__js_image.layout.data_offset = 0;
-	__js_image.data = (uint8_t *) malloc( sizeof(uint8_t) * __rgb_frame.cols * __rgb_frame.rows );
-	__js_image.data_length = __rgb_frame.cols * __rgb_frame.rows;
+	__js_image.data_length = __rgb_frame.cols * __rgb_frame.rows * 4;
+	__js_image.data = (uint8_t *) malloc( sizeof(uint8_t) * __js_image.data_length );
 
 	//__processed_image_pub = nh_.advertise<image_processing_pkg::ProcessedImage>("/processed_image", 1);
 	__processed_image_pub = nh_.advertise<sensor_msgs::Image>("/processed_image", 1);
@@ -354,7 +350,7 @@ int main(int argc, char **argv)
 
 	//my_capture_device.start_window();
 	
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(2);
 	while (ros::ok())
 	{
 		my_capture_device.run_once();
