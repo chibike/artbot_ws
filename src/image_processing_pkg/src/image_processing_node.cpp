@@ -3,6 +3,7 @@
 #include <sensor_msgs/image_encodings.h>
 #include <cv_bridge/cv_bridge.h>
 #include "sensor_msgs/Image.h"
+#include "std_msgs/UInt8MultiArray.h"
 
 #include "opencv2/opencv.hpp"
 
@@ -51,6 +52,9 @@ class ImageCapture
 		//image_processing_pkg::ProcessedImage __processed_image;
 		sensor_msgs::Image __processed_image;
 		ros::Publisher __processed_image_pub;
+
+		std_msgs::UInt8MultiArray __js_image;
+		ros::Publisher __js_image_pub;
 		
 		cv::Scalar __face_highlight_color;
 	    cv::Scalar __body_highlight_color;
@@ -107,6 +111,8 @@ bool ImageCapture::start()
 
 	//__processed_image_pub = nh_.advertise<image_processing_pkg::ProcessedImage>("/processed_image", 1);
 	__processed_image_pub = nh_.advertise<sensor_msgs::Image>("/processed_image", 1);
+
+	__js_image_pub = nh_.advertise<std_msgs::UInt8MultiArray>("/js_image", 1);
 	
 	camera = *(new cv::VideoCapture(0));
 	if (!camera.isOpened())
@@ -168,10 +174,10 @@ void ImageCapture::run_once()
 		highlight_persons(__face_highlight_color, __body_highlight_color);
 
 		cv_bridge::CvImage out_msg;
+		out_msg.header.frame_id = "camera_frame";
 		out_msg.header.seq = counter++;
 		out_msg.header.stamp = ros::Time::now();
 		out_msg.encoding = sensor_msgs::image_encodings::BGR8;
-		out_msg.frame_id = "camera_frame";
 		out_msg.image = __rgb_frame;
 
 		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
@@ -180,6 +186,26 @@ void ImageCapture::run_once()
 		//__processed_image.processed_image = *im_msg;
 		//__processed_image.number_of_faces = __faces.size();
 		__processed_image_pub.publish(__processed_image);
+
+		int index = 0;
+		uint8_t js_image_array[__rgb_frame.cols * __rgb_frame.rows * 4];
+
+		for (int row=0; row<__rgb_frame.rows; row++)
+		{
+			for (int col=0; col<__rgb_frame.cols; cols++)
+			{
+				index *= 4;
+				cv::Vec3b color = __rgb_frame.at(cv::Point(row, col));
+
+				js_image_array[index]     = color.val[0];
+				js_image_array[index + 1] = color.val[1];
+				js_image_array[index + 2] = color.val[2];
+				js_image_array[index + 3] = 255;
+			}
+		}
+
+		__js_image.data = js_image_array;
+		__js_image_pub.publish(__js_image);
 	}
 	catch (cv_bridge::Exception& e)
 	{
