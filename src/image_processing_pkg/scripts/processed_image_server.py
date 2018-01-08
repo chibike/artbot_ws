@@ -11,37 +11,48 @@ from flask import Flask, Response, request, abort, render_template_string, send_
 __home_path = "/home/odroid/artbot_ws/src/image_processing_pkg";
 processed_image = None
 
-def callback(data):
-    processed_image = data.data
-    rospy.loginfo("Hello")
-    
-def start_listener():
-    rospy.init_node('processed_image_server', anonymous=False)
-    rospy.Subscriber("processed_image", Image, callback)
+class ProcessedImageServer(object):
+    """docstring for ProcessedImageServer"""
+    def __init__(self, host="localhost", port="5000"):
+        super(ProcessedImageServer, self).__init__()
+        
+        self.app = Flask(__name__)
+        self.address = address
+        self.port = port
 
-def run():
-    rospy.spin()
+        self.bridge = CvBridge()
+        self.processed_image = None
 
-app = Flask(__name__)
-#MY_IP = os.getenv("MY_IP", "localhost")
+    def callback(self, data):
+        self.processed_image = self.bridge.imgmsg_to_cv2(data, 'bgr8')
+
+    def start_listener(self):
+        rospy.init_node('processed_image_server', anonymous=False)
+        rospy.Subscriber("processed_image", Image, self.callback)
+
+    @app.route("/")
+    def test():
+        return "Hello!"
+
+    @app.route("/image")
+    def get_image():
+        if self.processed_image:
+            rospy.loginfo("Fetching processed image")
+            img_str = cv2.imencode('.jpg', self.processed_image)[1].tostring()
+            return Response(img_str, mimetype='image/jpeg')
+        else:
+            rospy.loginfo("Fetching default image")
+            im = py_image.open(__home_path + "/images/marguerite-daisy-beautiful-beauty.jpg")
+            io = cStringIO.StringIO()
+            im.save(io, format='JPEG')
+            return Response(io.getvalue(), mimetype='image/jpeg')
+
+    def run():
+        self.start_listener()
+        thread.start_new_thread( rospy.spin, () )
+        app.run(host=MY_IP, port=5001)
+
 MY_IP = os.getenv("MY_IP", "10.14.121.64")
-
-@app.route("/")
-def hello():
-    return "Hello!"
-
-@app.route("/image")
-def get_image():
-    if processed_image:
-        img_str = cv2.imencode('.jpg', processed_image)[1].tostring()
-        return Response(img_str, mimetype='image/jpeg')
-    else:
-        im = py_image.open(__home_path + "/images/marguerite-daisy-beautiful-beauty.jpg")
-        io = cStringIO.StringIO()
-        im.save(io, format='JPEG')
-        return Response(io.getvalue(), mimetype='image/jpeg')
-
 if __name__ == '__main__':
-    start_listener()
-    thread.start_new_thread( run, () )
-    app.run(host=MY_IP, port=5001)
+    server = ProcessedImageServer(MY_IP, 5000)
+    server.run()
