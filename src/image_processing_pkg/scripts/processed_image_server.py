@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import cv2
 import sys
 import time
 import rospy
