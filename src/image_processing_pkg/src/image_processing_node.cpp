@@ -110,9 +110,8 @@ bool ImageCapture::start()
 		return false;
 	}
 
-	__js_image.layout.data_offset = 0;
-	__js_image.data_length = __rgb_frame.cols * __rgb_frame.rows * 4;
-	__js_image.data = (uint8_t *) malloc( sizeof(uint8_t) * __js_image.data_length );
+	int data_length = __rgb_frame.cols * __rgb_frame.rows * 4;
+	__js_image.data = (uint8_t *) malloc( sizeof(uint8_t) * data_length );
 
 	//__processed_image_pub = nh_.advertise<image_processing_pkg::ProcessedImage>("/processed_image", 1);
 	__processed_image_pub = nh_.advertise<sensor_msgs::Image>("/processed_image", 1);
