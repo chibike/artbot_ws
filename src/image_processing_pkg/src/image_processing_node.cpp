@@ -3,7 +3,6 @@
 #include <sensor_msgs/image_encodings.h>
 #include <cv_bridge/cv_bridge.h>
 #include "sensor_msgs/Image.h"
-#include "std_msgs/UInt8MultiArray.h"
 
 #include "opencv2/opencv.hpp"
 
@@ -52,9 +51,6 @@ class ImageCapture
 		//image_processing_pkg::ProcessedImage __processed_image;
 		sensor_msgs::Image __processed_image;
 		ros::Publisher __processed_image_pub;
-
-		std_msgs::UInt8MultiArray __js_image;
-		ros::Publisher __js_image_pub;
 		
 		cv::Scalar __face_highlight_color;
 	    cv::Scalar __body_highlight_color;
@@ -111,8 +107,6 @@ bool ImageCapture::start()
 
 	//__processed_image_pub = nh_.advertise<image_processing_pkg::ProcessedImage>("/processed_image", 1);
 	__processed_image_pub = nh_.advertise<sensor_msgs::Image>("/processed_image", 1);
-
-	__js_image_pub = nh_.advertise<std_msgs::UInt8MultiArray>("/js_image", 1);
 	
 	camera = *(new cv::VideoCapture(0));
 	if (!camera.isOpened())
@@ -173,20 +167,6 @@ void ImageCapture::run_once()
 		update();
 		highlight_persons(__face_highlight_color, __body_highlight_color);
 
-		__js_image.data.clear();
-		for (int y=0; y<__rgb_frame.rows; y++)
-		{
-			for (int x=0; x<__rgb_frame.cols; x++)
-			{
-				cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(x, y));
-
-				__js_image.data.push_back(color.val[2]);
-				__js_image.data.push_back(color.val[1]);
-				__js_image.data.push_back(color.val[0]);
-				__js_image.data.push_back(255);
-			}
-		}
-
 		cv_bridge::CvImage out_msg;
 		out_msg.header.frame_id = "camera_frame";
 		out_msg.header.seq = counter++;
@@ -196,8 +176,6 @@ void ImageCapture::run_once()
 
 		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
 		__processed_image = *im_msg;
-
-		__js_image_pub.publish(__js_image);
 		__processed_image_pub.publish(__processed_image);
 	}
 	catch (cv_bridge::Exception& e)
@@ -341,7 +319,7 @@ int main(int argc, char **argv)
 
 	//my_capture_device.start_window();
 	
-	ros::Rate loop_rate(2);
+	ros::Rate loop_rate(10);
 	while (ros::ok())
 	{
 		my_capture_device.run_once();
