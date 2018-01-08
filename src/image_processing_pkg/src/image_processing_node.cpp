@@ -195,7 +195,7 @@ void ImageCapture::run_once()
 			for (int col=0; col<__rgb_frame.cols; col++)
 			{
 				index *= 4;
-				cv::Vec3b color = __rgb_frame.at(row, col);
+				cv::Vec3b color = __rgb_frame.at<Vec3b>(cv::Point(row, col));
 
 				js_image_array[index]     = color.val[0];
 				js_image_array[index + 1] = color.val[1];
