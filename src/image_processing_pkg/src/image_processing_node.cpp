@@ -102,10 +102,8 @@ bool ImageCapture::start()
 
 	__frame_name = "edges";
 	
-	cv::Mat frame = cv::imread(__home_path + "/images/box.png", CV_LOAD_IMAGE_COLOR);
-
-	__rgb_frame = cv::cvCreateImage(cv::cvSize(640, 480), frame.depth, frame.nChannels);
-	__rgb_frame = cv::cvResize(frame, __rgb_frame);
+	__rgb_frame = cv::imread(__home_path + "/images/box.png", CV_LOAD_IMAGE_COLOR);
+	cv::resize(__rgb_frame, __rgb_frame, cv::Size(640, 480), 0, 0, CV_INTER_LINEAR);
 	if (!__rgb_frame.data)
 	{
 		std::cout << "Could not read image" << std::endl;
