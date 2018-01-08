@@ -41,11 +41,11 @@ class ProcessedImageServer(object):
 
     def get_image(self):
         if not (type(self.processed_image) == type(None)):
-            rospy.loginfo("Fetching processed image")
+            #rospy.loginfo("Fetching processed image")
             img_str = cv2.imencode('.jpg', self.processed_image)[1].tostring()
             return Response(img_str, mimetype='image/jpeg')
         else:
-            rospy.loginfo("Fetching default image")
+            #rospy.loginfo("Fetching default image")
             im = py_image.open(self.__home_path + "/images/marguerite-daisy-beautiful-beauty.jpg")
             io = cStringIO.StringIO()
             im.save(io, format='JPEG')
@@ -58,5 +58,6 @@ class ProcessedImageServer(object):
 
 MY_IP = os.getenv("MY_IP", "10.14.121.64")
 if __name__ == '__main__':
-    server = ProcessedImageServer(__name__, MY_IP, int(sys.argv[1]))
+    #server = ProcessedImageServer(__name__, MY_IP, int(sys.argv[1]))
+    server = ProcessedImageServer(__name__, MY_IP, 5000)
     server.run()
