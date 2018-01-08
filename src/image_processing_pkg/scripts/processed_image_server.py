@@ -9,10 +9,10 @@ from sensor_msgs.msg import Image
 from flask import Flask, Response, request, abort, render_template_string, send_from_directory
 
 __home_path = "/home/odroid/artbot_ws/src/image_processing_pkg";
-image = None
+processed_image = None
 
 def callback(data):
-    image = data.data
+    processed_image = data.data
     rospy.loginfo("Hello")
     
 def start_listener():
@@ -32,10 +32,14 @@ def hello():
 
 @app.route("/image")
 def get_image():
-    im = py_image.open(__home_path + "/images/box.png")
-    io = cStringIO.StringIO()
-    im.save(io, format='JPEG')
-    return Response(io.getvalue(), mimetype='image/jpeg')
+    if processed_image:
+        img_str = cv2.imencode('.jpg', processed_image)[1].tostring()
+        return Response(img_str, mimetype='image/jpeg')
+    else:
+        im = py_image.open(__home_path + "/images/marguerite-daisy-beautiful-beauty.jpg")
+        io = cStringIO.StringIO()
+        im.save(io, format='JPEG')
+        return Response(io.getvalue(), mimetype='image/jpeg')
 
 if __name__ == '__main__':
     start_listener()
