@@ -1,0 +1,7 @@
+<launch>
+	<node name="/image_processor" pkg="image_processing_pkg" type="image_processing_node" />
+	
+	<node name="/processed_image_server" pkg="image_processing_pkg" type="processed_image_server.py">
+		<env name="PORT" value="5000"/>
+	</node>
+</launch>
