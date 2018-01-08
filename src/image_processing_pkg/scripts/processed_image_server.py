@@ -21,6 +21,8 @@ class EndpointAction(object):
         return self.response
 
 class ProcessedImageServer(object):
+    app = None
+
     """docstring for ProcessedImageServer"""
     def __init__(self, name, host="localhost", port="5000"):
         super(ProcessedImageServer, self).__init__()
@@ -29,7 +31,7 @@ class ProcessedImageServer(object):
         self.port = port
         self.app = Flask(name)
         self.app.add_url_rule('/', 'test', EndpointAction(self.test))
-        self.app.add_url_rule('/image', 'test', EndpointAction(self.get_image))
+        self.app.add_url_rule('/image', 'image', EndpointAction(self.get_image))
 
         self.bridge = CvBridge()
         self.processed_image = None
