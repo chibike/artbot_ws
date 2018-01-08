@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import os
+import time
 import rospy
+import thread
 import cStringIO
 import Image as py_image
 from sensor_msgs.msg import Image
@@ -16,6 +18,9 @@ def callback(data):
 def start_listener():
     rospy.init_node('processed_image_server', anonymous=False)
     rospy.Subscriber("processed_image", Image, callback)
+
+def run():
+    rospy.spin()
 
 app = Flask(__name__)
 #MY_IP = os.getenv("MY_IP", "localhost")
@@ -34,4 +39,5 @@ def get_image():
 
 if __name__ == '__main__':
     start_listener()
-    app.run(host=MY_IP, port=5001)
+    thread.start_new_thread( app.run(host=MY_IP, port=5001) )
+    run()
