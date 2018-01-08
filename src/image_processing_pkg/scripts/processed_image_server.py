@@ -56,8 +56,8 @@ class ProcessedImageServer(object):
         thread.start_new_thread( rospy.spin, () )
         self.app.run(host=self.host, port=self.port)
 
-//MY_IP = os.getenv("MY_IP", "10.14.121.64")
-MY_IP = os.getenv("MY_IP", "localhost")
+MY_IP = os.getenv("MY_IP", "10.14.121.64")
+#MY_IP = os.getenv("MY_IP", "localhost")
 if __name__ == '__main__':
     #server = ProcessedImageServer(__name__, MY_IP, int(sys.argv[1]))
     server = ProcessedImageServer(__name__, MY_IP, 5000)
