@@ -103,7 +103,6 @@ bool ImageCapture::start()
 	__frame_name = "edges";
 	
 	__rgb_frame = cv::imread(__home_path + "/images/box.png", CV_LOAD_IMAGE_COLOR);
-	cv::resize(__rgb_frame, __rgb_frame, cv::Size(640, 480), 0, 0, CV_INTER_LINEAR);
 	if (!__rgb_frame.data)
 	{
 		std::cout << "Could not read image" << std::endl;
@@ -174,27 +173,13 @@ void ImageCapture::run_once()
 		update();
 		highlight_persons(__face_highlight_color, __body_highlight_color);
 
-		cv_bridge::CvImage out_msg;
-		out_msg.header.frame_id = "camera_frame";
-		out_msg.header.seq = counter++;
-		out_msg.header.stamp = ros::Time::now();
-		out_msg.encoding = sensor_msgs::image_encodings::BGR8;
-		out_msg.image = __rgb_frame;
-
-		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
-		__processed_image = *im_msg;
-
-		//__processed_image.processed_image = *im_msg;
-		//__processed_image.number_of_faces = __faces.size();
-		__processed_image_pub.publish(__processed_image);
-
 		__js_image.data.clear();
 		for (int row=0; row<__rgb_frame.rows; row++)
 		{
 			for (int col=0; col<__rgb_frame.cols; col++)
 			{
-				//cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(row, col));
-
+				cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(row, col));
+				
 				//__js_image.data.push_back(color.val[2]);
 				//__js_image.data.push_back(color.val[1]);
 				//__js_image.data.push_back(color.val[0]);
@@ -202,7 +187,18 @@ void ImageCapture::run_once()
 			}
 		}
 
+		cv_bridge::CvImage out_msg;
+		out_msg.header.frame_id = "camera_frame";
+		out_msg.header.seq = counter++;
+		out_msg.header.stamp = ros::Time::now();
+		out_msg.encoding = sensor_msgs::image_encodings::BGR8;
+		out_msg.image = camera;
+
+		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
+		__processed_image = *im_msg;
+
 		__js_image_pub.publish(__js_image);
+		__processed_image_pub.publish(__processed_image);
 	}
 	catch (cv_bridge::Exception& e)
 	{
