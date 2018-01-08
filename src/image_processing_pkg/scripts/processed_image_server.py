@@ -13,10 +13,10 @@ processed_image = None
 
 class ProcessedImageServer(object):
     """docstring for ProcessedImageServer"""
-    def __init__(self, host="localhost", port="5000"):
+    def __init__(self, name, host="localhost", port="5000"):
         super(ProcessedImageServer, self).__init__()
         
-        self.app = Flask(__name__)
+        self.app = Flask(name)
         self.address = address
         self.port = port
 
@@ -30,11 +30,11 @@ class ProcessedImageServer(object):
         rospy.init_node('processed_image_server', anonymous=False)
         rospy.Subscriber("processed_image", Image, self.callback)
 
-    @app.route("/")
+    @self.app.route("/")
     def test():
         return "Hello!"
 
-    @app.route("/image")
+    @self.app.route("/image")
     def get_image():
         if self.processed_image:
             rospy.loginfo("Fetching processed image")
@@ -50,9 +50,9 @@ class ProcessedImageServer(object):
     def run():
         self.start_listener()
         thread.start_new_thread( rospy.spin, () )
-        app.run(host=MY_IP, port=5001)
+        self.app.run(host=MY_IP, port=5001)
 
 MY_IP = os.getenv("MY_IP", "10.14.121.64")
 if __name__ == '__main__':
-    server = ProcessedImageServer(MY_IP, 5000)
+    server = ProcessedImageServer(__name__, MY_IP, 5000)
     server.run()
