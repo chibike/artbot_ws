@@ -39,7 +39,7 @@ class ProcessedImageServer(object):
         return "Hello!"
 
     def get_image(self):
-        if self.processed_image:
+        if not (type(self.processed_image) == type(None)):
             rospy.loginfo("Fetching processed image")
             img_str = cv2.imencode('.jpg', self.processed_image)[1].tostring()
             return Response(img_str, mimetype='image/jpeg')
