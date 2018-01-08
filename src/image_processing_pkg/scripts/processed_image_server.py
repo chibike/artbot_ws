@@ -24,7 +24,7 @@ def run():
 
 app = Flask(__name__)
 #MY_IP = os.getenv("MY_IP", "localhost")
-MY_IP = os.getenv("MY_IP", "localhost")
+MY_IP = os.getenv("MY_IP", "10.14.121.64")
 
 @app.route("/")
 def hello():
