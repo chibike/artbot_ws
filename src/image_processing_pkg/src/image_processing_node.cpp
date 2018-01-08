@@ -102,12 +102,23 @@ bool ImageCapture::start()
 
 	__frame_name = "edges";
 	
-	__rgb_frame = cv::imread(__home_path + "/images/box.png", CV_LOAD_IMAGE_COLOR);
+	cv::Mat frame = cv::imread(__home_path + "/images/box.png", CV_LOAD_IMAGE_COLOR);
+
+	__rgb_frame = cv::cvCreateImage(cv::cvSize(640, 480), frame.depth, frame.nChannels);
+	__rgb_frame = cv::cvResize(frame, __rgb_frame);
 	if (!__rgb_frame.data)
 	{
 		std::cout << "Could not read image" << std::endl;
 		return false;
 	}
+
+	__js_image.layout.dim = (std_msgs::MultiArrayDimension *);
+	__js_image.layout.dim[0].label = "js_image";
+	__js_image.layout.dim[0].size = __rgb_frame.cols * __rgb_frame.rows;
+	__js_image.layout.dim[0].stride = 1;
+	__js_image.layout.data_offset = 0;
+	__js_image.data = (uint8_t *) malloc( sizeof(uint8_t) * __rgb_frame.cols * __rgb_frame.rows );
+	__js_image.data_length = __rgb_frame.cols * __rgb_frame.rows;
 
 	//__processed_image_pub = nh_.advertise<image_processing_pkg::ProcessedImage>("/processed_image", 1);
 	__processed_image_pub = nh_.advertise<sensor_msgs::Image>("/processed_image", 1);
@@ -188,8 +199,6 @@ void ImageCapture::run_once()
 		__processed_image_pub.publish(__processed_image);
 
 		int index = 0;
-		uint8_t js_image_array[__rgb_frame.cols * __rgb_frame.rows * 4];
-
 		for (int row=0; row<__rgb_frame.rows; row++)
 		{
 			for (int col=0; col<__rgb_frame.cols; col++)
@@ -197,14 +206,13 @@ void ImageCapture::run_once()
 				index *= 4;
 				cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(row, col));
 
-				js_image_array[index]     = color.val[0];
-				js_image_array[index + 1] = color.val[1];
-				js_image_array[index + 2] = color.val[2];
-				js_image_array[index + 3] = 255;
+				__js_image.data[index]     = color.val[0];
+				__js_image.data[index + 1] = color.val[1];
+				__js_image.data[index + 2] = color.val[2];
+				__js_image.data[index + 3] = 255;
 			}
 		}
 
-		__js_image.data = js_image_array;
 		__js_image_pub.publish(__js_image);
 	}
 	catch (cv_bridge::Exception& e)
