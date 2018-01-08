@@ -180,10 +180,10 @@ void ImageCapture::run_once()
 			{
 				cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(x, y));
 
-				//__js_image.data.push_back(color.val[2]);
-				//__js_image.data.push_back(color.val[1]);
-				//__js_image.data.push_back(color.val[0]);
-				//__js_image.data.push_back(255);
+				__js_image.data.push_back(color.val[2]);
+				__js_image.data.push_back(color.val[1]);
+				__js_image.data.push_back(color.val[0]);
+				__js_image.data.push_back(255);
 			}
 		}
 
