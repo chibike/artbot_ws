@@ -32,12 +32,12 @@ def hello():
 
 @app.route("/image")
 def get_image():
-    im = py_image.open(__home_path + "/images/cover_image.jpg")
+    im = py_image.open(__home_path + "/images/box.png")
     io = cStringIO.StringIO()
     im.save(io, format='JPEG')
     return Response(io.getvalue(), mimetype='image/jpeg')
 
 if __name__ == '__main__':
     start_listener()
-    thread.start_new_thread( app.run(host=MY_IP, port=5001) )
-    run()
+    thread.start_new_thread( run() )
+    app.run(host=MY_IP, port=5001)
