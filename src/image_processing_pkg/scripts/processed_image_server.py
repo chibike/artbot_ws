@@ -11,14 +11,25 @@ from flask import Flask, Response, request, abort, render_template_string, send_
 __home_path = "/home/odroid/artbot_ws/src/image_processing_pkg";
 processed_image = None
 
+class EndpointAction(object):
+    def __init__(self, action):
+        self.action = action
+        self.response = Response(status=200, headers={})
+
+    def __call__(self, *args):
+        self.action()
+        return self.response
+
 class ProcessedImageServer(object):
     """docstring for ProcessedImageServer"""
     def __init__(self, name, host="localhost", port="5000"):
         super(ProcessedImageServer, self).__init__()
         
-        self.app = Flask(name)
         self.address = address
         self.port = port
+        self.app = Flask(name)
+        self.app.add_url_rule('/', 'test', EndpointAction(self.test))
+        self.app.add_url_rule('/image', 'test', EndpointAction(self.get_image))
 
         self.bridge = CvBridge()
         self.processed_image = None
@@ -30,11 +41,9 @@ class ProcessedImageServer(object):
         rospy.init_node('processed_image_server', anonymous=False)
         rospy.Subscriber("processed_image", Image, self.callback)
 
-    @self.app.route("/")
     def test():
         return "Hello!"
 
-    @self.app.route("/image")
     def get_image():
         if self.processed_image:
             rospy.loginfo("Fetching processed image")
