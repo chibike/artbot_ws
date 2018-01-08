@@ -110,9 +110,6 @@ bool ImageCapture::start()
 		return false;
 	}
 
-	int data_length = __rgb_frame.cols * __rgb_frame.rows * 4;
-	__js_image.data = (uint8_t *) malloc( sizeof(uint8_t) * data_length );
-
 	//__processed_image_pub = nh_.advertise<image_processing_pkg::ProcessedImage>("/processed_image", 1);
 	__processed_image_pub = nh_.advertise<sensor_msgs::Image>("/processed_image", 1);
 
@@ -191,7 +188,7 @@ void ImageCapture::run_once()
 		//__processed_image.number_of_faces = __faces.size();
 		__processed_image_pub.publish(__processed_image);
 
-		int index = 0;
+		__js_image.data.clear();
 		for (int row=0; row<__rgb_frame.rows; row++)
 		{
 			for (int col=0; col<__rgb_frame.cols; col++)
@@ -199,10 +196,10 @@ void ImageCapture::run_once()
 				index *= 4;
 				cv::Vec3b color = __rgb_frame.at<cv::Vec3b>(cv::Point(row, col));
 
-				__js_image.data[index]     = color.val[0];
-				__js_image.data[index + 1] = color.val[1];
-				__js_image.data[index + 2] = color.val[2];
-				__js_image.data[index + 3] = 255;
+				__js_image.data.push_back(color.val[2]);
+				__js_image.data.push_back(color.val[1]);
+				__js_image.data.push_back(color.val[0]);
+				__js_image.data.push_back(255);
 			}
 		}
 
