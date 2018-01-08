@@ -192,7 +192,7 @@ void ImageCapture::run_once()
 
 		for (int row=0; row<__rgb_frame.rows; row++)
 		{
-			for (int col=0; col<__rgb_frame.cols; cols++)
+			for (int col=0; col<__rgb_frame.cols; col++)
 			{
 				index *= 4;
 				cv::Vec3b color = __rgb_frame.at(cv::Point(row, col));
