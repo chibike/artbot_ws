@@ -3,6 +3,7 @@ const remote = electron.remote
 const mainProcess = remote.require('./main')
 
 var img;
+var new_img;
 var ros_bridge;
 
 function setup()
@@ -11,7 +12,9 @@ function setup()
 	my_canvas.parent('my_canvas_div');
 	
   img = loadImage("../images/marguerite-daisy-beautiful-beauty.jpg");
-  background(img);
+
+  new_img = createImage(640/2, 480/2);
+  new_img.loadPixels();
 
   ros_bridge = new mainProcess.ros_bridge();
 
@@ -20,7 +23,7 @@ function setup()
 
 function draw()
 {
-  //update_background();
+  update_background();
   background(img);
 }
 
@@ -34,28 +37,10 @@ function update_background()
   var data = ros_bridge.get_image();
   if (data)
   {
-    var image = data.image;
-    var width = data.width;
-    var height = data.height;
-
-    var new_img = createImage(width, height);
-    new_img.loadPixels();
-
-    for (var x=0; x<width; x++)
-    {
-      for (var y=0; y<height; y++)
-      {
-        var index = x*y*3;
-        var g = image[index];
-        var b = image[index + 1];
-        var r = image[index + 2];
-
-        var color = [r,g,b, 255];
-        new_img.set(x, y, color);
-      }
-    }
-
-    new_img.updatePixels();
-    img = new_img;
+    console.log("Yeah");
+    //var image = data.image;
+    //new_img.pixels = data;
+    //new_img.updatePixels();
+    //img = new_img;
   }
 }

@@ -20,14 +20,14 @@ class ROS_Bridge
 				function (ros_node)
 				{
 					// create subscriber for processed image
-					var bar = { queueSize: 10, throttleMs: 1000};
+					var bar = { queueSize: 1, throttleMs: 1};
 					console.log("subscribing...");
 					
-					ros_node.subscribe('/processed_image', 'sensor_msgs/Image', function(data)
+					ros_node.subscribe('/js_image', 'std_msgs/UInt8MultiArray', function(data)
 						{
 							outer_this.img = data.data;
-							outer_this.img_height = data.height;
-							outer_this.img_width = data.width;
+							outer_this.img_height = 640/2;
+							outer_this.img_width = 480/2;
 						},
 						bar
 					);
@@ -35,7 +35,7 @@ class ROS_Bridge
 					console.log("Done");
 
 					// create publishers for user_interface data
-					var bar = { queueSize: 1, latching: true, throttleMs: 10};
+					var bar = { queueSize: 1, latching: true, throttleMs: 1};
 					outer_this.threshold_pub = ros_node.advertise('/user_interface/nodejs/threshold', 'std_msgs/Int32', bar);
 
 					outer_this.ros_int = rosnodejs.require('std_msgs').msg.Int32;
