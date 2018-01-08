@@ -10,16 +10,20 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 from flask import Flask, Response, request, abort, render_template_string, send_from_directory
 
-app = Flask(name)
 class ProcessedImageServer(object):
     """docstring for ProcessedImageServer"""
+    app = None
+
     def __init__(self, name, host="localhost", port="5000"):
         super(ProcessedImageServer, self).__init__()
         self.__home_path = "/home/odroid/artbot_ws/src/image_processing_pkg";
         
         self.host = host
         self.port = port
-        self.app = app
+        self.app = Flask(name)
+
+        self.app.route("/")(self.test)
+        self.app.route("/image")(self.get_image)
 
         self.bridge = CvBridge()
         self.processed_image = None
@@ -31,11 +35,9 @@ class ProcessedImageServer(object):
         rospy.init_node('processed_image_server', anonymous=False)
         rospy.Subscriber("processed_image", Image, self.callback)
 
-    @app.route("/")
     def test(self):
         return "Hello!"
 
-    @app.route("/image")
     def get_image(self):
         if self.processed_image:
             rospy.loginfo("Fetching processed image")
