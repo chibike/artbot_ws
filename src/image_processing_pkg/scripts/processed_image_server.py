@@ -6,6 +6,7 @@ import thread
 import cStringIO
 import Image as py_image
 from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
 from flask import Flask, Response, request, abort, render_template_string, send_from_directory
 
 __home_path = "/home/odroid/artbot_ws/src/image_processing_pkg";
