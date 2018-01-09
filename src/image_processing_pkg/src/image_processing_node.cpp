@@ -302,7 +302,7 @@ void ImageCapture::draw_contours(cv::Mat &frame)
 	for (int i=0; i<__contours.size(); i++)
 	{
 		cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
-		cv:;drawContours(frame, __contours, i, color, 2, 8, __hierarchy, 0, cv::Point());
+		cv::drawContours(frame, __contours, i, color, 2, 8, __hierarchy, 0, cv::Point());
 	}
 }
 

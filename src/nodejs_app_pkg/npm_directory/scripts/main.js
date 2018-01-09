@@ -15,7 +15,7 @@ function createWindow ()
   mainWindow = new BrowserWindow(window_properties)
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   var entry_url = url.format({pathname: path.join(__dirname, '../html/cover.html'), protocol: 'file:', slashes: true })
   mainWindow.loadURL(entry_url)
