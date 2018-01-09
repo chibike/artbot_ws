@@ -215,12 +215,13 @@
 <script type="text/javascript">
 	var canvas = document.getElementById("bg_image");
 	var fps = 5;
+	var refresh_rate = (1.0/fps)*1000
 
 	function update_canvas()
 	{
-		canvas.src = "http://10.14.121.64:5000/image";
+		canvas.src = "http://odroid:5000/image?" + (new Date).getTime();
 	}
 
-	setInterval(update_canvas, 1.0/fps * 1000.0);
+	setInterval(update_canvas, refresh_rate);
 </script>
 <!-- <script type="text/javascript" src="../scripts/takepotrait_sketch_2.js"></script> -->
