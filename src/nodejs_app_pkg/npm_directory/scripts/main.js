@@ -1,12 +1,13 @@
 const electron = require('electron')
 const path = require('path')
 const url = require('url')
-var SerialPort = require('serialport');
+var SerialPort = require('serialport')
 
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
 // var ros_bridge = require('./ros_middle_man').ROS_Bridge;
+var audio_man = require('./audio_man').Audio_Man;
 
 let mainWindow = null
 
@@ -65,4 +66,5 @@ var port = new SerialPort('/dev/serial/by-path/platform-s5p-ehci-usb-0:3.2.2:1.0
 
 exports.exitApp = exit_app
 exports.serialPort = port;
+exports.audio_man = new audio_man();
 // exports.ros_bridge = ros_bridge;
