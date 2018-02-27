@@ -89,16 +89,19 @@
 
 </html>
 
+<script type="text/javascript" src="./../scripts/renderer.js"></script>
 <!-- <script type="text/javascript" src="./../scripts/ros_middle_man.js"></script> -->
 <script>
-	// Other files to run in this process
-    require('./../scripts/renderer.js')
-
 	var slider = document.getElementById("range_slider");
 	var slider_val = slider.value;
 
+	var use_external_slider_controller = true;
+	var use_external_buttons = true;
+
 	var buttons = [document.getElementById("btn1"), document.getElementById("btn2"), document.getElementById("btn3"), document.getElementById("btn4")];
 	var buttons_values = [50,50,50,50];
+
+	var cancel_button = document.getElementById("cancel_button");
 
 	var shutter_button = document.getElementById("shutter_button");
 	shutter_button.onclick = function()
@@ -214,12 +217,59 @@
 		automated_move = false;
 	}
 
+	function map_data(x, in_min, in_max, out_min, out_max)
+	{
+		return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+	}
+
+	external_button_pressed_event = function(json_data)
+    {
+    	let button_index = active_button_index;
+
+        if (use_external_buttons)
+    	{
+    		if (json_data[0] == "1")
+	        {
+	            button_index -= 1;
+	            if (button_index < 0)
+	            {
+	            	button_index = buttons.length + button_index;
+	            }
+	            button_index = button_index % buttons.length;
+	        }
+	        else if (json_data[1] == "1")
+	        {
+	            button_index += 1;
+	            button_index = button_index % buttons.length;
+	        }
+
+	        if (json_data[0] == "1" && json_data[1] == "1")
+	        {
+	        	cancel_button.click();
+	        }
+
+    		buttons[button_index].onclick();
+    	}
+
+    	if (use_external_slider_controller)
+        {
+        	buttons_values[active_button_index] = map_data(json_data[2], 0, 1024, 0, 100);;
+        }
+
+        use_external_buttons = false;
+    }
+
 	on_button_pressed(active_button_index);
+
+	setInterval(function()
+	{
+		use_external_buttons = true;
+	}, 300);
 </script>
 
 <script type="text/javascript">
 	var canvas = document.getElementById("bg_image");
-	var fps = 10;
+	var fps = 15;
 	var refresh_rate = (1.0/fps)*1000
 
 	function update_canvas()
@@ -227,6 +277,6 @@
 		canvas.src = "http://odroid:5000/image?" + (new Date).getTime();
 	}
 
+	// Uncomment --> this handles drawing the image
 	setInterval(update_canvas, refresh_rate);
 </script>
-<!-- <script type="text/javascript" src="../scripts/takepotrait_sketch_2.js"></script> -->

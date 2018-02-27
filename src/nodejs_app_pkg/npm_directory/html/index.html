@@ -63,8 +63,8 @@
 
             <br><br>
 
-            <a id="start-button" class="button is-inverted is-link is-outlined xlarger-button">Start</a>
-            <a id="exit-button" class="button is-inverted is-danger is-outlined xlarger-button">Exit</a>
+            <a id="start_button" class="button is-inverted is-link is-outlined xlarger-button">Start</a>
+            <a id="exit_button" class="button is-inverted is-danger is-outlined xlarger-button">Exit</a>
         </div>
 
         <div class="darker-color center-text-div">
@@ -78,18 +78,29 @@
 
 <script type="text/javascript" src="./../scripts/renderer.js"></script>
 <script>
-    // Other files to run in this process
-    //require('./../scripts/renderer.js')
-
-    var button = document.getElementById("exit-button")
+    var button = document.getElementById("exit_button")
     button.onclick = function ()
     {
         mainProcess.exitApp()
     }
 
-    var button = document.getElementById("start-button")
+    var button = document.getElementById("start_button")
     button.onclick = function ()
     {
         window.location.replace("../html/home.html")
+    }
+</script>
+
+<script type="text/javascript">
+    external_button_pressed_event = function(json_data)
+    {
+        if (json_data[0] == "1")
+        {
+            start_button.onclick();
+        }
+        else if (json_data[1] == "1")
+        {
+            exit_button.onclick();
+        }
     }
 </script>

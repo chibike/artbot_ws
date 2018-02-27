@@ -131,7 +131,7 @@
     
     <nav id="titlebar" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="cover.html">
+            <a id="cancel_button" class="navbar-item" href="cover.html">
                 <img src="../images/artbot-logo.png" alt="ArtBoT: an interface for the ABB IRB120" width="88.34" height="28">
             </a>
 
@@ -152,15 +152,30 @@
 </html>
 
 
-
-
+<script type="text/javascript" src="./../scripts/renderer.js"></script>
 <script>
-    // Other files to run in this process
-    require('./../scripts/renderer.js')
+    var cancel_button = document.getElementById("cancel_button");
 
     var button = document.getElementById("take-portrait-card")
     button.onclick = function ()
     {
         window.location.replace("../html/takepotrait.html")
+    }
+
+    external_button_pressed_event = function(json_data)
+    {
+        if (json_data[0] == "1" && json_data[1] == "1")
+        {
+            cancel_button.click();
+        }
+        
+        if (json_data[0] == "1")
+        {
+            button.onclick();
+        }
+        else if (json_data[1] == "1")
+        {
+            button.onclick();
+        }
     }
 </script>

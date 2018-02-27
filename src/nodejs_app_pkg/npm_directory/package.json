@@ -5,7 +5,8 @@
   "main": "scripts/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "install": "electron-rebuild"
   },
   "keywords": [
     "ABB",
@@ -22,6 +23,10 @@
   "dependencies": {
     "bulma": "^0.6.1",
     "electron": "^1.7.10",
-    "rosnodejs": "^2.1.1"
+    "rosnodejs": "^2.1.1",
+    "serialport": "^6.0.5"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.7.3"
   }
 }

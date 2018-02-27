@@ -1,10 +1,11 @@
 const electron = require('electron')
 const remote = electron.remote
 const mainProcess = remote.require('./main')
+let serial_port = mainProcess.serial_port;
 
 var img;
 var new_img;
-var ros_bridge;
+// var ros_bridge;
 
 function setup()
 {
@@ -16,7 +17,7 @@ function setup()
   new_img = createImage(640/2, 480/2);
   new_img.loadPixels();
 
-  ros_bridge = new mainProcess.ros_bridge();
+  // ros_bridge = new mainProcess.ros_bridge();
 
   frameRate(5);
 }

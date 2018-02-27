@@ -319,7 +319,7 @@ int main(int argc, char **argv)
 
 	//my_capture_device.start_window();
 	
-	ros::Rate loop_rate(10);
+	ros::Rate loop_rate(15);
 	while (ros::ok())
 	{
 		my_capture_device.run_once();

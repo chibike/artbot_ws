@@ -6,3 +6,14 @@ const electron = require('electron')
 const ipc = electron.ipcRenderer
 const remote = electron.remote
 const mainProcess = remote.require('./main')
+
+var serial_port = mainProcess.serialPort;
+const parsers = serial_port.parsers;
+
+var external_button_pressed_event = function(data){};
+
+serial_port.on('data', function(data)
+{
+	var json_data = JSON.parse(data.toString());
+    external_button_pressed_event(json_data);
+});
