@@ -7,7 +7,7 @@ class Audio_Man
 	{
 		this.player = require('play-sound')();//(opts = {mplayer});
 		this.music_directory = "/home/odroid/artbot_ws/src/nodejs_app_pkg/npm_directory/music/";
-		this.audio_files = ["himitu.mp3"];
+		this.audio_files = ["himitsu.mp3"];
 		
 		this.audio = undefined;
 		this.current_index = undefined;

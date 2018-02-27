@@ -23,6 +23,7 @@
   "dependencies": {
     "bulma": "^0.6.1",
     "electron": "^1.7.10",
+    "play-sound": "^1.1.2",
     "rosnodejs": "^2.1.1",
     "serialport": "^6.0.5"
   },
