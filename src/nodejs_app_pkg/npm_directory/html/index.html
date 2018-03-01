@@ -89,12 +89,10 @@
     var button = document.getElementById("start_button")
     button.onclick = function ()
     {
-        audio_man.next();
         window.location.replace("../html/home.html")
     }
 
-    audio_man.next();
-    setInterval(audio_man.play_speech(0), 2000);
+    audio_man.start();
 </script>
 
 <script type="text/javascript">
