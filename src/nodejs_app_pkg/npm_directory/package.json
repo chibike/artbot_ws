@@ -25,6 +25,7 @@
     "child_process": "^1.0.2",
     "electron": "^1.7.10",
     "find-exec": "^1.0.0",
+    "random-number": "0.0.9",
     "rosnodejs": "^2.1.1",
     "serialport": "^6.0.5"
   },

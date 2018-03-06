@@ -179,3 +179,13 @@
         }
     }
 </script>
+<script type="text/javascript">
+    var audio_man = mainProcess.audio_man;
+
+    console.log("Enabled speech");
+    setInterval(function()
+        {
+            console.log("Playing... speech");
+            audio_man.play_speech(0);
+        }, 50000);
+</script>

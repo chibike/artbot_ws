@@ -60,9 +60,14 @@ app.on('activate', function ()
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-var port = new SerialPort('/dev/serial/by-path/platform-s5p-ehci-usb-0:3.2.2:1.0-port0', {
+const port = new SerialPort('/dev/serial/by-path/platform-s5p-ehci-usb-0:3.2.3:1.0-port0', {
   baudRate: 115200
 });
+
+port.on('error', function(err)
+  {
+    console.log('error', err, err.message);
+  });
 
 exports.exitApp = exit_app
 exports.serialPort = port;
