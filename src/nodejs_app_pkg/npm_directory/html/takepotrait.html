@@ -92,11 +92,10 @@
 <script type="text/javascript" src="./../scripts/renderer.js"></script>
 <!-- <script type="text/javascript" src="./../scripts/ros_middle_man.js"></script> -->
 <script>
+	var button_man = mainProcess.button_man;
+
 	var slider = document.getElementById("range_slider");
 	var slider_val = slider.value;
-
-	var use_external_slider_controller = true;
-	var use_external_buttons = true;
 
 	var buttons = [document.getElementById("btn1"), document.getElementById("btn2"), document.getElementById("btn3"), document.getElementById("btn4")];
 	var buttons_values = [50,50,50,50];
@@ -222,49 +221,35 @@
 		return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 	}
 
-	external_button_pressed_event = function(json_data)
-    {
-    	let button_index = active_button_index;
+	left_button_down = function()
+	{
+		let button_index = active_button_index - 1;
+		button_index = button_index < 0 ? buttons.length + button_index : button_index;
+		button_index = button_index % buttons.length;
 
-        if (use_external_buttons)
-    	{
-    		if (json_data[0] == "1")
-	        {
-	            button_index -= 1;
-	            if (button_index < 0)
-	            {
-	            	button_index = buttons.length + button_index;
-	            }
-	            button_index = button_index % buttons.length;
-	        }
-	        else if (json_data[1] == "1")
-	        {
-	            button_index += 1;
-	            button_index = button_index % buttons.length;
-	        }
+		buttons[button_index].onclick();
+	}
 
-	        if (json_data[0] == "1" && json_data[1] == "1")
-	        {
-	        	cancel_button.click();
-	        }
+	right_button_down = function()
+	{
+		let button_index = active_button_index + 1;
+		button_index = button_index % buttons.length;
 
-    		buttons[button_index].onclick();
-    	}
+		buttons[button_index].onclick();
+	}
 
-    	if (use_external_slider_controller)
-        {
-        	buttons_values[active_button_index] = map_data(json_data[2], 0, 1024, 0, 100);;
-        }
+	pot_value_changed = function(new_value)
+	{
+		console.log(new_value);
+		update_button_value(active_button_index, map_data(new_value, 0, 1024, 0, 100));
+		update_slider_position(active_button_index);
+	}
 
-        use_external_buttons = false;
-    }
+	button_man.attach_btn_down_callback(1, left_button_down);
+    button_man.attach_btn_down_callback(2, right_button_down);
+    button_man.attach_pot_value_change_callback(pot_value_changed);
 
 	on_button_pressed(active_button_index);
-
-	setInterval(function()
-	{
-		use_external_buttons = true;
-	}, 300);
 </script>
 
 <script type="text/javascript">

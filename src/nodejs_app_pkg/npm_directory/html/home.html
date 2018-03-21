@@ -162,30 +162,25 @@
         window.location.replace("../html/takepotrait.html")
     }
 
-    external_button_pressed_event = function(json_data)
-    {
-        if (json_data[0] == "1" && json_data[1] == "1")
-        {
-            cancel_button.click();
-        }
-        
-        if (json_data[0] == "1")
-        {
-            button.onclick();
-        }
-        else if (json_data[1] == "1")
-        {
-            button.onclick();
-        }
-    }
 </script>
 <script type="text/javascript">
     var audio_man = mainProcess.audio_man;
+    var button_man = mainProcess.button_man;
 
     console.log("Enabled speech");
     setInterval(function()
         {
             console.log("Playing... speech");
             audio_man.play_speech(0);
-        }, 50000);
+        }, 500000);
+
+    button_man.attach_btn_down_callback(1, function(){
+        button_man.detach_btns();
+        button.onclick();
+    });
+    button_man.attach_btn_down_callback(2, function(){
+        button_man.detach_btns();
+        button.onclick();
+    });
+    button_man.detach_pot();
 </script>

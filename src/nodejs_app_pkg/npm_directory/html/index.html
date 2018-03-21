@@ -79,6 +79,8 @@
 <script type="text/javascript" src="./../scripts/renderer.js"></script>
 <script>
     var audio_man = mainProcess.audio_man;
+    var button_man = mainProcess.button_man;
+
     var button = document.getElementById("exit_button")
     button.onclick = function ()
     {
@@ -92,19 +94,15 @@
         window.location.replace("../html/home.html")
     }
 
-    audio_man.start();
-</script>
+    button_man.attach_btn_down_callback(1, function(){
+        button_man.detach_btns();
+        start_button.onclick();
+    });
+    button_man.attach_btn_down_callback(2, function(){
+        button_man.detach_btns();
+        exit_button.onclick();
+    });
+    button_man.detach_pot();
 
-<script type="text/javascript">
-    external_button_pressed_event = function(json_data)
-    {
-        if (json_data[0] == "1")
-        {
-            start_button.onclick();
-        }
-        else if (json_data[1] == "1")
-        {
-            exit_button.onclick();
-        }
-    }
+    audio_man.start();
 </script>
