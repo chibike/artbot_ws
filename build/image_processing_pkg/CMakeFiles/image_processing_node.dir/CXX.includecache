@@ -6,24 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/odroid/artbot_ws/devel/include/image_processing_pkg/ProcessedImage.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-sensor_msgs/Image.h
--
-
 /home/odroid/artbot_ws/src/image_processing_pkg/src/image_processing_node.cpp
 image_processing_pkg/ProcessedImage.h
 /home/odroid/artbot_ws/src/image_processing_pkg/src/image_processing_pkg/ProcessedImage.h

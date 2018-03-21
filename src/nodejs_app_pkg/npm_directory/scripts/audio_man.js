@@ -5,6 +5,13 @@ class Audio_Man
 {
 	constructor()
 	{
+		// this.mpg = require('mpg123');
+		// this.mpg_player = new this.mpg.MpgPlayer();
+
+		this.fs = require('fs');
+		this.log_out = this.fs.openSync('/home/odroid/artbot_ws/src/nodejs_app_pkg/npm_directory/logs/out.log', 'a');
+		this.log_err = this.fs.openSync('/home/odroid/artbot_ws/src/nodejs_app_pkg/npm_directory/logs/err.log', 'a');
+
 		this.spawn = require('child_process').spawn
 		this.find_exec = require('find-exec')
 		this.random_number = require('random-number')
@@ -56,10 +63,13 @@ class Audio_Man
 
 		var on_close = function(code, signal)
 		{
-			console.log(context, 'close', code, signal);
 			if (code == '0')
 			{
 				outer_this.next();
+			}
+			else
+			{
+				console.log(context, 'close', code, signal);
 			}
 		}
 
@@ -74,7 +84,13 @@ class Audio_Man
 		}
 
 		// this.audio = this.spawn(this.player, [audio_file], {stdio: 'ignore'});
-		this.audio = this.spawn(this.player, [audio_file], {});
+		this.audio = this.spawn(this.player, [audio_file], {
+			detached: true,
+			stdio: ['ignore', this.log_out, this.log_err]
+		});
+
+		//this.audio.unref()
+
 		if (!this.audio)
 		{
 			console.log(context, "Unable to spawn process with " + this.player);
@@ -107,10 +123,13 @@ class Audio_Man
 
 		var on_close = function(code, signal)
 		{
-			console.log(context, 'close', code, signal);
 			if (code == '0')
 			{
 				outer_this.toggle_pause();
+			}
+			else
+			{
+				console.log(context, 'close', code, signal);
 			}
 		}
 
@@ -126,7 +145,13 @@ class Audio_Man
 
 		this.toggle_pause();
 
-		this.speech = this.spawn(this.player, [audio_file], {});
+		this.speech = this.spawn(this.player, [audio_file], {
+			detached: true,
+			stdio: ['ignore', this.log_out, this.log_err]
+		});
+
+		//this.speech.unref()
+
 		if (!this.speech)
 		{
 			console.log(context, "Unable to spawn process with " + this.player);

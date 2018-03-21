@@ -45,6 +45,7 @@ struct ProcessedImage_
 
 
 
+
   typedef boost::shared_ptr< ::image_processing_pkg::ProcessedImage_<ContainerAllocator> > Ptr;
   typedef boost::shared_ptr< ::image_processing_pkg::ProcessedImage_<ContainerAllocator> const> ConstPtr;
 

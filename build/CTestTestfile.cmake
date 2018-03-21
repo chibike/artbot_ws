@@ -7,3 +7,4 @@
 subdirs(gtest)
 subdirs(image_processing_pkg)
 subdirs(nodejs_app_pkg)
+subdirs(abb_driver)

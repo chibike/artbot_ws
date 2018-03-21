@@ -119,6 +119,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/odroid/artbot_ws/build/gtest/cmake_install.cmake")
   include("/home/odroid/artbot_ws/build/image_processing_pkg/cmake_install.cmake")
   include("/home/odroid/artbot_ws/build/nodejs_app_pkg/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/abb_driver/cmake_install.cmake")
 
 endif()
 

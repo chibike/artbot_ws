@@ -114,8 +114,8 @@ image_processing_node_EXTERNAL_OBJECTS =
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /usr/lib/arm-linux-gnueabihf/liblog4cxx.so
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /usr/lib/arm-linux-gnueabihf/libboost_regex.so
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/libroscpp_serialization.so
-/home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/librostime.so
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/libxmlrpcpp.so
+/home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/librostime.so
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/libcpp_common.so
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /usr/lib/arm-linux-gnueabihf/libboost_system.so
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /usr/lib/arm-linux-gnueabihf/libboost_thread.so

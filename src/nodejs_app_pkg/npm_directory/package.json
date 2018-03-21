@@ -21,10 +21,13 @@
   "author": "Chibuike Okpaluba",
   "license": "ISC",
   "dependencies": {
+    "aplay": "^1.2.0",
     "bulma": "^0.6.1",
     "child_process": "^1.0.2",
     "electron": "^1.7.10",
     "find-exec": "^1.0.0",
+    "fs": "0.0.1-security",
+    "mpg123": "^0.2.3",
     "random-number": "0.0.9",
     "rosnodejs": "^2.1.1",
     "serialport": "^6.0.5"

@@ -54,10 +54,11 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  ProcessedImage.msg
-)
+# add_message_files(
+#   FILES
+#   ProcessedImage.msg
+# )
+add_message_files( DIRECTORY msg FILES ProcessedImage.msg )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -151,6 +152,7 @@ add_executable(image_processing_node src/image_processing_node.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(image_processing_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(image_processing_node ${catkin_LIBRARIES})
