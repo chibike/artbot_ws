@@ -117,9 +117,17 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/odroid/artbot_ws/build/gtest/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/descartes/descartes/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/artbot_trajectories/cmake_install.cmake")
   include("/home/odroid/artbot_ws/build/image_processing_pkg/cmake_install.cmake")
   include("/home/odroid/artbot_ws/build/nodejs_app_pkg/cmake_install.cmake")
   include("/home/odroid/artbot_ws/build/abb_driver/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/descartes/descartes_core/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/descartes/descartes_trajectory/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/descartes/descartes_planner/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/descartes/descartes_utilities/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/descartes/descartes_moveit/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/descartes/descartes_tests/cmake_install.cmake")
 
 endif()
 

@@ -1,0 +1,8 @@
+prefix=/home/odroid/artbot_ws/devel
+
+Name: descartes_moveit
+Description: Description of descartes_moveit
+Version: 0.0.1
+Cflags: -I/home/odroid/artbot_ws/src/descartes/descartes_moveit/include -I/usr/include -I/usr/include/eigen3
+Libs: -L/home/odroid/artbot_ws/devel/lib -ldescartes_moveit
+Requires: moveit_core tf cmake_modules descartes_core descartes_trajectory rosconsole_bridge

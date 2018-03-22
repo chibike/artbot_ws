@@ -1,0 +1,1 @@
+set(ORDERED_PATHS "/home/odroid/artbot_ws/devel/lib;/opt/ros/kinetic/lib")

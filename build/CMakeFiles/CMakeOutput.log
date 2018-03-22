@@ -582,3 +582,51 @@ Linking C executable cmTC_fd1f1
 make[1]: Leaving directory '/home/odroid/artbot_ws/build/CMakeFiles/CMakeTmp'
 
 
+Performing C SOURCE FILE Test OpenMP_FLAG_DETECTED succeeded with the following output:
+Change Dir: /home/odroid/artbot_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_dfede/fast"
+/usr/bin/make -f CMakeFiles/cmTC_dfede.dir/build.make CMakeFiles/cmTC_dfede.dir/build
+make[1]: Entering directory '/home/odroid/artbot_ws/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_dfede.dir/src.c.o
+/usr/bin/cc    -DOpenMP_FLAG_DETECTED -fopenmp   -o CMakeFiles/cmTC_dfede.dir/src.c.o   -c /home/odroid/artbot_ws/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_dfede
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dfede.dir/link.txt --verbose=1
+/usr/bin/cc   -DOpenMP_FLAG_DETECTED -fopenmp    CMakeFiles/cmTC_dfede.dir/src.c.o  -o cmTC_dfede -rdynamic 
+make[1]: Leaving directory '/home/odroid/artbot_ws/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
+Performing C++ SOURCE FILE Test OpenMP_FLAG_DETECTED succeeded with the following output:
+Change Dir: /home/odroid/artbot_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_515c6/fast"
+/usr/bin/make -f CMakeFiles/cmTC_515c6.dir/build.make CMakeFiles/cmTC_515c6.dir/build
+make[1]: Entering directory '/home/odroid/artbot_ws/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_515c6.dir/src.cxx.o
+/usr/bin/c++     -DOpenMP_FLAG_DETECTED -fopenmp   -o CMakeFiles/cmTC_515c6.dir/src.cxx.o -c /home/odroid/artbot_ws/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_515c6
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_515c6.dir/link.txt --verbose=1
+/usr/bin/c++    -DOpenMP_FLAG_DETECTED -fopenmp    CMakeFiles/cmTC_515c6.dir/src.cxx.o  -o cmTC_515c6 -rdynamic 
+make[1]: Leaving directory '/home/odroid/artbot_ws/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <omp.h>
+int main() {
+#ifdef _OPENMP
+  return 0;
+#else
+  breaks_on_purpose
+#endif
+}
+
