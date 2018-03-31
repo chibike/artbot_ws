@@ -53,6 +53,10 @@ def shutdown_server():
 def home():
 	return render_template('html/home.html', title='home')
 
+@app.route("/take_selfie")
+def take_selfie():
+	return render_template('html/take_selfie.html', title='take_selfie')
+
 @app.route("/entry")
 def entry():
 	return render_template('html/entry.html', title='entry')
@@ -91,19 +95,27 @@ def image_stream_callback(data):
 	IMAGE_STREAM_FRAME = bridge.imgmsg_to_cv2(data, 'bgr8')
 
 
+rospy.loginfo("Initializing node artbot_app_server")
 rospy.init_node('artbot_app_server', anonymous=False)
+
+rospy.loginfo("Subscribing to processed_image")
 rospy.Subscriber("processed_image", Image, image_stream_callback)
 
+rospy.loginfo("Starting server")
 thread.start_new_thread(app.run, (host, port))
+
+rospy.loginfo("Starting ros spin")
 thread.start_new_thread(rospy.spin, ())
 
 # app.run(host=host, port=port)
 
+time.sleep(5)
+rospy.loginfo("Server is now up")
+
 while not rospy.is_shutdown():
 	time.sleep(10)
 
-print "ROS has shutdown"
-rospy.loginfo("ROS has shutdown")
+rospy.loginfo("Shutting down!")
 
 
 

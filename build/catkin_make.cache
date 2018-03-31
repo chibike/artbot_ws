@@ -1,2 +1,2 @@
-abb_driver:artbot_trajectories:descartes/descartes:descartes/descartes_core:descartes/descartes_moveit:descartes/descartes_planner:descartes/descartes_tests:descartes/descartes_trajectory:descartes/descartes_utilities:image_processing_pkg:nodejs_app_pkg
+artbot_app_server:image_processing_pkg:nodejs_app_pkg
 -DCATKIN_DEVEL_PREFIX=/home/odroid/artbot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/odroid/artbot_ws/install -G Unix Makefiles

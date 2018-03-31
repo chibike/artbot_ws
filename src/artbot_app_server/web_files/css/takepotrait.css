@@ -1,0 +1,271 @@
+body, html
+{
+  height: 100%;
+  margin: 0;
+}
+
+.slider-container-div
+{
+  float: left;
+  width: 100px;
+  height: 403px;
+
+  margin-left: 1px;
+  background-color: #848dba;
+  opacity: 0.9;
+  cursor: pointer;
+
+  text-align: center;
+}
+
+.slider-control
+{ 
+  width: 383px;
+  height: 6px;
+  
+  outline: none;
+  cursor: pointer;
+  
+  opacity: 1;
+  background: linear-gradient(to right, white 0%, white 50%, #4E5FBA 50%, #4E5FBA 100%);
+  transition: background 450ms ease-in;
+  /*direction: rtl;*/
+  /*background-color: #DEFFF2;*/
+  
+  border: solid 1px #4E5FBA;
+  border-radius: 5px;
+
+  transform:rotate(90deg) translate(190px, 141px);
+
+  -webkit-appearance: none;
+}
+
+.slider-control::-webkit-slider-thumb
+{
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  
+  background-color: #4E5FBA;
+  border-radius: 50px;
+  opacity: 1.0;
+}
+
+.slider-control:hover
+{
+  opacity: 1.0;
+}
+
+.side-panel-left
+{
+  float: left;
+  width: 100px;
+  
+  margin-left: 20px;
+  opacity: 1.0;
+}
+
+.side-panel-right
+{
+  float: right;
+  width: 100px;
+  height:600px;
+
+  margin-right: 20px;
+  opacity: 1.0;
+}
+
+.side-panel-footer
+{
+  position: relative;
+  bottom: 0px;
+}
+
+.side-panel
+{
+  font-size: 1rem;
+}
+
+.side-panel-heading,
+.side-panel-tabs,
+.side-panel-block,
+.side-panel-block-div
+{
+  border-bottom: 1px solid #dbdbdb;
+  border-left: 1px solid #dbdbdb;
+  border-right: 1px solid #dbdbdb;
+}
+
+.side-panel-block-no-border
+{
+  border: 0px;
+}
+
+.side-panel-heading:first-child,
+.side-panel-tabs:first-child,
+.side-panel-block:first-child,
+.side-panel-block-div:first-child
+{
+  border-top: 1px solid #dbdbdb;
+}
+
+.side-panel-heading:last-child,
+.side-panel-tabs:last-child,
+.side-panel-block:last-child,
+.side-panel-block-div:last-child,
+.side-panel-block-no-border:last-child,
+.side-panel-block-no-border-div:last-child
+{
+  margin-bottom: 0px;
+}
+
+.side-panel-heading
+{
+  border-radius: 3px 3px 0 0;
+  color: #363636;
+  font-size: 1.25em;
+  font-weight: 300;
+  line-height: 1.25;
+  padding: 0.5em 0.75em;
+}
+
+.side-panel-tabs
+{
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0.875em;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.side-panel-tabs a
+{
+  border-bottom: 1px solid #dbdbdb;
+  margin-bottom: -1px;
+  padding: 0.5em;
+}
+
+.side-panel-tabs a.is-active
+{
+  border-bottom-color: #4a4a4a;
+  color: #363636;
+}
+
+.side-panel-list a
+{
+  color: #4a4a4a;
+}
+
+.side-panel-list a:hover
+{
+  color: #3273dc;
+}
+
+.side-panel-block,
+.side-panel-block-no-border
+{
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #363636;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding: 0em 0em;
+  margin-bottom: 1px;
+}
+
+.side-panel-block input[type="checkbox"],
+.side-panel-block-no-border input[type="checkbox"]
+{
+  margin-right: 0.75em;
+}
+
+.side-panel-block > .control,
+.side-panel-block-no-border > .control
+{
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+  width: 100%;
+}
+
+.side-panel-block.is-wrapped,
+.side-panel-block-no-border.is-wrapped
+{
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.side-panel-block.is-active,
+.side-panel-block-no-border.is-active
+{
+  color: #DEFFF2;
+}
+
+.side-panel-block.is-active .side-panel-icon,
+.side-panel-block-no-border.is-active .side-panel-icon
+{
+  color: #DEFFF2;
+}
+
+.side-panel-block,
+.side-panel-block-no-border
+{
+  height: 100px;
+}
+
+a.side-panel-block,
+a.side-panel-block-no-border,
+label.side-panel-block,
+label.side-panel-block-no-border
+{
+  cursor: pointer;
+}
+
+a.side-panel-block:hover,
+a.side-panel-block-no-border:hover,
+label.side-panel-block:hover,
+label.side-panel-block-no-border:hover
+{
+  background-color: #DEFFF2;
+}
+
+.side-panel-icon
+{
+  width: 100%;
+  height: 1em;
+
+  display: inline-block;
+  font-size: 50px;
+  line-height: 1em;
+  text-align: center;
+  vertical-align: top;
+  width: 1em;
+  color: #7a7a7a;
+  margin-right: 0.75em;
+}
+
+.side-panel-icon .fa
+{
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.side-panel-block-indicator
+{
+  margin: 0;
+  padding: 0;
+  width: 10%;
+  height: 80%;
+}

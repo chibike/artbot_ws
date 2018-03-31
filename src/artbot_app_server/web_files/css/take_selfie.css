@@ -1,0 +1,47 @@
+
+
+.panel-overlay-div
+{
+    position: fixed;
+    display: inline-block;
+    width: 100%;
+    bottom: 10px;
+    left: 0px;
+    z-index: 2000;
+}
+
+.shutter-overlay-div
+{
+    display: inline-block;
+    position: fixed;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 70px;
+    width: 70px;
+
+    z-index: 3000;
+
+    margin: auto;
+    margin-right: 10px;
+}
+
+.panel-height
+{
+    height: 70px;
+}
+.panel-height-padded
+{
+    height: 70px;
+}
+
+#bottom-panel
+{
+    width: 800px;
+
+    border: 1px;
+    border-radius: 3px;
+}

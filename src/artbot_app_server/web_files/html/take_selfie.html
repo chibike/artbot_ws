@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1024, height=600, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+
+    <link rel="stylesheet" href="../bootstrap/bootstrap.css">
+    <style type="text/css" src="../bootstrap/bootstrap.js"></style>
+
+    <link rel="stylesheet" href="../css/generic.css">
+    <link rel="stylesheet" href="../css/take_selfie.css">
+
+    <title>MDX ArtBoT!</title>
+    <style>
+        body, html
+        {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="h-100 w-100">
+        <div id="image_stream_div" class="bgcolor-registration-black h-100 justify-content-center align-items-center">
+		    <img id="image_stream" class="h-100 mx-auto d-block" src="../images/entry.jpg">
+	    </div>
+
+        <div class="panel-overlay-div">
+            <div id="bottom-panel" class="bgcolor-transparent panel-height-padded mx-auto">
+                <div class="row panel-height panel-inner-row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <img src="../images/left_arrow.png" class="mx-auto d-block panel-height">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <img src="../images/knob.png" class="mx-auto d-block panel-height">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <img src="../images/right_arrow.png" class="mx-auto d-block panel-height">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shutter-overlay-div my-auto float-right">
+            <img src="../images/shutter.png" class="panel-height">
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../js/external_input.js"></script>
+<script type="text/javascript" src="../js/cycler.js"></script>
+<script type="text/javascript" src="../js/take_selfie.js"></script>
+
+</html>

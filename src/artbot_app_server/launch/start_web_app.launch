@@ -1,0 +1,7 @@
+<launch>
+	<node name="image_processor" pkg="image_processing_pkg" type="image_processing_node" output="screen" />
+	
+	<node name="artbot_app_server" pkg="artbot_app_server" type="app_server.py" output="screen">
+		<env name="PORT" value="5000"/>
+	</node>
+</launch>

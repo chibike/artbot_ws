@@ -1,0 +1,8 @@
+prefix=/home/odroid/artbot_ws/install
+
+Name: artbot_app_server
+Description: Description of artbot_app_server
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/odroid/artbot_ws/install/lib 
+Requires: 
