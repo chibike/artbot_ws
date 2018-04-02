@@ -23,7 +23,7 @@ CSS_PATH = WEB_FILES_PATH + 'css/'
 JS_PATH = WEB_FILES_PATH + 'js/'
 
 host = "0.0.0.0"
-port = 3302
+port = 4000
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='', static_folder=WEB_FILES_PATH, template_folder=WEB_FILES_PATH)
 

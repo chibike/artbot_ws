@@ -1,23 +1,35 @@
 #card_1
 {
-    border: 1px;
-    border-radius: 1px;
 }
 
 #card_2
 {
-    border: 1px;
-    border-radius: 1px;
 }
 
 #card_3
 {
-    border: 1px;
-    border-radius: 1px;
 }
 
 #card_4
 {
-    border: 1px;
-    border-radius: 1px;
+}
+
+.selection-card
+{
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+.selection-card:hover
+{
+    cursor: pointer;
+
+    border: 3px solid rgba(255, 0, 100, 0.7);
+}
+
+.selection-card-active
+{
+    cursor: pointer;
+
+    border: 3px solid rgba(255, 0, 100, 0.7);
 }

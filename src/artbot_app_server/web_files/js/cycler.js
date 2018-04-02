@@ -6,11 +6,13 @@ class Cycler
 		this.stop = stop;
 		this.range = this.stop - this.start
 		this.current_index = start;
+		this.previous_index = start;
 	}
 
 	set_current(index)
 	{
 		this.current_index = this.constrainf(index, this.start, this.stop);
+		this.previous_index = this.current_index;
 	}
 
 	get_current()
@@ -18,13 +20,20 @@ class Cycler
 		return this.current_index;
 	}
 
+	get_previous()
+	{
+		return this.previous_index;
+	}
+
 	next()
 	{
+		this.previous_index = this.current_index;
 		this.current_index = ((this.current_index + 1 - this.start) % (this.range + 1)) + this.start;
 	}
 
 	previous()
 	{
+		this.previous_index = this.current_index;
 		this.current_index = this.current_index - 1;
 		this.current_index = (this.current_index - this.start) < 0 ? this.stop : this.current_index;
 	}
