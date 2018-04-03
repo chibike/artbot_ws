@@ -7,4 +7,7 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/odroid/artbot_ws/build"
+export CMAKE_PREFIX_PATH="/home/ros/artbot_ws/devel:$CMAKE_PREFIX_PATH"
+export PWD="/home/ros/artbot_ws/build"
+export ROSLISP_PACKAGE_DIRECTORIES="/home/ros/artbot_ws/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
+export ROS_PACKAGE_PATH="/home/ros/artbot_ws/src:$ROS_PACKAGE_PATH"

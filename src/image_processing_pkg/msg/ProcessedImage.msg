@@ -1,2 +1,0 @@
-sensor_msgs/Image processed_image
-uint32 number_of_faces

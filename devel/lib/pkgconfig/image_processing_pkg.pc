@@ -1,8 +1,0 @@
-prefix=/home/odroid/artbot_ws/devel
-
-Name: image_processing_pkg
-Description: Description of image_processing_pkg
-Version: 0.0.0
-Cflags: -I/home/odroid/artbot_ws/devel/include
-Libs: -L/home/odroid/artbot_ws/devel/lib 
-Requires: 

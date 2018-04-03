@@ -1,8 +1,0 @@
-prefix=/home/odroid/artbot_ws/install
-
-Name: nodejs_app_pkg
-Description: Description of nodejs_app_pkg
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/odroid/artbot_ws/install/lib 
-Requires: 

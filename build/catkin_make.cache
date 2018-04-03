@@ -1,2 +1,2 @@
-image_processing_pkg:nodejs_app_pkg
--DCATKIN_DEVEL_PREFIX=/home/odroid/artbot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/odroid/artbot_ws/install -G Unix Makefiles
+abb/abb:abb/abb_driver:abb/abb_irb120_moveit_config:abb/abb_irb120_support:abb/abb_resources
+-DCATKIN_DEVEL_PREFIX=/home/ros/artbot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ros/artbot_ws/install -G Unix Makefiles
