@@ -53,19 +53,95 @@ CMAKE_BINARY_DIR = /home/odroid/artbot_ws/build
 # Include the progress variables for this target.
 include image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/progress.make
 
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieResult.h
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieGoal.h
 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/ProcessedImage.h
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionGoal.h
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieFeedback.h
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h
 
+
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionResult.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalID.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from image_processing_pkg/take_selfieActionResult.msg"
+	cd /home/odroid/artbot_ws/src/image_processing_pkg && /home/odroid/artbot_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionResult.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/include/image_processing_pkg -e /opt/ros/kinetic/share/gencpp/cmake/..
+
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieResult.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieResult.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieResult.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from image_processing_pkg/take_selfieResult.msg"
+	cd /home/odroid/artbot_ws/src/image_processing_pkg && /home/odroid/artbot_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/include/image_processing_pkg -e /opt/ros/kinetic/share/gencpp/cmake/..
+
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionFeedback.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalID.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from image_processing_pkg/take_selfieActionFeedback.msg"
+	cd /home/odroid/artbot_ws/src/image_processing_pkg && /home/odroid/artbot_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionFeedback.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/include/image_processing_pkg -e /opt/ros/kinetic/share/gencpp/cmake/..
+
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieGoal.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieGoal.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieGoal.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating C++ code from image_processing_pkg/take_selfieGoal.msg"
+	cd /home/odroid/artbot_ws/src/image_processing_pkg && /home/odroid/artbot_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/include/image_processing_pkg -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 /home/odroid/artbot_ws/devel/include/image_processing_pkg/ProcessedImage.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
 /home/odroid/artbot_ws/devel/include/image_processing_pkg/ProcessedImage.h: /home/odroid/artbot_ws/src/image_processing_pkg/msg/ProcessedImage.msg
 /home/odroid/artbot_ws/devel/include/image_processing_pkg/ProcessedImage.h: /opt/ros/kinetic/share/sensor_msgs/msg/Image.msg
 /home/odroid/artbot_ws/devel/include/image_processing_pkg/ProcessedImage.h: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
 /home/odroid/artbot_ws/devel/include/image_processing_pkg/ProcessedImage.h: /opt/ros/kinetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from image_processing_pkg/ProcessedImage.msg"
-	cd /home/odroid/artbot_ws/src/image_processing_pkg && /home/odroid/artbot_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/odroid/artbot_ws/src/image_processing_pkg/msg/ProcessedImage.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/include/image_processing_pkg -e /opt/ros/kinetic/share/gencpp/cmake/..
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating C++ code from image_processing_pkg/ProcessedImage.msg"
+	cd /home/odroid/artbot_ws/src/image_processing_pkg && /home/odroid/artbot_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/odroid/artbot_ws/src/image_processing_pkg/msg/ProcessedImage.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/include/image_processing_pkg -e /opt/ros/kinetic/share/gencpp/cmake/..
+
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionGoal.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionGoal.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionGoal.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionGoal.h: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalID.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionGoal.h: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionGoal.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionGoal.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating C++ code from image_processing_pkg/take_selfieActionGoal.msg"
+	cd /home/odroid/artbot_ws/src/image_processing_pkg && /home/odroid/artbot_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionGoal.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/include/image_processing_pkg -e /opt/ros/kinetic/share/gencpp/cmake/..
+
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieFeedback.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieFeedback.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieFeedback.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating C++ code from image_processing_pkg/take_selfieFeedback.msg"
+	cd /home/odroid/artbot_ws/src/image_processing_pkg && /home/odroid/artbot_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/include/image_processing_pkg -e /opt/ros/kinetic/share/gencpp/cmake/..
+
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieAction.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionResult.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionFeedback.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalID.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionGoal.msg
+/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating C++ code from image_processing_pkg/take_selfieAction.msg"
+	cd /home/odroid/artbot_ws/src/image_processing_pkg && /home/odroid/artbot_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieAction.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/include/image_processing_pkg -e /opt/ros/kinetic/share/gencpp/cmake/..
 
 image_processing_pkg_generate_messages_cpp: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp
+image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h
+image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieResult.h
+image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h
+image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieGoal.h
 image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/ProcessedImage.h
+image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionGoal.h
+image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieFeedback.h
+image_processing_pkg_generate_messages_cpp: /home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h
 image_processing_pkg_generate_messages_cpp: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/build.make
 
 .PHONY : image_processing_pkg_generate_messages_cpp

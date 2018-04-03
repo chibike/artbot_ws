@@ -181,51 +181,6 @@ image_processing_node/fast:
 .PHONY : image_processing_node/fast
 
 # Convenience name for target.
-image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/rule
-
-# Convenience name for target.
-image_processing_pkg_genpy: image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/rule
-
-.PHONY : image_processing_pkg_genpy
-
-# fast build rule for target.
-image_processing_pkg_genpy/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/build
-.PHONY : image_processing_pkg_genpy/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_nodejs: image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-geometry_msgs_generate_messages_nodejs/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
-.PHONY : geometry_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_cpp: image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_cpp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
 image_processing_pkg/CMakeFiles/image_processing_pkg_gennodejs.dir/rule:
 	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_gennodejs.dir/rule
 .PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_gennodejs.dir/rule
@@ -239,6 +194,156 @@ image_processing_pkg_gennodejs: image_processing_pkg/CMakeFiles/image_processing
 image_processing_pkg_gennodejs/fast:
 	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_gennodejs.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_gennodejs.dir/build
 .PHONY : image_processing_pkg_gennodejs/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+image_processing_pkg_generate_messages_lisp: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/rule
+
+.PHONY : image_processing_pkg_generate_messages_lisp
+
+# fast build rule for target.
+image_processing_pkg_generate_messages_lisp/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/build
+.PHONY : image_processing_pkg_generate_messages_lisp/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/rule
+
+# Convenience name for target.
+image_processing_pkg_genlisp: image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/rule
+
+.PHONY : image_processing_pkg_genlisp
+
+# fast build rule for target.
+image_processing_pkg_genlisp/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/build
+.PHONY : image_processing_pkg_genlisp/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/rule
+
+# Convenience name for target.
+image_processing_pkg_geneus: image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/rule
+
+.PHONY : image_processing_pkg_geneus
+
+# fast build rule for target.
+image_processing_pkg_geneus/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/build
+.PHONY : image_processing_pkg_geneus/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+image_processing_pkg_generate_messages_eus: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/rule
+
+.PHONY : image_processing_pkg_generate_messages_eus
+
+# fast build rule for target.
+image_processing_pkg_generate_messages_eus/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/build
+.PHONY : image_processing_pkg_generate_messages_eus/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieAction.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieAction.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieAction.dir/rule
+
+# Convenience name for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieAction: image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieAction.dir/rule
+
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieAction
+
+# fast build rule for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieAction/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieAction.dir/build.make image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieAction.dir/build
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieAction/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieFeedback.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieFeedback.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieFeedback.dir/rule
+
+# Convenience name for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieFeedback: image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieFeedback.dir/rule
+
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieFeedback
+
+# fast build rule for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieFeedback/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieFeedback.dir/build.make image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieFeedback.dir/build
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieFeedback/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+image_processing_pkg_generate_messages_nodejs: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/rule
+
+.PHONY : image_processing_pkg_generate_messages_nodejs
+
+# fast build rule for target.
+image_processing_pkg_generate_messages_nodejs/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/build
+.PHONY : image_processing_pkg_generate_messages_nodejs/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal.dir/rule
+
+# Convenience name for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal: image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal.dir/rule
+
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal
+
+# fast build rule for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal.dir/build.make image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal.dir/build
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionResult.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionResult.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionResult.dir/rule
+
+# Convenience name for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieActionResult: image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionResult.dir/rule
+
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieActionResult
+
+# fast build rule for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieActionResult/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionResult.dir/build.make image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionResult.dir/build
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieActionResult/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_lisp: image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_lisp
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_lisp/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
+.PHONY : actionlib_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
@@ -271,6 +376,21 @@ sensor_msgs_generate_messages_cpp/fast:
 .PHONY : sensor_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
+image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_nodejs: image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_nodejs/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build
+.PHONY : actionlib_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
 image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
 .PHONY : image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
@@ -286,19 +406,64 @@ sensor_msgs_generate_messages_nodejs/fast:
 .PHONY : sensor_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/rule
+image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/rule
 
 # Convenience name for target.
-image_processing_pkg_generate_messages_lisp: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/rule
+image_processing_pkg_gencpp: image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/rule
 
-.PHONY : image_processing_pkg_generate_messages_lisp
+.PHONY : image_processing_pkg_gencpp
 
 # fast build rule for target.
-image_processing_pkg_generate_messages_lisp/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_lisp.dir/build
-.PHONY : image_processing_pkg_generate_messages_lisp/fast
+image_processing_pkg_gencpp/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/build
+.PHONY : image_processing_pkg_gencpp/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_eus: image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_eus
+
+# fast build rule for target.
+geometry_msgs_generate_messages_eus/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
+.PHONY : geometry_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+image_processing_pkg_generate_messages_cpp: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/rule
+
+.PHONY : image_processing_pkg_generate_messages_cpp
+
+# fast build rule for target.
+image_processing_pkg_generate_messages_cpp/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/build
+.PHONY : image_processing_pkg_generate_messages_cpp/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_eus: image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_eus
+
+# fast build rule for target.
+sensor_msgs_generate_messages_eus/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
+.PHONY : sensor_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
 image_processing_pkg/CMakeFiles/_catkin_empty_exported_target.dir/rule:
@@ -361,6 +526,51 @@ sensor_msgs_generate_messages_lisp/fast:
 .PHONY : sensor_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
+image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/rule
+
+# Convenience name for target.
+image_processing_pkg_genpy: image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/rule
+
+.PHONY : image_processing_pkg_genpy
+
+# fast build rule for target.
+image_processing_pkg_genpy/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_genpy.dir/build
+.PHONY : image_processing_pkg_genpy/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieGoal.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieGoal.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieGoal.dir/rule
+
+# Convenience name for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieGoal: image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieGoal.dir/rule
+
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieGoal
+
+# fast build rule for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieGoal/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieGoal.dir/build.make image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieGoal.dir/build
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieGoal/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_cpp: image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_cpp
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_cpp/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
+.PHONY : actionlib_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages.dir/rule:
 	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages.dir/rule
 .PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages.dir/rule
@@ -391,6 +601,96 @@ geometry_msgs_generate_messages_py/fast:
 .PHONY : geometry_msgs_generate_messages_py/fast
 
 # Convenience name for target.
+image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieResult.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieResult.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieResult.dir/rule
+
+# Convenience name for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieResult: image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieResult.dir/rule
+
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieResult
+
+# fast build rule for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieResult/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieResult.dir/build.make image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieResult.dir/build
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieResult/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_eus: image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_eus
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_eus/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build
+.PHONY : actionlib_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_cpp: image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_cpp
+
+# fast build rule for target.
+geometry_msgs_generate_messages_cpp/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
+.PHONY : geometry_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_py: image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_py
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_py/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make image_processing_pkg/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
+.PHONY : actionlib_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_nodejs: image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+geometry_msgs_generate_messages_nodejs/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
+.PHONY : geometry_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback.dir/rule
+
+# Convenience name for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback: image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback.dir/rule
+
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback
+
+# fast build rule for target.
+_image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback.dir/build.make image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback.dir/build
+.PHONY : _image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback/fast
+
+# Convenience name for target.
 image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_ProcessedImage.dir/rule:
 	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_ProcessedImage.dir/rule
 .PHONY : image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_ProcessedImage.dir/rule
@@ -404,126 +704,6 @@ _image_processing_pkg_generate_messages_check_deps_ProcessedImage: image_process
 _image_processing_pkg_generate_messages_check_deps_ProcessedImage/fast:
 	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_ProcessedImage.dir/build.make image_processing_pkg/CMakeFiles/_image_processing_pkg_generate_messages_check_deps_ProcessedImage.dir/build
 .PHONY : _image_processing_pkg_generate_messages_check_deps_ProcessedImage/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-image_processing_pkg_generate_messages_eus: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/rule
-
-.PHONY : image_processing_pkg_generate_messages_eus
-
-# fast build rule for target.
-image_processing_pkg_generate_messages_eus/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/build
-.PHONY : image_processing_pkg_generate_messages_eus/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/rule
-
-# Convenience name for target.
-image_processing_pkg_geneus: image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/rule
-
-.PHONY : image_processing_pkg_geneus
-
-# fast build rule for target.
-image_processing_pkg_geneus/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_geneus.dir/build
-.PHONY : image_processing_pkg_geneus/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/rule
-
-# Convenience name for target.
-image_processing_pkg_genlisp: image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/rule
-
-.PHONY : image_processing_pkg_genlisp
-
-# fast build rule for target.
-image_processing_pkg_genlisp/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_genlisp.dir/build
-.PHONY : image_processing_pkg_genlisp/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_eus: image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_eus
-
-# fast build rule for target.
-sensor_msgs_generate_messages_eus/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make image_processing_pkg/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
-.PHONY : sensor_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-image_processing_pkg_generate_messages_cpp: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/rule
-
-.PHONY : image_processing_pkg_generate_messages_cpp
-
-# fast build rule for target.
-image_processing_pkg_generate_messages_cpp/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_cpp.dir/build
-.PHONY : image_processing_pkg_generate_messages_cpp/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_eus: image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_eus
-
-# fast build rule for target.
-geometry_msgs_generate_messages_eus/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make image_processing_pkg/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
-.PHONY : geometry_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/rule
-
-# Convenience name for target.
-image_processing_pkg_gencpp: image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/rule
-
-.PHONY : image_processing_pkg_gencpp
-
-# fast build rule for target.
-image_processing_pkg_gencpp/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_gencpp.dir/build
-.PHONY : image_processing_pkg_gencpp/fast
-
-# Convenience name for target.
-image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/rule:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/rule
-.PHONY : image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-image_processing_pkg_generate_messages_nodejs: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/rule
-
-.PHONY : image_processing_pkg_generate_messages_nodejs
-
-# fast build rule for target.
-image_processing_pkg_generate_messages_nodejs/fast:
-	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/build.make image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_nodejs.dir/build
-.PHONY : image_processing_pkg_generate_messages_nodejs/fast
 
 src/image_processing_node.o: src/image_processing_node.cpp.o
 
@@ -565,30 +745,42 @@ help:
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... image_processing_node"
-	@echo "... image_processing_pkg_genpy"
-	@echo "... edit_cache"
-	@echo "... geometry_msgs_generate_messages_nodejs"
-	@echo "... geometry_msgs_generate_messages_cpp"
 	@echo "... image_processing_pkg_gennodejs"
+	@echo "... image_processing_pkg_generate_messages_lisp"
+	@echo "... image_processing_pkg_genlisp"
+	@echo "... image_processing_pkg_geneus"
+	@echo "... image_processing_pkg_generate_messages_eus"
+	@echo "... _image_processing_pkg_generate_messages_check_deps_take_selfieAction"
+	@echo "... _image_processing_pkg_generate_messages_check_deps_take_selfieFeedback"
+	@echo "... image_processing_pkg_generate_messages_nodejs"
+	@echo "... _image_processing_pkg_generate_messages_check_deps_take_selfieActionGoal"
+	@echo "... _image_processing_pkg_generate_messages_check_deps_take_selfieActionResult"
+	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_py"
 	@echo "... sensor_msgs_generate_messages_cpp"
+	@echo "... actionlib_msgs_generate_messages_nodejs"
 	@echo "... sensor_msgs_generate_messages_nodejs"
-	@echo "... image_processing_pkg_generate_messages_lisp"
+	@echo "... image_processing_pkg_gencpp"
+	@echo "... geometry_msgs_generate_messages_eus"
+	@echo "... image_processing_pkg_generate_messages_cpp"
+	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... _catkin_empty_exported_target"
 	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... image_processing_pkg_generate_messages_py"
 	@echo "... sensor_msgs_generate_messages_lisp"
+	@echo "... image_processing_pkg_genpy"
+	@echo "... _image_processing_pkg_generate_messages_check_deps_take_selfieGoal"
+	@echo "... actionlib_msgs_generate_messages_cpp"
 	@echo "... image_processing_pkg_generate_messages"
 	@echo "... geometry_msgs_generate_messages_py"
+	@echo "... _image_processing_pkg_generate_messages_check_deps_take_selfieResult"
+	@echo "... actionlib_msgs_generate_messages_eus"
+	@echo "... geometry_msgs_generate_messages_cpp"
+	@echo "... actionlib_msgs_generate_messages_py"
+	@echo "... edit_cache"
+	@echo "... geometry_msgs_generate_messages_nodejs"
+	@echo "... _image_processing_pkg_generate_messages_check_deps_take_selfieActionFeedback"
 	@echo "... _image_processing_pkg_generate_messages_check_deps_ProcessedImage"
-	@echo "... image_processing_pkg_generate_messages_eus"
-	@echo "... image_processing_pkg_geneus"
-	@echo "... image_processing_pkg_genlisp"
-	@echo "... sensor_msgs_generate_messages_eus"
-	@echo "... image_processing_pkg_generate_messages_cpp"
-	@echo "... geometry_msgs_generate_messages_eus"
-	@echo "... image_processing_pkg_gencpp"
-	@echo "... image_processing_pkg_generate_messages_nodejs"
 	@echo "... src/image_processing_node.o"
 	@echo "... src/image_processing_node.i"
 	@echo "... src/image_processing_node.s"

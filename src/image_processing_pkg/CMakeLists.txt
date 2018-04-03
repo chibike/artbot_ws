@@ -12,6 +12,7 @@ find_package( OpenCV REQUIRED )
 find_package(catkin REQUIRED COMPONENTS
   message_generation
   image_transport
+  actionlib_msgs
   sensor_msgs
   cv_bridge
   std_msgs
@@ -74,9 +75,15 @@ add_message_files( DIRECTORY msg FILES ProcessedImage.msg )
 #   Action2.action
 # )
 
+add_action_files(
+# DIRECTORY action
+  FILES take_selfie.action
+)
+
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
+  actionlib_msgs
   sensor_msgs
   std_msgs
 )
@@ -113,7 +120,8 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES image_processing_pkg
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+ CATKIN_DEPENDS actionlib_msgs
+#  roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 

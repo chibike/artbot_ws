@@ -41,6 +41,13 @@ var right_button_clicked = function()
 	update_item();
 }
 
+var pot_value_changed = function (value)
+{
+	var selection = int (value / 100 * items.length);
+	cycler.set_current(selection);
+	update_item();
+}
+
 var select_button_clicked = function ()
 {
 	var current_item = items[cycler.get_current()];
@@ -69,6 +76,8 @@ var on_key_pressed = function(event)
 
 external_input.attach_btn_down_callback(1, left_button_clicked);
 external_input.attach_btn_down_callback(2, right_button_clicked);
+external_input.attach_btn_down_callback(3, select_button_clicked);
+external_input.attach_pot_value_change_callback(pot_value_changed);
 external_input.detach_pot();
 
 

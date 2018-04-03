@@ -6,12 +6,12 @@
 #include <sensor_msgs/image_encodings.h>
 #include <cv_bridge/cv_bridge.h>
 #include "sensor_msgs/Image.h"
+#include "std_msgs/String.h"
+#include "ros/ros.h"
 
 #include "opencv2/opencv.hpp"
 
-#include "std_msgs/String.h"
 #include <algorithm>
-#include "ros/ros.h"
 #include <iostream>
 #include <stdint.h>
 #include <stdlib.h>
@@ -24,6 +24,8 @@
 #include "pi_objects.h"
 #include "pi_color_space.h"
 
+//#include <actionlib/server/simple_action_server.h>
+//#include "image_processing_pkg/take_selfie.h"
 
 cv::RNG rng(12345);
 
@@ -32,160 +34,79 @@ template <class T> const T& constrainf(const T& x, const T& min_x, const T& max_
 	return std::min(max_x, std::max(min_x, x));
 }
 
-class ImageCapture
+const std::string home_path = "/home/odroid/artbot_ws/src/image_processing_pkg";
+const std::string face_cascade_path = home_path + "/parameters/haarcascades/haarcascade_frontalface_default.xml";
+
+const std::string node_name = "image_processing_node";
+const std::string render_image_topic = "/processed_image";
+
+const int fps = 15;
+const int face_cascade_min_neighbour = 5;
+const double face_cascade_scale_factor = 1.3;
+
+const cv::Size blur_size(9,9);
+
+cv::CascadeClassifier face_cascade;
+sensor_msgs::Image    processed_image;
+ros::Publisher        processed_image_publisher;
+
+void transfer_frame_to_frame(cv::Mat &input, cv::Mat &output, cv::Rect from_region, cv::Rect to_region)
 {
-	private:
-		int ratio;
-		int counter;
-		int kernel_size;
-		int low_threshold;
-		int edge_threshold;
-		int max_low_threshold;
-
-		cv::Mat __rgb_frame;
-		cv::Mat __gray_frame;
-
-		std::string __home_path;
-		std::string __frame_name;
-		std::vector<cv::Rect> __faces;
-		std::vector<cv::Vec4i> __hierarchy;
-		std::vector<cv::Rect> __focus_rects;
-		std::vector<std::vector<cv::Point> > __contours;
-
-		cv::CascadeClassifier __face_cascade;
-
-		ros::NodeHandle nh_;
-		image_transport::ImageTransport it_;
-
-		//image_processing_pkg::ProcessedImage __processed_image;
-		sensor_msgs::Image __processed_image;
-		ros::Publisher __processed_image_pub;
-
-		cv::Scalar __face_highlight_color;
-	    cv::Scalar __body_highlight_color;
-
-	    cv::VideoCapture camera;
-
-	public:
-		ImageCapture() : it_(nh_)
-		{
-		}
-
-		~ImageCapture()
-		{
-			cv::destroyWindow(__frame_name);
-		}
-		void run();
-		void stop();
-		bool start();
-		bool update();
-		void run_once();
-		void start_window();
-		void process_image();
-		void update_window();
-		void update_low_threshold(int);
-		void draw_contours(cv::Mat &frame);
-		std::vector<cv::Rect> detect_faces();
-		void highlight_persons(cv::Scalar, cv::Scalar);
-};
-
-bool ImageCapture::start()
-{
-	counter = 0;
-	edge_threshold = 1;
-	max_low_threshold = 100;
-	ratio = 2;
-	kernel_size = 3;
-	__home_path = "/home/odroid/artbot_ws/src/image_processing_pkg";
-
-	update_low_threshold(100);
-
-	__face_highlight_color = cv::Scalar(0, 0, 255);
-	__body_highlight_color = cv::Scalar(255, 0, 0);
-
-	__face_cascade.load(__home_path + "/parameters/haarcascades/haarcascade_frontalface_default.xml");
-
-	__frame_name = "edges";
-
-	__rgb_frame = cv::imread(__home_path + "/images/box.png", CV_LOAD_IMAGE_COLOR);
-	if (!__rgb_frame.data)
-	{
-		std::cout << "Could not read image" << std::endl;
-		return false;
-	}
-
-	//__processed_image_pub = nh_.advertise<image_processing_pkg::ProcessedImage>("/processed_image", 1);
-	__processed_image_pub = nh_.advertise<sensor_msgs::Image>("/processed_image", 1);
-
-	camera = *(new cv::VideoCapture(0));
-	if (!camera.isOpened())
-	{
-		return -1;
-	}
-
-	return true;
+    cv::Mat extract = *(new cv::Mat(input, from_region));
+    extract.copyTo(output(to_region));
 }
 
-void ImageCapture::start_window()
+void remove_background(cv::Mat &src, cv::Mat &dst, int focus_padding=2)
 {
-	cv::namedWindow(__frame_name, cv::WINDOW_AUTOSIZE);
+    std::vector<cv::Rect> faces;
+    face_cascade.detectMultiScale(src, faces, face_cascade_scale_factor, face_cascade_min_neighbour);
+
+	const int max_height = std::min(src.rows - 1, dst.rows - 1);
+	const int max_width  = std::min(src.cols - 1, dst.rows - 1);
+
+    for (int i=0; i<faces.size(); i++)
+    {
+        cv::Rect face = faces[i];
+
+        /* Define center of the face */
+        cv::Point center( face.x + face.width * 0.5, face.y + face.height * 0.5);
+
+        /* Define focus rect */
+		int focus_y = constrainf(face.y - face.height, 0, max_height);
+		int focus_height = max_height - focus_y;
+
+		int focus_x = face.x - (face.width * focus_padding);
+		int focus_width = constrainf(face.width + 2*(face.width * focus_padding), 0, std::min(max_width - focus_x, max_width));
+		focus_x = std::max(focus_x, 0);
+
+		cv::Rect focus_rect(focus_x, focus_y, focus_width, focus_height);
+
+		// copy to dst
+		transfer_frame_to_frame(src, dst, focus_rect, focus_rect);
+    }
+
+    if (faces.size() <= 0)
+    {
+        dst = src.clone();
+    }
 }
 
-void ImageCapture::stop()
+void publish_image(cv::Mat &frame)
 {
-	//cv::destroyWindow(__frame_name);
-}
+    static int counter = 0;
 
-bool ImageCapture::update()
-{
-	detect_faces();
-
-	if (__faces.size() > 0)
-	{
-		process_image();
-	}
-
-	draw_contours(__rgb_frame);
-
-	return true;
-}
-
-void ImageCapture::update_window()
-{
-	cv::imshow(__frame_name, __rgb_frame);
-	cv::waitKey(10);
-}
-
-void ImageCapture::run()
-{
-	cv::Scalar face_highlight_color(0, 0, 255);
-	cv::Scalar body_highlight_color(255, 0, 0);
-	while (1)
-	{
-		run_once();
-		update_window();
-	}
-}
-
-void ImageCapture::run_once()
-{
 	try
 	{
-		camera >> __rgb_frame;
-
-		update();
-		highlight_persons(__face_highlight_color, __body_highlight_color);
-
 		cv_bridge::CvImage out_msg;
 		out_msg.header.frame_id = "camera_frame";
 		out_msg.header.seq = counter++;
 		out_msg.header.stamp = ros::Time::now();
 		out_msg.encoding = sensor_msgs::image_encodings::BGR8;
-		out_msg.image = __rgb_frame;
+		out_msg.image = frame;
 
 		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
-		__processed_image = *im_msg;
-		__processed_image_pub.publish(__processed_image);
+		processed_image = *im_msg;
+		processed_image_publisher.publish(processed_image);
 	}
 	catch (cv_bridge::Exception& e)
 	{
@@ -198,122 +119,66 @@ void ImageCapture::run_once()
 	}
 }
 
-void ImageCapture::process_image()
+cv::Mat render_preview(cv::Mat &frame, int focus_padding=2)
 {
-	cv::cvtColor(__rgb_frame, __gray_frame, cv::COLOR_BGR2GRAY);
-	cv::blur(__gray_frame, __gray_frame, cv::Size(3, 3));
+    std::vector<cv::Rect> faces;
+    face_cascade.detectMultiScale(frame, faces, face_cascade_scale_factor, face_cascade_min_neighbour);
 
-	cv::Mat canny_output;
+	const int max_height = frame.rows - 1;
+	const int max_width  = frame.cols - 1;
 
-	__contours.clear();
-	__hierarchy.clear();
+	cv::Mat view_frame = frame.clone();
 
-	cv::Rect focus_rect ;
-	std::vector<cv::Vec4i> hierarchy;
-	std::vector<std::vector<cv::Point> > contours;
-	for (int i=0; i<__focus_rects.size(); i++)
-	{
-		focus_rect = __focus_rects[i];
+    for (int i=0; i<faces.size(); i++)
+    {
+        cv::Rect face = faces[i];
 
-		cv::Mat gray_matrix = *(new cv::Mat(__gray_frame, focus_rect));
-		cv::Canny(gray_matrix, canny_output, low_threshold, low_threshold*ratio, kernel_size);
-		cv::findContours(canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+        /* Define center of the face */
+        cv::Point center( face.x + face.width * 0.5, face.y + face.height * 0.5);
 
-		for (int i=0; i<contours.size(); i++)
-		{
-			std::vector<cv::Point> contour = contours[i];
-			for (int j=0; j<contour.size(); j++)
-			{
-				contour[j].x += focus_rect.x;
-				contour[j].y += focus_rect.y;
-			}
-			__contours.push_back(contour);
-		}
+        /* Define focus rect */
+		int focus_y = constrainf(face.y - face.height, 0, max_height);
+		int focus_height = max_height - focus_y;
 
-		for (int i=0; i<hierarchy.size(); i++)
-		{
-			__hierarchy.push_back(hierarchy[i]);
-		}
-	}
-}
-
-void ImageCapture::update_low_threshold(int track_position)
-{
-	low_threshold = track_position;
-}
-
-std::vector<cv::Rect> ImageCapture::detect_faces()
-{
-	__face_cascade.detectMultiScale(__rgb_frame, __faces, 1.3, 5);
-	return __faces;
-}
-
-void ImageCapture::highlight_persons(cv::Scalar face_highlight_color, cv::Scalar body_highlight_color)
-{
-	/* Initialize the varaibles to be used in the for loop to improve efficiency */
-	int bd_x; int bd_y;
-	int bd_width; int bd_height;
-	float average_face_depth;
-
-	__focus_rects.clear();
-
-
-	const int body_padding = 1;
-	const int focus_padding = 2;
-	for (int i=0; i < __faces.size(); i++)
-	{
-		cv::Rect face = __faces[i];
-
-		/* Define center and elliptical dimensions of the face */
-		cv::Point center( face.x + face.width * 0.5, face.y + face.height * 0.5);
-		cv::ellipse(__rgb_frame, center, cv::Size(face.width*0.5, face.height*0.5), 0, 0, 360, face_highlight_color);
-
-		/* From the face, derive the body dimensions and draw the body */
-		int bd_x = face.x - (face.width * body_padding);
-		int bd_y = face.y + face.height;
-		int bd_width = constrainf(face.width + 2*(face.width * body_padding), 0, __rgb_frame.cols - 1);
-		int bd_height =  __rgb_frame.rows - face.y - 1;
-		cv::Rect body_bounding_rect(bd_x, bd_y, bd_width, bd_height);
-		cv::rectangle(__rgb_frame, body_bounding_rect, body_highlight_color);
-
-		/* Calculate the bounding box for the human */
-		int focus_y = constrainf(bd_y - (face.height*2), 0, __rgb_frame.rows-1);
-		int focus_height = __rgb_frame.rows - focus_y - 1;
-
-		int focus_x = std::max(face.x - (face.width * focus_padding), 0);
-		int focus_width = constrainf(face.width + 2*(face.width * focus_padding), 0, __rgb_frame.cols - focus_x - 1);
+		int focus_x = face.x - (face.width * focus_padding);
+		int focus_width = constrainf(face.width + 2*(face.width * focus_padding), 0, std::min(max_width - focus_x, max_width));
+		focus_x = std::max(focus_x, 0);
 
 		cv::Rect focus_rect(focus_x, focus_y, focus_width, focus_height);
+		cv::rectangle(view_frame, focus_rect, cv::Scalar(0, 0, 255));
+        cv::circle(view_frame, center, cv::Scalar(0, 0, 255));
+    }
 
-		if (focus_rect.x >= 0 && focus_rect.y >= 0 && focus_rect.width < __rgb_frame.cols && focus_rect.height < __rgb_frame.rows)
-		{
-			__focus_rects.push_back(focus_rect);
-		}
-		else
-		{
-			std::cout << "focus_rect_error: " << std::endl;
-			std::cout << "focus_x: "          << focus_x          << std::endl;
-			std::cout << "focus_y: "          << focus_y          << std::endl;
-			std::cout << "focus_width: "      << focus_width      << std::endl;
-			std::cout << "focus_height: "     << focus_height     << std::endl;
-			std::cout << "face_x: "           << face.x           << std::endl;
-			std::cout << "face_y: "           << face.y           << std::endl;
-			std::cout << "face_width: "       << face.width       << std::endl;
-			std::cout << "face_height: "      << face.height      << std::endl;
-			std::cout << "__rgb_frame.cols: " << __rgb_frame.cols << std::endl;
-			std::cout << "__rgb_frame.rows: " << __rgb_frame.rows << std::endl << std::endl;
-		}
-	}
+    return view_frame;
 }
 
-void ImageCapture::draw_contours(cv::Mat &frame)
+cv::Mat render_final(cv::Mat &frame, cv::Size blur_kernel_size, int low_threshold=50, int high_threshold=150, int canny_kernel_size=3)
 {
-	for (int i=0; i<__contours.size(); i++)
-	{
-		cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
-		cv::drawContours(frame, __contours, i, color, 2, 8, __hierarchy, 0, cv::Point());
-	}
-}
+    cv::Mat new_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
+    remove_background(frame, new_frame);
 
+    cv::Mat blur_frame;
+    cv::GaussianBlur(new_frame, blur_frame, blur_kernel_size, 0, 0);
+
+    blink::simplify_image(blur_frame, blink::color_space_3d::color_array);
+
+    cv::Mat edge_frame;
+    cv::Canny(blur_frame, edge_frame, low_threshold, high_threshold, canny_kernel_size);
+
+    std::vector<std::vector<cv::Point> > contours;
+    std::vector<cv::Vec4i> hierarchy;
+    cv::findContours(edge_frame, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0,0));
+
+    cv::Mat view_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
+    view_frame.setTo(cv::Scalar(255,255,255));
+
+    for (int i=0; i<contours.size(); i++)
+    {
+        cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
+        cv::drawContours(view_frame, contours, i, color, 2, 8, hierarchy, 0, cv::Point());
+    }
+
+    return view_frame;
+}
 
 #endif

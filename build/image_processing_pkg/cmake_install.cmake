@@ -37,6 +37,22 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/image_processing_pkg/action" TYPE FILE FILES "/home/odroid/artbot_ws/src/image_processing_pkg/action/take_selfie.action")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/image_processing_pkg/msg" TYPE FILE FILES
+    "/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieAction.msg"
+    "/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionGoal.msg"
+    "/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionResult.msg"
+    "/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionFeedback.msg"
+    "/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg"
+    "/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg"
+    "/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg"
+    )
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/image_processing_pkg/cmake" TYPE FILE FILES "/home/odroid/artbot_ws/build/image_processing_pkg/catkin_generated/installspace/image_processing_pkg-msg-paths.cmake")
 endif()
 

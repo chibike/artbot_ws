@@ -2,26 +2,32 @@
 
 int main(int argc, char **argv)
 {
-	ros::init(argc, argv, "image_processing_node");
-	ImageCapture my_capture_device;
+    // load required files
+    face_cascade.load(face_cascade_path);
 
-	if (!my_capture_device.start())
-	{
-		return -1;
-	}
+    // start ros
+    ros::init(argc, argv, node_name);
 
+    ros::NodeHandle nh_;
+    image_transport::ImageTransport it_(nh_);
+    processed_image_publisher = nh_.advertise<sensor_msgs::Image>(render_image_topic, 1);
 
-	//my_capture_device.start_window();
+    // start the camera
+    blink::Camera my_capture_device = blink::Camera(0);
+    my_capture_device.start();
 
-	ros::Rate loop_rate(15);
-	while (ros::ok())
-	{
-		my_capture_device.run_once();
-		//my_capture_device.update_window();
-		ros::spinOnce(); // *Allows callbacks to be processed
-		loop_rate.sleep();
-	}
+    ros::Rate loop_rate(fps);
+    while (ros::ok())
+    {
+        cv::Mat frame = my_capture_device.get_next_frame();
+        cv::Mat view_frame = render_preview(frame);
+        publish_image(view_frame);
 
-	my_capture_device.stop();
-	return 0;
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
+
+    // stop the camera
+    my_capture_device.stop();
+    return 0;
 }

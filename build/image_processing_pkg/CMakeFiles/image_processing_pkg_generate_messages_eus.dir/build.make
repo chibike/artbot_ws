@@ -53,23 +53,92 @@ CMAKE_BINARY_DIR = /home/odroid/artbot_ws/build
 # Include the progress variables for this target.
 include image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/progress.make
 
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionResult.l
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieResult.l
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionFeedback.l
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieGoal.l
 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/ProcessedImage.l
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionGoal.l
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieFeedback.l
+image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l
 image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/manifest.l
 
+
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionResult.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionResult.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionResult.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionResult.l: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalID.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionResult.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionResult.l: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionResult.l: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalStatus.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from image_processing_pkg/take_selfieActionResult.msg"
+	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionResult.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg
+
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieResult.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieResult.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from image_processing_pkg/take_selfieResult.msg"
+	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg
+
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionFeedback.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionFeedback.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionFeedback.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionFeedback.l: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalID.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionFeedback.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionFeedback.l: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionFeedback.l: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalStatus.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from image_processing_pkg/take_selfieActionFeedback.msg"
+	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionFeedback.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg
+
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieGoal.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieGoal.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp code from image_processing_pkg/take_selfieGoal.msg"
+	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg
 
 /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/ProcessedImage.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
 /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/ProcessedImage.l: /home/odroid/artbot_ws/src/image_processing_pkg/msg/ProcessedImage.msg
 /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/ProcessedImage.l: /opt/ros/kinetic/share/sensor_msgs/msg/Image.msg
 /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/ProcessedImage.l: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from image_processing_pkg/ProcessedImage.msg"
-	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/odroid/artbot_ws/src/image_processing_pkg/msg/ProcessedImage.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating EusLisp code from image_processing_pkg/ProcessedImage.msg"
+	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/odroid/artbot_ws/src/image_processing_pkg/msg/ProcessedImage.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg
+
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionGoal.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionGoal.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionGoal.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionGoal.l: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalID.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionGoal.l: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionGoal.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating EusLisp code from image_processing_pkg/take_selfieActionGoal.msg"
+	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionGoal.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg
+
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieFeedback.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieFeedback.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating EusLisp code from image_processing_pkg/take_selfieFeedback.msg"
+	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg
+
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieAction.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionResult.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionFeedback.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /opt/ros/kinetic/share/actionlib_msgs/msg/GoalID.msg
+/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l: /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionGoal.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating EusLisp code from image_processing_pkg/take_selfieAction.msg"
+	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieAction.msg -Iimage_processing_pkg:/home/odroid/artbot_ws/src/image_processing_pkg/msg -Iimage_processing_pkg:/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg -Iactionlib_msgs:/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg -Isensor_msgs:/opt/ros/kinetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/kinetic/share/geometry_msgs/cmake/../msg -p image_processing_pkg -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg
 
 /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/manifest.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp manifest code for image_processing_pkg"
-	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg image_processing_pkg sensor_msgs std_msgs
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/odroid/artbot_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating EusLisp manifest code for image_processing_pkg"
+	cd /home/odroid/artbot_ws/build/image_processing_pkg && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg image_processing_pkg actionlib_msgs sensor_msgs std_msgs
 
 image_processing_pkg_generate_messages_eus: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus
+image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionResult.l
+image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieResult.l
+image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionFeedback.l
+image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieGoal.l
 image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/ProcessedImage.l
+image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionGoal.l
+image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieFeedback.l
+image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l
 image_processing_pkg_generate_messages_eus: /home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/manifest.l
 image_processing_pkg_generate_messages_eus: image_processing_pkg/CMakeFiles/image_processing_pkg_generate_messages_eus.dir/build.make
 
