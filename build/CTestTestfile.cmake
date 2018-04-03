@@ -7,6 +7,7 @@
 subdirs(gtest)
 subdirs(abb/abb)
 subdirs(abb/abb_resources)
+subdirs(artbot_motion_controller)
 subdirs(abb/abb_irb120_support)
 subdirs(abb/abb_driver)
 subdirs(abb/abb_irb120_moveit_config)

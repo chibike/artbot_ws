@@ -1,0 +1,8 @@
+prefix=/home/ros/artbot_ws/install
+
+Name: artbot_motion_controller
+Description: Description of artbot_motion_controller
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ros/artbot_ws/install/lib 
+Requires: 

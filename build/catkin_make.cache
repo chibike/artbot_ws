@@ -1,2 +1,2 @@
-abb/abb:abb/abb_driver:abb/abb_irb120_moveit_config:abb/abb_irb120_support:abb/abb_resources
+abb/abb:abb/abb_driver:abb/abb_irb120_moveit_config:abb/abb_irb120_support:abb/abb_resources:artbot_motion_controller
 -DCATKIN_DEVEL_PREFIX=/home/ros/artbot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ros/artbot_ws/install -G Unix Makefiles
