@@ -7,6 +7,8 @@ var card_2 = document.getElementById("card_2");
 var card_3 = document.getElementById("card_3");
 var card_4 = document.getElementById("card_4");
 
+//external_input.detach_all();
+
 card_1.onclick = function() {window.location.replace("/take_selfie");}
 card_2.onclick = function() {window.location.replace("#");}
 card_3.onclick = function() {window.location.replace("#");}
@@ -44,12 +46,14 @@ var right_button_clicked = function()
 var pot_value_changed = function (value)
 {
 	var selection = int (value / 100 * items.length);
+	console.log("selection", selection);
 	cycler.set_current(selection);
 	update_item();
 }
 
 var select_button_clicked = function ()
 {
+	console.log("selected...");
 	var current_item = items[cycler.get_current()];
 	current_item.onclick();
 }
@@ -78,7 +82,6 @@ external_input.attach_btn_down_callback(1, left_button_clicked);
 external_input.attach_btn_down_callback(2, right_button_clicked);
 external_input.attach_btn_down_callback(3, select_button_clicked);
 external_input.attach_pot_value_change_callback(pot_value_changed);
-external_input.detach_pot();
 
 
 document.addEventListener("keydown", on_key_pressed);

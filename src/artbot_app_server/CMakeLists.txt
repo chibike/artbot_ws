@@ -2,15 +2,17 @@ cmake_minimum_required(VERSION 2.8.3)
 project(artbot_app_server)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  rospy
-  std_msgs
+	actionlib_msgs
+	actionlib
+	std_msgs
+	roscpp
+	rospy
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES artbot_app_server
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+	CATKIN_DEPENDS actionlib_msgs actionlib
 #  DEPENDS system_lib
 )
 

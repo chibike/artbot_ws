@@ -18,14 +18,12 @@
 #include <sstream>
 #include <stdio.h>
 #include <string>
+#include <math.h>       /* sqrt */
 
 #include "pi_color.h"
 #include "pi_video.h"
 #include "pi_objects.h"
 #include "pi_color_space.h"
-
-//#include <actionlib/server/simple_action_server.h>
-//#include "image_processing_pkg/take_selfie.h"
 
 cv::RNG rng(12345);
 
@@ -48,7 +46,9 @@ const cv::Size blur_size(9,9);
 
 cv::CascadeClassifier face_cascade;
 sensor_msgs::Image    processed_image;
+std_msgs::String      paths_as_string_msg;
 ros::Publisher        processed_image_publisher;
+ros::Publisher        paths_as_string_publisher;
 
 void transfer_frame_to_frame(cv::Mat &input, cv::Mat &output, cv::Rect from_region, cv::Rect to_region)
 {
@@ -119,7 +119,13 @@ void publish_image(cv::Mat &frame)
 	}
 }
 
-cv::Mat render_preview(cv::Mat &frame, int focus_padding=2)
+void publish_paths_as_string(std::string paths_as_string)
+{
+    paths_as_string_msg.data = paths_as_string;
+    paths_as_string_publisher.publish(paths_as_string_msg);
+}
+
+int render_preview(cv::Mat &frame, cv::Mat &view_frame, int focus_padding=2)
 {
     std::vector<cv::Rect> faces;
     face_cascade.detectMultiScale(frame, faces, face_cascade_scale_factor, face_cascade_min_neighbour);
@@ -127,7 +133,7 @@ cv::Mat render_preview(cv::Mat &frame, int focus_padding=2)
 	const int max_height = frame.rows - 1;
 	const int max_width  = frame.cols - 1;
 
-	cv::Mat view_frame = frame.clone();
+	view_frame = frame.clone();
 
     for (int i=0; i<faces.size(); i++)
     {
@@ -135,6 +141,7 @@ cv::Mat render_preview(cv::Mat &frame, int focus_padding=2)
 
         /* Define center of the face */
         cv::Point center( face.x + face.width * 0.5, face.y + face.height * 0.5);
+        double diameter = std::sqrt((face.width * face.width) + (face.height * face.height));
 
         /* Define focus rect */
 		int focus_y = constrainf(face.y - face.height, 0, max_height);
@@ -146,13 +153,13 @@ cv::Mat render_preview(cv::Mat &frame, int focus_padding=2)
 
 		cv::Rect focus_rect(focus_x, focus_y, focus_width, focus_height);
 		cv::rectangle(view_frame, focus_rect, cv::Scalar(0, 0, 255));
-        cv::circle(view_frame, center, cv::Scalar(0, 0, 255));
+        cv::circle(view_frame, center, diameter/2.0, cv::Scalar(0, 0, 255));
     }
 
-    return view_frame;
+    return faces.size();
 }
 
-cv::Mat render_final(cv::Mat &frame, cv::Size blur_kernel_size, int low_threshold=50, int high_threshold=150, int canny_kernel_size=3)
+std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kernel_size, int low_threshold=50, int high_threshold=150, int canny_kernel_size=3)
 {
     cv::Mat new_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
     remove_background(frame, new_frame);
@@ -169,16 +176,46 @@ cv::Mat render_final(cv::Mat &frame, cv::Size blur_kernel_size, int low_threshol
     std::vector<cv::Vec4i> hierarchy;
     cv::findContours(edge_frame, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0,0));
 
-    cv::Mat view_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
-    view_frame.setTo(cv::Scalar(255,255,255));
+    view_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
+    view_frame.setTo(cv::Scalar(180,180,180));
 
-    for (int i=0; i<contours.size(); i++)
+    std::vector<blink::Path> paths;
+    std::stringstream ss; ss << "[" ;
+
+    int max_index = contours.size() - 1;
+    for (int i=0; i<max_index; i++)
     {
+        std::vector<cv::Point> contour = contours.at(i);
+        blink::Path path = blink::Path(contour, true);
+        paths.push_back(path);
+
+        ss << path.get_as_string() << ",";
+
         cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
-        cv::drawContours(view_frame, contours, i, color, 2, 8, hierarchy, 0, cv::Point());
+        path.draw(view_frame, color);
     }
 
-    return view_frame;
+    if (max_index >= 0)
+    {
+        std::vector<cv::Point> contour = contours.at(max_index);
+        blink::Path path = blink::Path(contour, true);
+        paths.push_back(path);
+
+        ss << path.get_as_string() << "]";
+
+        cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
+        path.draw(view_frame, color);
+    }
+    else
+    {
+        ss << "]";
+    }
+
+    std::string paths_as_string = ss.str();
+
+    // std::cout << "paths_as_string :" << paths_as_string << std::endl;
+
+    return paths_as_string;
 }
 
 #endif

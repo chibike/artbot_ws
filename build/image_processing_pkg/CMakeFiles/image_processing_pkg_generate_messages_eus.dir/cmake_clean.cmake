@@ -1,13 +1,13 @@
 file(REMOVE_RECURSE
   "CMakeFiles/image_processing_pkg_generate_messages_eus"
-  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionResult.l"
-  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieResult.l"
-  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionFeedback.l"
-  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieGoal.l"
+  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/StateChangeRequestResult.l"
+  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/StateChangeRequestActionResult.l"
+  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/StateChangeRequestFeedback.l"
+  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/StateChangeRequestActionFeedback.l"
+  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/StateChangeRequestGoal.l"
+  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/StateChangeRequestAction.l"
   "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/ProcessedImage.l"
-  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieActionGoal.l"
-  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieFeedback.l"
-  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/take_selfieAction.l"
+  "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/msg/StateChangeRequestActionGoal.l"
   "/home/odroid/artbot_ws/devel/share/roseus/ros/image_processing_pkg/manifest.l"
 )
 

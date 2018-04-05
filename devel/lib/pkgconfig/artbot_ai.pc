@@ -1,0 +1,8 @@
+prefix=/home/odroid/artbot_ws/devel
+
+Name: artbot_ai
+Description: Description of artbot_ai
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/odroid/artbot_ws/devel/lib 
+Requires: actionlib_msgs actionlib

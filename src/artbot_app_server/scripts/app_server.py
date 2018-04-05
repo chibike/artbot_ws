@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import os
 import sys
 import cv2
@@ -7,7 +8,9 @@ import rospy
 import serial
 import thread
 import cStringIO
+import actionlib
 import Image as py_image
+import image_processing_pkg.msg
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 
@@ -34,6 +37,8 @@ serial_device = serial.Serial(serial_port, serial_baud, timeout=1)
 bridge = CvBridge()
 IMAGE_STREAM_FRAME = None
 
+image_processing_node_client = None
+
 
 @app.route("/")
 def test():
@@ -47,6 +52,7 @@ def shutdown_server():
 	except Exception as e:
 		rospy.logerror(e)
 
+	serial_device.close()
 	sys.exit(0)
 
 @app.route("/home")
@@ -55,7 +61,17 @@ def home():
 
 @app.route("/take_selfie")
 def take_selfie():
+	goal = image_processing_pkg.msg.StateChangeRequestGoal(state="state_render_preview");
+	image_processing_node_client.send_goal(goal)
+
 	return render_template('html/take_selfie.html', title='take_selfie')
+
+@app.route("/capture_image")
+def capture_image():
+	goal = image_processing_pkg.msg.StateChangeRequestGoal(state="state_capture_image");
+	image_processing_node_client.send_goal(goal)
+
+	return ""
 
 @app.route("/entry")
 def entry():
@@ -101,7 +117,17 @@ rospy.init_node('artbot_app_server', anonymous=False)
 rospy.loginfo("Subscribing to processed_image")
 rospy.Subscriber("processed_image", Image, image_stream_callback)
 
-rospy.loginfo("Starting server")
+rospy.loginfo("Initializing image_processing_node_client")
+image_processing_node_client = actionlib.SimpleActionClient('image_processing_node', image_processing_pkg.msg.StateChangeRequestAction)
+
+rospy.loginfo("image_processing_node_client:: waiting for server")
+image_processing_node_client.wait_for_server()
+
+goal = image_processing_pkg.msg.StateChangeRequestGoal(state="state_normal");
+image_processing_node_client.send_goal(goal)
+rospy.loginfo("image_processing_node_client:: connected")
+
+rospy.loginfo("Starting app server")
 thread.start_new_thread(app.run, (host, port))
 
 rospy.loginfo("Starting ros spin")
@@ -110,7 +136,7 @@ thread.start_new_thread(rospy.spin, ())
 # app.run(host=host, port=port)
 
 time.sleep(5)
-rospy.loginfo("Server is now up")
+rospy.loginfo("App Server is now up")
 
 while not rospy.is_shutdown():
 	time.sleep(10)

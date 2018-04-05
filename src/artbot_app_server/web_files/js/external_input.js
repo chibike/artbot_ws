@@ -73,7 +73,7 @@ class ExternalInputSource
 		this.pot   = new Potentiometer();
 
 		var outer_this = this;
-		outer_this.url = "input";
+		outer_this.url = "/input?t=" + (new Date).getTime();
 
 		var update_input = function(json_data)
 		{
@@ -87,7 +87,7 @@ class ExternalInputSource
 		var get_input = function()
 		{
 			fetch(outer_this.url).then(res => res.json()).then((out) => {update_input(out);})
-			.catch(err => { console.log("Could not read input") });
+			.catch(err => { /*console.log("Could not read input")*/ });
 		}
 
 		console.log('url', outer_this.url);

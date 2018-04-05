@@ -105,6 +105,7 @@ image_processing_node_EXTERNAL_OBJECTS =
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/libopencv_core3.so.3.3.1
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/libopencv_imgproc3.so.3.3.1
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/libopencv_imgcodecs3.so.3.3.1
+/home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/libactionlib.so
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /opt/ros/kinetic/lib/libroscpp.so
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /usr/lib/arm-linux-gnueabihf/libboost_filesystem.so
 /home/odroid/artbot_ws/devel/lib/image_processing_pkg/image_processing_node: /usr/lib/arm-linux-gnueabihf/libboost_signals.so

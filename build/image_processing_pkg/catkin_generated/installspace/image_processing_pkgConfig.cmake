@@ -160,7 +160,7 @@ foreach(t ${image_processing_pkg_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "actionlib_msgs")
+set(depends "actionlib_msgs;actionlib;std_msgs")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls

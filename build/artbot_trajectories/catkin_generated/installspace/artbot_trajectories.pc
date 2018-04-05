@@ -1,8 +1,0 @@
-prefix=/home/odroid/artbot_ws/install
-
-Name: artbot_trajectories
-Description: Description of artbot_trajectories
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/odroid/artbot_ws/install/lib 
-Requires: 

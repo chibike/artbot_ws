@@ -1,0 +1,8 @@
+#goal definition
+string state
+---
+#result definition
+bool status
+---
+#feedback
+bool status

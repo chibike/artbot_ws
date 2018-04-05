@@ -1,8 +1,0 @@
-prefix=/home/odroid/artbot_ws/devel
-
-Name: descartes_trajectory
-Description: Description of descartes_trajectory
-Version: 0.0.1
-Cflags: -I/home/odroid/artbot_ws/src/descartes/descartes_trajectory/include -I/usr/include -I/usr/include/eigen3
-Libs: -L/home/odroid/artbot_ws/devel/lib -ldescartes_trajectory
-Requires: roscpp moveit_core descartes_core

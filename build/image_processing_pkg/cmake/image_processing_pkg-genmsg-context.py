@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/odroid/artbot_ws/src/image_processing_pkg/msg/ProcessedImage.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieAction.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionGoal.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionResult.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieActionFeedback.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieGoal.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieResult.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/take_selfieFeedback.msg"
+messages_str = "/home/odroid/artbot_ws/src/image_processing_pkg/msg/ProcessedImage.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/StateChangeRequestAction.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/StateChangeRequestActionGoal.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/StateChangeRequestActionResult.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/StateChangeRequestActionFeedback.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/StateChangeRequestGoal.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/StateChangeRequestResult.msg;/home/odroid/artbot_ws/devel/share/image_processing_pkg/msg/StateChangeRequestFeedback.msg"
 services_str = ""
 pkg_name = "image_processing_pkg"
 dependencies_str = "actionlib_msgs;sensor_msgs;std_msgs"

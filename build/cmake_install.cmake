@@ -117,9 +117,10 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/odroid/artbot_ws/build/gtest/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/nodejs_app_pkg/cmake_install.cmake")
+  include("/home/odroid/artbot_ws/build/artbot_ai/cmake_install.cmake")
   include("/home/odroid/artbot_ws/build/artbot_app_server/cmake_install.cmake")
   include("/home/odroid/artbot_ws/build/image_processing_pkg/cmake_install.cmake")
-  include("/home/odroid/artbot_ws/build/nodejs_app_pkg/cmake_install.cmake")
 
 endif()
 

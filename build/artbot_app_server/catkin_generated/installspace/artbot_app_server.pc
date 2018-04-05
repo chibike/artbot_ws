@@ -5,4 +5,4 @@ Description: Description of artbot_app_server
 Version: 0.0.0
 Cflags: 
 Libs: -L/home/odroid/artbot_ws/install/lib 
-Requires: 
+Requires: actionlib_msgs actionlib

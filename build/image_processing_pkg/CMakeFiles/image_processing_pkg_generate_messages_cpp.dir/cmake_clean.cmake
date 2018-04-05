@@ -1,13 +1,13 @@
 file(REMOVE_RECURSE
   "CMakeFiles/image_processing_pkg_generate_messages_cpp"
-  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionResult.h"
-  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieResult.h"
-  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionFeedback.h"
-  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieGoal.h"
+  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/StateChangeRequestResult.h"
+  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/StateChangeRequestActionResult.h"
+  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/StateChangeRequestFeedback.h"
+  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/StateChangeRequestActionFeedback.h"
+  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/StateChangeRequestGoal.h"
+  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/StateChangeRequestAction.h"
   "/home/odroid/artbot_ws/devel/include/image_processing_pkg/ProcessedImage.h"
-  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieActionGoal.h"
-  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieFeedback.h"
-  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/take_selfieAction.h"
+  "/home/odroid/artbot_ws/devel/include/image_processing_pkg/StateChangeRequestActionGoal.h"
 )
 
 # Per-language clean rules from dependency scanning.

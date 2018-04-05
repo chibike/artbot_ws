@@ -2,21 +2,21 @@
 "use strict";
 
 let ProcessedImage = require('./ProcessedImage.js');
-let take_selfieActionFeedback = require('./take_selfieActionFeedback.js');
-let take_selfieActionResult = require('./take_selfieActionResult.js');
-let take_selfieActionGoal = require('./take_selfieActionGoal.js');
-let take_selfieAction = require('./take_selfieAction.js');
-let take_selfieResult = require('./take_selfieResult.js');
-let take_selfieFeedback = require('./take_selfieFeedback.js');
-let take_selfieGoal = require('./take_selfieGoal.js');
+let StateChangeRequestResult = require('./StateChangeRequestResult.js');
+let StateChangeRequestGoal = require('./StateChangeRequestGoal.js');
+let StateChangeRequestAction = require('./StateChangeRequestAction.js');
+let StateChangeRequestFeedback = require('./StateChangeRequestFeedback.js');
+let StateChangeRequestActionFeedback = require('./StateChangeRequestActionFeedback.js');
+let StateChangeRequestActionResult = require('./StateChangeRequestActionResult.js');
+let StateChangeRequestActionGoal = require('./StateChangeRequestActionGoal.js');
 
 module.exports = {
   ProcessedImage: ProcessedImage,
-  take_selfieActionFeedback: take_selfieActionFeedback,
-  take_selfieActionResult: take_selfieActionResult,
-  take_selfieActionGoal: take_selfieActionGoal,
-  take_selfieAction: take_selfieAction,
-  take_selfieResult: take_selfieResult,
-  take_selfieFeedback: take_selfieFeedback,
-  take_selfieGoal: take_selfieGoal,
+  StateChangeRequestResult: StateChangeRequestResult,
+  StateChangeRequestGoal: StateChangeRequestGoal,
+  StateChangeRequestAction: StateChangeRequestAction,
+  StateChangeRequestFeedback: StateChangeRequestFeedback,
+  StateChangeRequestActionFeedback: StateChangeRequestActionFeedback,
+  StateChangeRequestActionResult: StateChangeRequestActionResult,
+  StateChangeRequestActionGoal: StateChangeRequestActionGoal,
 };

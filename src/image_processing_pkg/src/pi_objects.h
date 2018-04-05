@@ -6,6 +6,7 @@
 #include "Eigen/Dense"
 #include "opencv2/opencv.hpp"
 #include <iostream>
+#include <sstream>
 
 namespace blink
 {
@@ -142,6 +143,7 @@ public:
 	void rotate(double angle, Point pivot);
 	void draw(cv::Mat image, cv::Scalar color);
 	void draw(cv::Mat image, cv::Scalar color, int stroke_width, int line_type, int shift);
+	std::string get_as_string();
 
 	void calculate();
 	static bool _filter_x_function(Point current, Point next)
@@ -891,6 +893,33 @@ void Path::draw(cv::Mat image, cv::Scalar color, int stroke_width, int line_type
 	}
 }
 
+
+std::string Path::get_as_string()
+{
+	// '[[0, 4], [1, 5], [2, 6], [3, 7]]'
+	std::stringstream ss;
+	ss << "[";
+
+	int last_index=data_points.size()-1;
+	for (int i=0; i<last_index; i++)
+	{
+		ss << "[" << xs.at(i) << "," << ys.at(i) << "],";
+	}
+
+	if (last_index >= 0)
+	{
+		ss << "[" << xs.at(last_index) << "," << ys.at(last_index) << "]]";
+	}
+	else
+	{
+		ss << "]";
+	}
+
+	
+
+	/*const char *cstr = path.get_as_string().c_str();*/
+	return ss.str();
+}
 
 Pathfinder::Pathfinder()
 {

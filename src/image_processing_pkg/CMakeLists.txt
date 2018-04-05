@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   sensor_msgs
   cv_bridge
+  actionlib
   std_msgs
   genmsg
   roscpp
@@ -76,8 +77,8 @@ add_message_files( DIRECTORY msg FILES ProcessedImage.msg )
 # )
 
 add_action_files(
-# DIRECTORY action
-  FILES take_selfie.action
+  DIRECTORY action
+  FILES StateChangeRequest.action
 )
 
 ## Generate added messages and services with any dependencies listed here
@@ -120,7 +121,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES image_processing_pkg
- CATKIN_DEPENDS actionlib_msgs
+ CATKIN_DEPENDS actionlib_msgs actionlib std_msgs
 #  roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
