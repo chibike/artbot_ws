@@ -40,7 +40,11 @@ const std::string render_image_topic = "/processed_image";
 
 const int fps = 15;
 const int face_cascade_min_neighbour = 5;
+
+const double erosion_size = 2;
+const double dilation_size = 4;
 const double face_cascade_scale_factor = 1.3;
+const double filtered_points_min_threshold = 5;
 
 const cv::Size blur_size(9,9);
 
@@ -49,6 +53,36 @@ sensor_msgs::Image    processed_image;
 std_msgs::String      paths_as_string_msg;
 ros::Publisher        processed_image_publisher;
 ros::Publisher        paths_as_string_publisher;
+
+double measure(cv::Point p1, cv::Point p2)
+{
+    return std::sqrt( std::pow((p2.x - p1.x), 2) + std::pow((p2.y - p1.y), 2) );
+}
+
+void filter_points(std::vector<cv::Point > &point_sequence, std::vector<cv::Point > &new_point_sequence, double min_distance = 30)
+{
+    if (point_sequence.size() <= 0)
+    {
+        return;
+    }
+
+    cv::Point previous_point = point_sequence.at(0);
+    new_point_sequence.push_back(previous_point);
+
+    for (int i=1; i<point_sequence.size(); i++)
+    {
+        cv::Point current_point = point_sequence.at(i);
+
+        double distance = std::abs(measure(previous_point, current_point));
+        if (distance < min_distance)
+        {
+            continue;
+        }
+
+        new_point_sequence.push_back(current_point);
+        previous_point = current_point;
+    }
+}
 
 void transfer_frame_to_frame(cv::Mat &input, cv::Mat &output, cv::Rect from_region, cv::Rect to_region)
 {
@@ -175,9 +209,17 @@ std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kern
     cv::Mat edge_frame;
     cv::Canny(blur_frame, edge_frame, low_threshold, high_threshold, canny_kernel_size);
 
+    cv::Mat dilate_frame;
+    cv::Mat dilate_element = getStructuringElement( cv::MORPH_RECT, cv::Size(2*dilation_size + 1, 2*dilation_size + 1), cv::Point( dilation_size, dilation_size ) );
+    cv::dilate(edge_frame, dilate_frame, dilate_element);
+
+    cv::Mat erode_frame;
+    cv::Mat erode_element = getStructuringElement( cv::MORPH_RECT, cv::Size(2*erosion_size + 1, 2*erosion_size + 1), cv::Point( erosion_size, erosion_size ) );
+    cv::erode(dilate_frame, erode_frame, erode_element);
+
     std::vector<std::vector<cv::Point> > contours;
     std::vector<cv::Vec4i> hierarchy;
-    cv::findContours(edge_frame, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0,0));
+    cv::findContours(erode_frame, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0,0));
 
     view_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
     view_frame.setTo(cv::Scalar(180,180,180));
@@ -189,7 +231,16 @@ std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kern
     for (int i=0; i<max_index; i++)
     {
         std::vector<cv::Point> contour = contours.at(i);
-        blink::Path path = blink::Path(contour, true);
+        std::vector<cv::Point> filtered_points;
+
+        filter_points(contour, filtered_points, filtered_points_min_threshold);
+        if (filtered_points.size() <= 0)
+        {
+            continue;
+        }
+
+
+        blink::Path path = blink::Path(filtered_points, true);
         paths.push_back(path);
 
         ss << path.get_as_string() << ",";
@@ -201,13 +252,23 @@ std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kern
     if (max_index >= 0)
     {
         std::vector<cv::Point> contour = contours.at(max_index);
-        blink::Path path = blink::Path(contour, true);
-        paths.push_back(path);
+        std::vector<cv::Point> filtered_points;
 
-        ss << path.get_as_string() << "]";
+        filter_points(contour, filtered_points, filtered_points_min_threshold);
+        if (filtered_points.size() > 0)
+        {
+            blink::Path path = blink::Path(filtered_points, true);
+            paths.push_back(path);
 
-        cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
-        path.draw(view_frame, color);
+            ss << path.get_as_string() << "]";
+
+            cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
+            path.draw(view_frame, color);
+        }
+        else
+        {
+            ss << "]";
+        }
     }
     else
     {

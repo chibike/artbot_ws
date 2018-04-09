@@ -143,6 +143,10 @@ public:
 	void rotate(double angle, Point pivot);
 	void draw(cv::Mat image, cv::Scalar color);
 	void draw(cv::Mat image, cv::Scalar color, int stroke_width, int line_type, int shift);
+
+	// void filter_points(double min_distance);
+	// void filter_points(double min_distance, double max_distance);
+
 	std::string get_as_string();
 
 	void calculate();
@@ -892,7 +896,6 @@ void Path::draw(cv::Mat image, cv::Scalar color, int stroke_width, int line_type
 		line.draw(image, color, stroke_width, line_type, shift);
 	}
 }
-
 
 std::string Path::get_as_string()
 {

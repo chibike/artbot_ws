@@ -12,7 +12,7 @@ var card_4 = document.getElementById("card_4");
 card_1.onclick = function() {window.location.replace("/take_selfie");}
 card_2.onclick = function() {window.location.replace("#");}
 card_3.onclick = function() {window.location.replace("#");}
-card_4.onclick = function() {window.location.replace("#");}
+card_4.onclick = function() {window.location.replace("/exit");}
 
 var items = [
 	card_1,

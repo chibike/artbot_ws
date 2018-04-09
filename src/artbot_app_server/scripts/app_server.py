@@ -55,6 +55,12 @@ def shutdown_server():
 	serial_device.close()
 	sys.exit(0)
 
+@app.route("/exit")
+def app_exit():
+	rospy.signal_shutdown("App requests shutdown")
+	return ""
+
+
 @app.route("/home")
 def home():
 	return render_template('html/home.html', title='home')
