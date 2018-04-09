@@ -95,6 +95,9 @@ void publish_image(cv::Mat &frame)
 {
     static int counter = 0;
 
+    cv::Mat dst = cv::Mat(frame.rows, frame.cols, CV_8UC3);
+    cv::flip(frame, dst, 1);
+
 	try
 	{
 		cv_bridge::CvImage out_msg;
@@ -102,7 +105,7 @@ void publish_image(cv::Mat &frame)
 		out_msg.header.seq = counter++;
 		out_msg.header.stamp = ros::Time::now();
 		out_msg.encoding = sensor_msgs::image_encodings::BGR8;
-		out_msg.image = frame;
+		out_msg.image = dst;
 
 		sensor_msgs::ImagePtr im_msg = out_msg.toImageMsg();
 		processed_image = *im_msg;

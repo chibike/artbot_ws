@@ -24,12 +24,12 @@
 {
     cursor: pointer;
 
-    border: 3px solid rgba(255, 0, 100, 0.7);
+    border: 5px solid rgba(255, 0, 10, 0.9);
 }
 
 .selection-card-active
 {
     cursor: pointer;
 
-    border: 3px solid rgba(255, 0, 100, 0.7);
+    border: 5px solid rgba(255, 0, 10, 0.9);
 }

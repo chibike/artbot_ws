@@ -31,6 +31,17 @@ var update_item = function()
 	current_item.classList.toggle("selection-card-active", true);
 }
 
+var set_selection = function(index)
+{
+	for (var i = items.length - 1; i >= 0; i--)
+	{
+		items[i].classList.toggle("selection-card-active", false);
+	}
+
+	items[index].classList.toggle("selection-card-active", true);
+	cycler.set_current(index);
+}
+
 var left_button_clicked = function()
 {
 	cycler.previous();
@@ -43,17 +54,24 @@ var right_button_clicked = function()
 	update_item();
 }
 
+var pot_changed_threshold = 5;
+var previous_pot_value = 50;
+
 var pot_value_changed = function (value)
 {
-	var selection = int (value / 100 * items.length);
-	console.log("selection", selection);
-	cycler.set_current(selection);
-	update_item();
+	if (Math.abs(value - previous_pot_value) < pot_changed_threshold)
+	{
+		return;
+	}
+
+	previous_pot_value = value;
+
+	var selection = parseInt(value / 100 * items.length);
+	set_selection(selection);
 }
 
 var select_button_clicked = function ()
 {
-	console.log("selected...");
 	var current_item = items[cycler.get_current()];
 	current_item.onclick();
 }

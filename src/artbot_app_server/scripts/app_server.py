@@ -73,6 +73,13 @@ def capture_image():
 
 	return ""
 
+@app.route("/stop_image_stream")
+def stop_image_stream():
+	goal = image_processing_pkg.msg.StateChangeRequestGoal(state="state_normal");
+	image_processing_node_client.send_goal(goal)
+
+	return ""
+
 @app.route("/entry")
 def entry():
 	return render_template('html/entry.html', title='entry')
