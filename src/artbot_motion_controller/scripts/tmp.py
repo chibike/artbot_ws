@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from motion_controller import *
+from test import *
 
 import json
 from std_msgs.msg import String
@@ -33,14 +33,7 @@ def callback(data):
 	rospy.loginfo("motion_controller:: received data as {n} paths".format(n=number_of_paths))
 
 	rospy.loginfo("motion_controller:: Moving to home position")
-	success = False
-	for i in range(5):
-		if not motion_controller.home():
-			continue
-		else:
-			success = True
-			break
-	if not success:
+	if not motion_controller.home():
 		rospy.loginfo("motion_controller:: ERROR: could not go home")
 		return
 
@@ -57,10 +50,10 @@ def callback(data):
 		ys = [ys[0]] + ys + [ys[-1]]
 		zs = [z_up]  + zs + [z_up]
 
-		#completed = motion_controller.manual_follow(xs, ys, zs)
-		completed = motion_controller.follow(xs, ys, zs)
+		completed = motion_controller.manual_follow(xs, ys, zs)
 
 		if not completed:
+			rospy.loginfo("motion_controller:: ERROR: could not move to point in path")
 			rospy.loginfo("motion_controller:: Skipping path {path_index}".format(path_index=index))
 			continue
 		
@@ -80,6 +73,8 @@ def listener():
 if __name__ == '__main__':
 	rospy.on_shutdown(shutdown)
 	listener()
+
+	end_effector_tests(motion_controller, .1)
 
 '''
 if not motion_controller.follow(xs, ys, zs * len(path)) :
