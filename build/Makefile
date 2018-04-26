@@ -621,6 +621,19 @@ actionlib_generate_messages_nodejs/fast:
 .PHONY : actionlib_generate_messages_nodejs/fast
 
 #=============================================================================
+# Target rules for targets named image_processing_node_test
+
+# Build rule for target.
+image_processing_node_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 image_processing_node_test
+.PHONY : image_processing_node_test
+
+# fast build rule for target.
+image_processing_node_test/fast:
+	$(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_node_test.dir/build.make image_processing_pkg/CMakeFiles/image_processing_node_test.dir/build
+.PHONY : image_processing_node_test/fast
+
+#=============================================================================
 # Target rules for targets named image_processing_node
 
 # Build rule for target.
@@ -1058,6 +1071,7 @@ help:
 	@echo "... actionlib_generate_messages_lisp"
 	@echo "... actionlib_generate_messages_eus"
 	@echo "... actionlib_generate_messages_nodejs"
+	@echo "... image_processing_node_test"
 	@echo "... image_processing_node"
 	@echo "... image_processing_pkg_genpy"
 	@echo "... image_processing_pkg_gennodejs"

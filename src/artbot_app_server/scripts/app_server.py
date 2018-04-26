@@ -12,8 +12,8 @@ import actionlib
 import Image as py_image
 import image_processing_pkg.msg
 from sensor_msgs.msg import Image
+from music_server import AudioManager
 from cv_bridge import CvBridge, CvBridgeError
-
 from flask import Flask, Response, request, abort, render_template, render_template_string, send_from_directory
 
 PACKAGE_NAME = "artbot_app_server"
@@ -27,7 +27,6 @@ JS_PATH = WEB_FILES_PATH + 'js/'
 
 host = "0.0.0.0"
 port = 4000
-# app = Flask(__name__)
 app = Flask(__name__, static_url_path='', static_folder=WEB_FILES_PATH, template_folder=WEB_FILES_PATH)
 
 serial_port   = "/dev/serial/by-path/platform-xhci-hcd.3.auto-usb-0:1.1:1.0-port0"
@@ -39,6 +38,18 @@ IMAGE_STREAM_FRAME = None
 
 image_processing_node_client = None
 
+MUSIC_DIR  = "{0}music/".format(PACKAGE_PATH)
+SPEECH_DIR = "{0}speech/".format(PACKAGE_PATH)
+
+audio_manager = AudioManager()
+audio_manager.add_song_directory(MUSIC_DIR)
+audio_manager.add_song_directory("/media/odroid/ARTBOT_BP/music/")
+audio_manager.add_speech('hey_you', SPEECH_DIR + 'hey_you_by_cousin_edit.wav')
+audio_manager.add_speech('how_to_take_a_picture', SPEECH_DIR + 'how_to_take_a_picture.wav')
+audio_manager.add_speech('selfie_mode', SPEECH_DIR + 'selfie_mode.wav')
+audio_manager.add_speech('thank_you', SPEECH_DIR + 'thank_you.wav')
+audio_manager.add_speech('image_is_being_processed', SPEECH_DIR + 'your_image_is_being_processed.wav')
+
 
 @app.route("/")
 def test():
@@ -48,15 +59,35 @@ def test():
 def shutdown_server():
 	rospy.loginfo("Shutting down server")
 	try:
-		thread.exit()
-	except Exception as e:
-		rospy.logerror(e)
+		rospy.loginfo("audio-manager: Shutting the audio server....")
+		audio_manager.stop()
+		# rospy.loginfo("audio-manager: Waiting for server to shutdown....")
+		# time.sleep(3)
+		rospy.loginfo("audio-manager: Done")
+	except :
+		rospy.logerror("audio-manager: shutdown failed")
 
-	serial_device.close()
+	try:
+		rospy.loginfo("serial-port: closing...")
+		serial_device.close()
+		rospy.loginfo("serial-port: closed")
+	except :
+		rospy.logerror("serial-port: close failed")
+
+	time.sleep(3)
+
+	try:
+		rospy.loginfo("app-server: Killing thread")
+		thread.exit()
+		rospy.loginfo("app-server: Done")
+	except :
+		rospy.logerror("audio-manager: shutdown failed")
+
 	sys.exit(0)
 
 @app.route("/exit")
 def app_exit():
+	audio_manager.say('thank_you')
 	rospy.signal_shutdown("App requests shutdown")
 	return ""
 
@@ -65,17 +96,24 @@ def app_exit():
 def home():
 	return render_template('html/home.html', title='home')
 
+@app.route("/settings")
+def settings():
+	return render_template('html/settings.html', title='settings')
+
 @app.route("/take_selfie")
 def take_selfie():
 	goal = image_processing_pkg.msg.StateChangeRequestGoal(state="state_render_preview");
 	image_processing_node_client.send_goal(goal)
-
+	audio_manager.say('how_to_take_a_picture')
+	
 	return render_template('html/take_selfie.html', title='take_selfie')
 
 @app.route("/capture_image")
 def capture_image():
 	goal = image_processing_pkg.msg.StateChangeRequestGoal(state="state_capture_image");
 	image_processing_node_client.send_goal(goal)
+
+	audio_manager.say('image_is_being_processed')
 
 	return ""
 
@@ -127,6 +165,8 @@ def image_stream_callback(data):
 rospy.loginfo("Initializing node artbot_app_server")
 rospy.init_node('artbot_app_server', anonymous=False)
 
+rospy.on_shutdown(shutdown_server)
+
 rospy.loginfo("Subscribing to processed_image")
 rospy.Subscriber("processed_image", Image, image_stream_callback)
 
@@ -143,16 +183,18 @@ rospy.loginfo("image_processing_node_client:: connected")
 rospy.loginfo("Starting app server")
 thread.start_new_thread(app.run, (host, port))
 
-rospy.loginfo("Starting ros spin")
-thread.start_new_thread(rospy.spin, ())
-
-# app.run(host=host, port=port)
-
 time.sleep(5)
 rospy.loginfo("App Server is now up")
 
-while not rospy.is_shutdown():
-	time.sleep(10)
+rospy.loginfo("Starting audio server")
+thread.start_new_thread(audio_manager.start, ())
+
+rospy.loginfo("Starting ros spin")
+rospy.spin()
+# thread.start_new_thread(rospy.spin, ())
+
+# while not rospy.is_shutdown():
+# 	time.sleep(10)
 
 rospy.loginfo("Shutting down!")
 

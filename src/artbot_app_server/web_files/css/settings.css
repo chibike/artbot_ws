@@ -1,0 +1,43 @@
+
+#background_div
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#background_div #cards_container
+{
+	display: flex;
+	
+	width: 80%;
+	height: 80%;
+
+	position: absolute;
+	transform: translate(-50%, -50%);
+	left: 50%;
+	top: 50%;
+
+	overflow: hidden;
+	overflow-x: auto;
+}
+
+#card_1
+{
+	width: 200px;
+	height: 100%;
+}
+
+#card_2
+{
+	width: 200px;
+	height: 100%;
+	float: left;
+}
+
+#card_3
+{
+	width: 200px;
+	height: 100%;
+	float: left;
+}

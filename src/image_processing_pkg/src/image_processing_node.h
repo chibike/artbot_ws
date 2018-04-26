@@ -116,7 +116,14 @@ void remove_background(cv::Mat &src, cv::Mat &dst, int focus_padding=2)
 		cv::Rect focus_rect(focus_x, focus_y, focus_width, focus_height);
 
 		// copy to dst
-		transfer_frame_to_frame(src, dst, focus_rect, focus_rect);
+        if (i == 0)
+        {
+            transfer_frame_to_frame(src, dst, focus_rect, focus_rect);
+        }
+        else
+        {
+            transfer_frame_to_frame(dst, dst, focus_rect, focus_rect);
+        }
     }
 
     if (faces.size() <= 0)
@@ -231,16 +238,21 @@ std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kern
     for (int i=0; i<max_index; i++)
     {
         std::vector<cv::Point> contour = contours.at(i);
-        std::vector<cv::Point> filtered_points;
+        // std::vector<cv::Point> filtered_points;
 
-        filter_points(contour, filtered_points, filtered_points_min_threshold);
-        if (filtered_points.size() <= 0)
+        // filter_points(contour, filtered_points, filtered_points_min_threshold);
+        // if (filtered_points.size() <= 0)
+        // {
+        //     continue;
+        // }
+
+
+        // blink::Path path = blink::Path(filtered_points, true);
+        blink::Path path = blink::Path(contour, true);
+        if (path.rect_info.perimeter < 20)
         {
             continue;
         }
-
-
-        blink::Path path = blink::Path(filtered_points, true);
         paths.push_back(path);
 
         ss << path.get_as_string() << ",";

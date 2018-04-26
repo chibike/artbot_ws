@@ -144,6 +144,10 @@ public:
 	void draw(cv::Mat image, cv::Scalar color);
 	void draw(cv::Mat image, cv::Scalar color, int stroke_width, int line_type, int shift);
 
+	double fuzzy_compare(Path other);
+	Point  calculate_centroid();
+	double calculate_signed_area();
+
 	// void filter_points(double min_distance);
 	// void filter_points(double min_distance, double max_distance);
 
@@ -922,6 +926,50 @@ std::string Path::get_as_string()
 
 	/*const char *cstr = path.get_as_string().c_str();*/
 	return ss.str();
+}
+
+double Path::calculate_signed_area()
+{
+	double var = 0;
+	for (int i=0; i<data_points.size(); i++)
+	{
+		int next = (i + 1)  % data_points.size();
+		var += (xs.at(i) * ys.at(next)) - (xs.at(next) * ys.at(i));
+	}
+
+	return 0.5 * var;
+}
+
+Point Path::calculate_centroid()
+{ // REF: https://en.wikipedia.org/wiki/Centroid
+	// for a non-self-intersecting path
+
+	const double scale = 1 / (6 * calculate_signed_area());
+	double cx = 0;
+	double cy = 0;
+
+	for (int i=0; i<data_points.size(); i++)
+	{
+		int next = (i + 1)  % data_points.size();
+		cx += (xs.at(i) + xs.at(next)) * ((xs.at(i)*ys.at(next)) - (xs.at(next)*ys.at(i)));
+		cy += (ys.at(i) + ys.at(next)) * ((xs.at(i)*ys.at(next)) - (xs.at(next)*ys.at(i)));
+	}
+
+	cx = cx * scale;
+	cy = cy * scale;
+
+	return Point(cx, cy);
+}
+
+double Path::fuzzy_compare(Path other)
+{
+	// based on the difference in the number of sizes
+	double sides_diff = std::abs(boundary_lines.size() - other.boundary_lines.size());
+
+	// based on the distance between the centroid and geometric center of the path
+	double controid_diff = std::abs( measure(rect_info.center, calculate_centroid()) - measure(other.rect_info.center, other.calculate_centroid()) );
+
+	return 0.0;
 }
 
 Pathfinder::Pathfinder()

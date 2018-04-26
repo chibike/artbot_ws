@@ -19,13 +19,13 @@ var image_stream_update = setInterval(update_image_stream_view, refresh_rate);
 function stop_image_stream_view()
 {
 	clearInterval(image_stream_update);
-	setTimeout(goto_homescreen, 20000);
+	setTimeout(goto_homescreen, 100000);
 }
 
 var select_button_clicked = function ()
 {
 	fetch("/capture_image");
-	setTimeout(stop_image_stream_view, 20000);
+	setTimeout(stop_image_stream_view, 1000 * 60 * 60 * 6);
 }
 
 var left_button_clicked = function()
@@ -37,6 +37,7 @@ var left_button_clicked = function()
 
 var right_button_clicked = function()
 {
+	select_button_clicked();
 }
 
 external_input.attach_btn_down_callback(1, left_button_clicked);

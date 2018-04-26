@@ -254,6 +254,11 @@ namespace blink
 		points.push_back(Point(80,  400));
 
 		Path my_path = Path(points, false);
+		Point centroid = my_path.calculate_centroid();
+		Point center = my_path.rect_info.center;
+
+		std::cout << "center: " << center.x << ", " << center.y << std::endl;
+		std::cout << "centroid: " << centroid.x << ", " << centroid.y << std::endl;
 
 		// visualise
 		Viewer view(4, "objects"); view.start();
@@ -288,7 +293,7 @@ namespace blink
 			// }
 
 			int key = view.show_frame(frame);
-			if ( key == 113 || key < 0 )
+			if ( key == 113 )
 			{
 				break;
 			}

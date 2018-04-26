@@ -166,6 +166,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/rule:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/rule
+.PHONY : image_processing_pkg/CMakeFiles/image_processing_node_test.dir/rule
+
+# Convenience name for target.
+image_processing_node_test: image_processing_pkg/CMakeFiles/image_processing_node_test.dir/rule
+
+.PHONY : image_processing_node_test
+
+# fast build rule for target.
+image_processing_node_test/fast:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_node_test.dir/build.make image_processing_pkg/CMakeFiles/image_processing_node_test.dir/build
+.PHONY : image_processing_node_test/fast
+
+# Convenience name for target.
 image_processing_pkg/CMakeFiles/image_processing_node.dir/rule:
 	cd /home/odroid/artbot_ws/build && $(MAKE) -f CMakeFiles/Makefile2 image_processing_pkg/CMakeFiles/image_processing_node.dir/rule
 .PHONY : image_processing_pkg/CMakeFiles/image_processing_node.dir/rule
@@ -642,6 +657,33 @@ src/image_processing_node.cpp.s:
 	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_node.dir/build.make image_processing_pkg/CMakeFiles/image_processing_node.dir/src/image_processing_node.cpp.s
 .PHONY : src/image_processing_node.cpp.s
 
+src/test.o: src/test.cpp.o
+
+.PHONY : src/test.o
+
+# target to build an object file
+src/test.cpp.o:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_node_test.dir/build.make image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o
+.PHONY : src/test.cpp.o
+
+src/test.i: src/test.cpp.i
+
+.PHONY : src/test.i
+
+# target to preprocess a source file
+src/test.cpp.i:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_node_test.dir/build.make image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.i
+.PHONY : src/test.cpp.i
+
+src/test.s: src/test.cpp.s
+
+.PHONY : src/test.s
+
+# target to generate assembly for a file
+src/test.cpp.s:
+	cd /home/odroid/artbot_ws/build && $(MAKE) -f image_processing_pkg/CMakeFiles/image_processing_node_test.dir/build.make image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.s
+.PHONY : src/test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -654,6 +696,7 @@ help:
 	@echo "... test"
 	@echo "... install"
 	@echo "... install/local"
+	@echo "... image_processing_node_test"
 	@echo "... image_processing_node"
 	@echo "... image_processing_pkg_genpy"
 	@echo "... image_processing_pkg_gennodejs"
@@ -688,6 +731,9 @@ help:
 	@echo "... src/image_processing_node.o"
 	@echo "... src/image_processing_node.i"
 	@echo "... src/image_processing_node.s"
+	@echo "... src/test.o"
+	@echo "... src/test.i"
+	@echo "... src/test.s"
 .PHONY : help
 
 
