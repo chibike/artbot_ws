@@ -67,6 +67,16 @@ def test_joint_angles(motion_controller, sleep_time=5):
 	motion_controller.set_joint_angles([0]*6)
 
 def end_effector_tests(motion_controller, sleep_time=5):
+	def test_change_pen():
+		rospy.loginfo("end_effector_tests::test_presure_without_pen Homing")
+		motion_controller.home()
+
+		rospy.loginfo("end_effector_tests::test_presure_without_pen Changing pen")
+		motion_controller.change_pen((0.35, 0.155), (0.35, 0.155))
+
+		rospy.loginfo("end_effector_tests::test_presure_without_pen Homing")
+		motion_controller.home()
+
 	def test_presure_without_pen():
 		rospy.loginfo("end_effector_tests::test_presure_without_pen Homing")
 		motion_controller.home()
@@ -135,7 +145,7 @@ def end_effector_tests(motion_controller, sleep_time=5):
 		return completed
 
 
-	test_writing()
+	test_change_pen()
 		
 
 

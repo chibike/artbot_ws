@@ -7,6 +7,7 @@ import rospy
 import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
+from io_manager import IOManager
 from tf.transformations import quaternion_from_euler
 
 workarea_limits = {
@@ -30,6 +31,8 @@ class MotionController(object):
 
 		self.name = name
 
+		self.io_manager = IOManager()
+
 		self.group_name = group_name
 		self.display_trajectory_publisher = None
 		
@@ -47,7 +50,7 @@ class MotionController(object):
 
 		self.pen_hover_offset = 0.04
 		self.pen_writing_position = 0.281
-		self.pen_hover_position = pen_writing_position + self.pen_hover_offset
+		self.pen_hover_position = self.pen_writing_position + self.pen_hover_offset
 
 		self.target = geometry_msgs.msg.Pose()
 		foo = quaternion_from_euler(0, math.pi/2.0, 0)
@@ -58,6 +61,8 @@ class MotionController(object):
 		self.target.position.x = 0.46 # towards you
 		self.target.position.y = 0.0  # sidewards
 		self.target.position.z = 0.45 # height
+
+		self.pressure_constants = []
 
 	def __loginfo(self, name="", info=""):
 		rospy.loginfo("MotionController::{name} -> {info}".format(name=name, info=info))
@@ -119,10 +124,10 @@ class MotionController(object):
 		self.group.allow_replanning(True)
 
 		self.group.set_planning_time(20)
-		self.group.set_goal_position_tolerance(0.001)
+		self.group.set_goal_position_tolerance(0.0001)
 		self.group.set_max_velocity_scaling_factor(1)
-		self.group.set_goal_orientation_tolerance(0.01)
-		self.group.set_max_acceleration_scaling_factor(0.15)
+		self.group.set_goal_orientation_tolerance(0.001)
+		self.group.set_max_acceleration_scaling_factor(0.5)
 		self.group.set_workspace([self.position_limits["x"][0], self.position_limits["y"][0], self.position_limits["z"][0], self.position_limits["x"][1], self.position_limits["y"][1], self.position_limits["z"][1]])
 
 		self.__loginfo("start", "planning_time = {n}".format(n=self.group.get_planning_time()))
@@ -132,12 +137,17 @@ class MotionController(object):
 		self.__loginfo("start", "Setting display publisher")
 		self.display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path', moveit_msgs.msg.DisplayTrajectory, queue_size=10)
 
-		rospy.sleep(7)
+		self.io_manager.start()
+
+		rospy.sleep(3)
 		self.home()
 
 	def stop(self):
 		self.__loginfo("stop", "Stopping the robot")
 		self.group.stop()
+
+		self.__loginfo("stop", "Stopping io_manager")
+		self.io_manager.stop()
 
 		self.__loginfo("stop", "Shutting down moveit")
 		moveit_commander.roscpp_shutdown()
@@ -211,12 +221,13 @@ class MotionController(object):
 			waypoints.append(copy.deepcopy(self.target))
 
 		fraction  = 0.0
-		max_tries = 100
+		plan_max_tries = 50
+		move_max_tries =  1
 		attempts  = 0
 
 		self.group.set_start_state_to_current_state()
 
-		while (fraction < 1.0) and (attempts < max_tries):
+		while (fraction < 1.0) and (attempts < plan_max_tries):
 			plan, fraction = self.group.compute_cartesian_path(waypoints, interpolate_resolution, jump_threshold, avoid_collisions=False)
 			self.publish_trajectory_display_info(plan)
 
@@ -228,7 +239,7 @@ class MotionController(object):
 
 			self.__loginfo("follow", "Executing plan")
 			completed = False
-			for i in range(5):
+			for i in range(move_max_tries):
 				completed = self.group.execute(plan, wait)
 				if completed:
 					break
@@ -270,65 +281,192 @@ class MotionController(object):
 	def get_current_pose(self):
 		return self.group.get_current_pose().pose
 
-	def change_pen(self, dropoff_xy_point, pickup_xy_point, default_z=0.45, speed_scaling=1.0, max_tries=3):
-		success = False
-		fraction = 0.0      # the completeness percentage
-		number_of_steps = 5 # the required number of steps
-		speed_scaling = max(min(1.0, speed_scaling), 0.0)
+	def change_pen(self, dropoff_xy_point, pickup_xy_point, default_z=0.45, speed_scaling=1.0, max_tries=3, increment=0.0025):
+		speed_scaling = self.__constrain(speed_scaling, 0, 1)
 
-		self.__loginfo("change_pen", "Moving to home")
-		for i in xrange(max_tries):
-			if self.home():
-				success = True
-				break
-		if not success:
-			self.__loginfo("change_pen", "Could not go home")
+		def __home():
+			success = False
+			self.__loginfo("change_pen", "Moving to home")
+			for i in xrange(max_tries):
+				if self.home():
+					success = True
+					break
 			return success
 
-		success = False
-		self.__loginfo("change_pen", "Moving to dropoff point")
-		x,y = pickup_xy_point
-		for i in xrange(max_tries):
-			if self.move_to(x,y,default_z):
-				success = True
-				break
-		if not success:
-			self.__loginfo("change_pen", "Could not move to dropoff point")
+		def __move_to(x, y, z, speed):
+			success = False
+			for i in xrange(max_tries):
+				if self.move_to(x,y,z, speed=speed*speed_scaling):
+					success = True
+					break
 			return success
 
-		# move downward slowly until pressure changes
-		# open grippers
-		# move to default_z position
-		# move to pickup position
-		# open grippers
-		# move downward slowly until pressure changes
-		# close grippers
-		# move to default_z position
+		def __move_to_dropoff():
+			self.__loginfo("change_pen", "Moving to dropoff point")
+			return __move_to(dropoff_xy_point[0], dropoff_xy_point[1], default_z, 1.2)
 
-		self.__loginfo("change_pen", "Moving to home")
-		for i in xrange(max_tries):
-			if self.home():
-				success = True
-				break
-		if not success:
-			self.__loginfo("change_pen", "Could not go home")
+		def __move_to_pickup():
+			self.__loginfo("change_pen", "Moving to pickup point")
+			return __move_to(pickup_xy_point[0], pickup_xy_point[1], default_z, 1.2)
+
+		def drop_pen(max_pressure=0.4):
+			if not __move_to_dropoff():
+				self.__loginfo("change_pen", "Could not move to dropoff point")
+				return False
+
+			z = default_z; x,y = dropoff_xy_point
+			while z > self.position_limits["z"][0]:
+				__move_to(x,y,z,1.0)
+				if self.io_manager.get_pressure() > max_pressure:
+					break
+				z -= increment
+
+			self.__loginfo("change_pen", "Opening grippers")
+			self.io_manager.open_gripper()
+			rospy.sleep(2)
+
+			if not __move_to_dropoff():
+				self.__loginfo("change_pen", "Could not move to dropoff point")
+				return False
+
+			return True
+
+		def pick_pen(max_pressure=0.4):
+			self.__loginfo("change_pen", "Opening grippers")
+			self.io_manager.open_gripper()
+			rospy.sleep(2)
+
+			if not __move_to_pickup():
+				self.__loginfo("change_pen", "Could not move to pickup point")
+				return False
+
+			z = default_z; x,y = dropoff_xy_point
+			while z > self.position_limits["z"][0]:
+				__move_to(x,y,z,1.0)
+				if self.io_manager.get_pressure() > max_pressure:
+					break
+				z -= increment
+
+			self.__loginfo("change_pen", "Closing grippers")
+			self.io_manager.close_gripper()
+			rospy.sleep(2)
+
+			if not __move_to_pickup():
+				self.__loginfo("change_pen", "Could not move to pickup point")
+				return False
+
+			return True
+
+
+		# if not __home():
+		# 	return False
+
+		if not drop_pen():
+			return False
+
+		if not pick_pen():
+			return False
+
+	def __get_z_depth(self, xy_point, drawing_surface_xy_points, pressure_constants):
+		ps = drawing_surface_xy_points
+		total_x = ps[1][0] - ps[0][0]
+		total_y = ps[2][1] - ps[0][1]
+		current_x = xy_point[0]
+		current_y = xy_point[1]
+		a,b,c,d = pressure_constants
+
+		percent_of_x = (total_x - current_x) / total_x
+		percent_of_y = (total_y - current_y) / total_y
+
+		f = lambda k, m : (percent_of_x * k) + ((1 - percent_of_x) * m)
+		z = (percent_of_y * f(a,b)) + ((1 - percent_of_y) * f(c,d))
+
+		return z
+
+	def calibrate(self, drawing_surface_xy_points, default_z=0.45, travel_height=0.025, max_pressure=0.45, move_speed=1.2, pick_speed=0.05, max_tries=3):
+
+		print "drawing_surface_xy_points = ", drawing_surface_xy_points
+		#return True
+
+		def __move_to(x, y, z):
+			success = False
+			for i in xrange(max_tries):
+				if self.move_to(x,y,z, speed=move_speed):
+					success = True
+					break
 			return success
 
-		return fraction
+		def __calculate_depth(xy_point):
+			self.__loginfo("calculate_z_depth", "Moving to location")
+			x,y = xy_point
+			if not __move_to(x,y,default_z):
+				return False
 
+			xs = [x, x]; ys = [y, y]
+			zs = [default_z, self.position_limits["z"][0]]
 
-	def calculate_z_depth(self, xy_point, default_z=0.45, increment=0.0025, target_pressure=0.1):
-		# move to xy_point
-		# current_z = default_z
-		# for i in range(default_z, self.position_limits["z"][0], -increment):
-		#     current_z -= increment
-		#     move to xy_point
-		#     if current_pressure >= target_pressure:
-		#         break
-		# self.pen_writing_position = current_z
-		# move to default_z
+			self.__loginfo("calculate_z_depth", "Compressing spring")
+			self.follow(xs, ys, zs, speed=pick_speed, wait=False)
+			pressure = 0.2
+			while pressure < max_pressure:
+				pressure = self.io_manager.get_pressure()
+				rospy.sleep(0.1);continue
+			print "PRESSURE ", pressure, " VS ", max_pressure
+			self.group.stop()
+			rospy.sleep(2)
 
-		self.pen_hover_position = pen_writing_position + self.pen_hover_offset
+			for i in range(5):
+				pressure += self.io_manager.get_pressure()
+				rospy.sleep(0.1)
+
+			self.__loginfo("calculate_z_depth", "calculating z")
+			increment = (travel_height * pressure / 5.0) + 0.0005 # adding increases the height above the table
+			print "PRESSURE =", pressure
+			print "INCREMENT =", increment
+			z = self.group.get_current_pose().pose.position.z + increment
+
+			x,y = xy_point
+			__move_to(x,y,default_z)
+			return z
+
+		self.pressure_constants = []
+		for xy_point in drawing_surface_xy_points:
+			self.pressure_constants.append(__calculate_depth(xy_point))
+
+		self.__loginfo("calibrate", "calculating centre position")
+		ps = drawing_surface_xy_points
+		xy_point = (ps[1][0] - ps[0][0])/2.0, (ps[2][1] - ps[0][1])/2.0
+		
+		self.pen_writing_position = self.__get_z_depth(xy_point, drawing_surface_xy_points, self.pressure_constants)
+		self.pen_hover_position = self.pen_writing_position + self.pen_hover_offset
+
+		self.__loginfo("calculate_z_depth", "Moving back to location")
+		x,y = xy_point
+		if not __move_to(x,y,default_z):
+			return False
+
+		self.__loginfo("calculate_z_depth", "Moving back to pen_hover_position")
+		x,y = xy_point
+		if not __move_to(x,y,self.pen_hover_position):
+			return False
+
+		rospy.sleep(1)
+
+		self.__loginfo("calculate_z_depth", "Moving back to pen_writing_position")
+		x,y = xy_point
+		if not __move_to(x,y,self.pen_writing_position):
+			return False
+
+		rospy.sleep(2)
+
+		self.__loginfo("calculate_z_depth", "Moving back to location")
+		x,y = xy_point
+		if not __move_to(x,y,default_z):
+			return False
+
+		print "self.pressure_constants = ", self.pressure_constants
+
+		return True
 
 
 
