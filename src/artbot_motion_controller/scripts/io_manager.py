@@ -7,6 +7,25 @@ import serial
 
 #sudo chown ros /dev/ttyUSB0
 
+class DemoSerialDevice(object):
+	def __init__(self, port="", baudrate=115200, timeout=0.5):
+		self.port = port
+		self.baudrate = baudrate
+		self.timeout = timeout
+
+		self.buffer = "[100.0]"
+		self.in_waiting = len(self.buffer)
+
+	def write(self, data=""):
+		pass
+
+	def read(self, n=5):
+		return self.buffer
+
+	def close(self):
+		pass
+
+
 class IOManager(object):
 	def __init__(self, port="/dev/serial/by-path/pci-0000:00:14.0-usb-0:2:1.0-port0", baudrate=115200):
 		self.port = port
@@ -15,7 +34,13 @@ class IOManager(object):
 		self.pressure = 0
 
 	def start(self):
-		self.serial_device = serial.Serial(self.port, self.baudrate, timeout=0.5)
+		try:
+			self.serial_device = serial.Serial(self.port, self.baudrate, timeout=0.5)
+		except Exception as e:
+			print "ERROR (IOManager): Could not open serial device"
+			print "(IOManager): Starting demo serial device"
+
+			self.serial_device = DemoSerialDevice(self.port, self.baudrate, timeout=0.5)
 
 	def stop(self):
 		if not self.serial_device is None:
@@ -35,7 +60,7 @@ class IOManager(object):
 		data = data[data.rfind('[')+1:]
 		try:
 			foo = float(data)
-			if foo > 1:
+			if foo > 100:
 				print "HUGE ERROR IN DATA ---------_______", foo, " VS ", data, "!"
 			else:
 				self.pressure = foo

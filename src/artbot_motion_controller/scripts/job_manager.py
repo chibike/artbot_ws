@@ -12,16 +12,13 @@ class JobManager(object):
 		self.jobs = []
 		self.motion_controller = MotionController()
 
-		self.page_length = (0.165, 0.220)
+		self.page_length = (0.15, 0.20)
 		self.page_offset = (0.26, -0.5 * self.page_length[1])
 
-		x_start = self.page_length[0] + self.page_offset[0]
-		y_start = self.page_length[1] + self.page_offset[1]
-
-		self.page_edges  = (
-			(x_start, y_start),                       (x_start + self.page_length[0], y_start),
-			(x_start, y_start + self.page_length[1]), (x_start + self.page_length[0], y_start + self.page_length[1])
-			)
+		self.x_start = self.page_offset[0]
+		self.y_start = self.page_offset[1]
+		self.x_end   = self.page_offset[0] + self.page_length[0]
+		self.y_end   = self.page_offset[1] + self.page_length[1]
 
 		self.transform_row_to_x = lambda row : (row * self.page_length[0] / 480.0) + self.page_offset[0]
 		self.transform_col_to_y = lambda col : (col * self.page_length[1] / 640.0) + self.page_offset[1]
@@ -83,11 +80,7 @@ class JobManager(object):
 
 	def calculate_z(self):
 		# self.motion_controller.calculate_z_depth((0.35, 0.0))
-		self.motion_controller.calibrate(drawing_surface_xy_points=(
-			(0.26, -0.11), (0.26, 0.11),
-			(0.425, -0.11), (0.425, 0.11)
-			))
-		self.__loginfo("change_pen", "Homing")
+		self.motion_controller.calibrate(self.x_start, self.y_start, self.x_end, self.y_end)
 		self.motion_controller.home()
 
 	def break_up(self, paths, max_length=50):
@@ -110,7 +103,7 @@ class JobManager(object):
 	def draw_job(self, job):
 		pick_speed  = 1.2
 		move_speed  =   3
-		write_speed = 1.8
+		write_speed = 1.5
 		max_trials  =   1
 
 		paths = self.break_up(job)
@@ -118,7 +111,8 @@ class JobManager(object):
 		self.__loginfo("draw_job", "received data as {n} paths".format(n=len(job)))
 
 		self.__loginfo("draw_job", "calculating z")
-		self.motion_controller.calculate_z_depth((0.35, 0.0))
+		# self.motion_controller.calculate_z_depth((0.35, 0.0))
+		self.motion_controller.calibrate(self.x_start, self.y_start, self.x_end, self.y_end)
 		
 		rospy.loginfo("job_manager:: moving to home position")
 		success = False
