@@ -487,7 +487,7 @@ actionlib_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_generate_messages_py/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_generate_messages_py.dir/build.make artbot_ai/CMakeFiles/actionlib_generate_messages_py.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_generate_messages_py.dir/build.make artbot_app_server/CMakeFiles/actionlib_generate_messages_py.dir/build
 .PHONY : actionlib_generate_messages_py/fast
 
 #=============================================================================
@@ -500,7 +500,7 @@ actionlib_msgs_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_msgs_generate_messages_eus/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build
 .PHONY : actionlib_msgs_generate_messages_eus/fast
 
 #=============================================================================
@@ -513,7 +513,7 @@ actionlib_msgs_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build
 .PHONY : actionlib_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -526,7 +526,7 @@ actionlib_msgs_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
 .PHONY : actionlib_msgs_generate_messages_lisp/fast
 
 #=============================================================================
@@ -539,7 +539,7 @@ actionlib_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_generate_messages_cpp/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make artbot_ai/CMakeFiles/actionlib_generate_messages_cpp.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make artbot_app_server/CMakeFiles/actionlib_generate_messages_cpp.dir/build
 .PHONY : actionlib_generate_messages_cpp/fast
 
 #=============================================================================
@@ -552,7 +552,7 @@ actionlib_msgs_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
 .PHONY : actionlib_msgs_generate_messages_cpp/fast
 
 #=============================================================================
@@ -565,7 +565,7 @@ actionlib_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_msgs_generate_messages_py/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make artbot_ai/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make artbot_app_server/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
 .PHONY : actionlib_msgs_generate_messages_py/fast
 
 #=============================================================================
@@ -578,7 +578,7 @@ _catkin_empty_exported_target: cmake_check_build_system
 
 # fast build rule for target.
 _catkin_empty_exported_target/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/_catkin_empty_exported_target.dir/build.make artbot_ai/CMakeFiles/_catkin_empty_exported_target.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/_catkin_empty_exported_target.dir/build.make artbot_app_server/CMakeFiles/_catkin_empty_exported_target.dir/build
 .PHONY : _catkin_empty_exported_target/fast
 
 #=============================================================================
@@ -591,7 +591,7 @@ actionlib_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_generate_messages_lisp/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make artbot_ai/CMakeFiles/actionlib_generate_messages_lisp.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make artbot_app_server/CMakeFiles/actionlib_generate_messages_lisp.dir/build
 .PHONY : actionlib_generate_messages_lisp/fast
 
 #=============================================================================
@@ -604,7 +604,7 @@ actionlib_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_generate_messages_eus/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_generate_messages_eus.dir/build.make artbot_ai/CMakeFiles/actionlib_generate_messages_eus.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_generate_messages_eus.dir/build.make artbot_app_server/CMakeFiles/actionlib_generate_messages_eus.dir/build
 .PHONY : actionlib_generate_messages_eus/fast
 
 #=============================================================================
@@ -617,7 +617,7 @@ actionlib_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 actionlib_generate_messages_nodejs/fast:
-	$(MAKE) -f artbot_ai/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make artbot_ai/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
+	$(MAKE) -f artbot_app_server/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make artbot_app_server/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
 .PHONY : actionlib_generate_messages_nodejs/fast
 
 #=============================================================================

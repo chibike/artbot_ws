@@ -222,6 +222,7 @@ image_processing_pkg/CMakeFiles/image_processing_node.dir/src/image_processing_n
 image_processing_pkg/CMakeFiles/image_processing_node.dir/src/image_processing_node.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/Eigen/src/plugins/MatrixCwiseUnaryOps.h
 image_processing_pkg/CMakeFiles/image_processing_node.dir/src/image_processing_node.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/image_processing_node.cpp
 image_processing_pkg/CMakeFiles/image_processing_node.dir/src/image_processing_node.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/image_processing_node.h
+image_processing_pkg/CMakeFiles/image_processing_node.dir/src/image_processing_node.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_arithmetic.h
 image_processing_pkg/CMakeFiles/image_processing_node.dir/src/image_processing_node.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_color.h
 image_processing_pkg/CMakeFiles/image_processing_node.dir/src/image_processing_node.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_color_space.h
 image_processing_pkg/CMakeFiles/image_processing_node.dir/src/image_processing_node.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_objects.h

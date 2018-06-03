@@ -79,9 +79,11 @@ def shutdown_server():
 	try:
 		rospy.loginfo("app-server: Killing thread")
 		thread.exit()
-		rospy.loginfo("app-server: Done")
+
+		# rospy doesn't exist because it's thread has been killed
+		print("app-server: Done")
 	except :
-		rospy.logerror("audio-manager: shutdown failed")
+		print("audio-manager: shutdown failed")
 
 	sys.exit(0)
 

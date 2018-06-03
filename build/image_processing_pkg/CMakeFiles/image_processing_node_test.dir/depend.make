@@ -212,6 +212,7 @@ image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/Eigen/src/plugins/CommonCwiseUnaryOps.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/Eigen/src/plugins/MatrixCwiseBinaryOps.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/Eigen/src/plugins/MatrixCwiseUnaryOps.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_arithmetic.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_color.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_color_space.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_objects.h

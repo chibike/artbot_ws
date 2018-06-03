@@ -1048,6 +1048,8 @@ lapacke_mangling.h
 
 /home/odroid/artbot_ws/src/image_processing_pkg/src/Eigen/src/plugins/MatrixCwiseUnaryOps.h
 
+/home/odroid/artbot_ws/src/image_processing_pkg/src/pi_arithmetic.h
+
 /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_color.h
 vector
 -
@@ -1069,14 +1071,16 @@ vector
 -
 math.h
 -
-Eigen/Dense
-/home/odroid/artbot_ws/src/image_processing_pkg/src/Eigen/Dense
-opencv2/opencv.hpp
-/home/odroid/artbot_ws/src/image_processing_pkg/src/opencv2/opencv.hpp
-iostream
--
 sstream
 -
+iostream
+-
+Eigen/Dense
+/home/odroid/artbot_ws/src/image_processing_pkg/src/Eigen/Dense
+pi_arithmetic.h
+/home/odroid/artbot_ws/src/image_processing_pkg/src/pi_arithmetic.h
+opencv2/opencv.hpp
+/home/odroid/artbot_ws/src/image_processing_pkg/src/opencv2/opencv.hpp
 
 /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_tests.hpp
 pi_color.h

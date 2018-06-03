@@ -47,7 +47,8 @@ const double dilation_size = 4;
 const double face_cascade_scale_factor = 1.3;
 const double filtered_points_min_threshold = 5;
 
-const cv::Size blur_size(5,5);
+const cv::Size blur_size(3,3);
+// const cv::Size blur_size(5,5);
 
 cv::CascadeClassifier face_cascade;
 sensor_msgs::Image    processed_image;
@@ -206,16 +207,18 @@ int render_preview(cv::Mat &frame, cv::Mat &view_frame, int focus_padding=1)
     return faces.size();
 }
 
-std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kernel_size, int low_threshold=50, int high_threshold=150, int canny_kernel_size=3)
+std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kernel_size, int low_threshold=20, int high_threshold=75, int canny_kernel_size=3)
 {
-    cv::Mat new_frame = cv::imread(default_bg_path, CV_LOAD_IMAGE_COLOR);
-    if (new_frame.empty() || frame.rows != new_frame.rows || frame.cols != new_frame.cols)
-    {
-        std::cout << "ERROR: incompactabile background" << std::endl;
-        std::cout << "rows: " << frame.rows << " cols: " << frame.cols << std::endl;
-        std::cout << "bg-rows: " << new_frame.rows << " bg-cols: " << new_frame.cols << std::endl;
-        new_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
-    }
+    // cv::Mat new_frame = cv::imread(default_bg_path, CV_LOAD_IMAGE_COLOR);
+    // if (new_frame.empty() || frame.rows != new_frame.rows || frame.cols != new_frame.cols)
+    // {
+    //     std::cout << "ERROR: incompactabile background" << std::endl;
+    //     std::cout << "rows: " << frame.rows << " cols: " << frame.cols << std::endl;
+    //     std::cout << "bg-rows: " << new_frame.rows << " bg-cols: " << new_frame.cols << std::endl;
+    //     new_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
+    // }
+    
+    cv::Mat new_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
     remove_background(frame, new_frame);
     
 
@@ -235,8 +238,8 @@ std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kern
     cv::Mat erode_element = getStructuringElement( cv::MORPH_RECT, cv::Size(2*erosion_size + 1, 2*erosion_size + 1), cv::Point( erosion_size, erosion_size ) );
     cv::erode(dilate_frame, erode_frame, erode_element);
 
-    std::vector<std::vector<cv::Point> > contours;
     std::vector<cv::Vec4i> hierarchy;
+    std::vector<std::vector<cv::Point> > contours;
     cv::findContours(erode_frame, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0,0));
 
     view_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
