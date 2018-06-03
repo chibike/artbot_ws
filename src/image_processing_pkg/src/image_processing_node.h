@@ -220,10 +220,15 @@ std::string render_final(cv::Mat &frame, cv::Mat &view_frame, cv::Size blur_kern
     
     cv::Mat new_frame = cv::Mat::zeros(frame.size(), CV_8UC3);
     remove_background(frame, new_frame);
-    
+
+    cv::Mat gray_frame;
+    cv::cvtColor( new_frame, gray_frame, COLOR_BGR2GRAY );
+
+    // equalize the constrast
+    cv::equalizeHist( gray_frame, gray_frame );
 
     cv::Mat blur_frame;
-    cv::GaussianBlur(new_frame, blur_frame, blur_kernel_size, 0, 0);
+    cv::GaussianBlur(gray_frame, blur_frame, blur_kernel_size, 0, 0);
 
     // blink::simplify_image(blur_frame, blink::color_space_3d::color_array);
 
