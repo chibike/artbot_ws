@@ -262,7 +262,7 @@ class MotionController(object):
 	def get_current_pose(self):
 		return self.group.get_current_pose().pose
 
-	def __get_z_depth(self, current_x, current_y, min_x, min_y, max_x, max_y, pressure_constants):
+	def get_z_depth(self, current_x, current_y, min_x, min_y, max_x, max_y, pressure_constants):
 		a,b,c,d = pressure_constants
 
 		total_x = abs(max_x - min_x)
@@ -290,7 +290,7 @@ class MotionController(object):
 				pressure = 0.0
 				for i in range(5):
 					pressure += self.io_manager.get_pressure()
-					rospy.sleep(0.4)
+					rospy.sleep(0.1)
 
 				pressure = pressure / 5.0
 				return pressure
@@ -316,7 +316,7 @@ class MotionController(object):
 			print "PRESSURE ", pressure, " VS ", max_pressure
 			
 			pressure = self.__constrain(pressure/100.0, 0.0, 1.0)
-			increment = (total_compression_length * pressure) - 0.001
+			increment = (total_compression_length * pressure)
 
 			z = self.get_current_pose().position.z + increment
 
@@ -339,7 +339,7 @@ class MotionController(object):
 		print "middle_x, middle_y = ", middle_x, middle_y
 
 		def __test_point(point_x, point_y):
-			self.pen_writing_position = self.__get_z_depth(point_x, point_y, min_x, min_y, max_x, max_y, self.pressure_constants)
+			self.pen_writing_position = self.get_z_depth(point_x, point_y, min_x, min_y, max_x, max_y, self.pressure_constants)
 			self.pen_hover_position = self.pen_writing_position + self.pen_hover_offset
 
 			self.__loginfo("calculate_z_depth", "Moving to center of page")

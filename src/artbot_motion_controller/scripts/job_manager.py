@@ -131,6 +131,11 @@ class JobManager(object):
 			rows, cols = list(zip(*path))
 			xs = list(map(self.transform_row_to_x, rows))
 			ys = list(map(self.transform_col_to_y, cols))
+			zs = []
+
+			for i in range(min(len(xs), len(ys))):
+				zs.append(self.motion_controller.get_z_depth(xs[i], ys[i], self.x_start, self.y_start, self.x_end, self.y_end, self.motion_controller.pressure_constants))
+
 			zs = list([self.motion_controller.pen_writing_position]*len(xs))
 
 			xs.append(xs[-1])
