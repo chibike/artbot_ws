@@ -2252,6 +2252,24 @@ abb/abb_irb120_moveit_config/preinstall:
 .PHONY : abb/abb_irb120_moveit_config/preinstall
 
 #=============================================================================
+# Directory level rules for directory abb/abb_irb120_with_end_effector_moveit_config
+
+# Convenience name for "all" pass in the directory.
+abb/abb_irb120_with_end_effector_moveit_config/all:
+
+.PHONY : abb/abb_irb120_with_end_effector_moveit_config/all
+
+# Convenience name for "clean" pass in the directory.
+abb/abb_irb120_with_end_effector_moveit_config/clean:
+
+.PHONY : abb/abb_irb120_with_end_effector_moveit_config/clean
+
+# Convenience name for "preinstall" pass in the directory.
+abb/abb_irb120_with_end_effector_moveit_config/preinstall:
+
+.PHONY : abb/abb_irb120_with_end_effector_moveit_config/preinstall
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

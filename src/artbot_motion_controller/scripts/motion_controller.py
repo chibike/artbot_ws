@@ -132,17 +132,37 @@ class MotionController(object):
 		rospy.sleep(3)
 		self.home()
 
-		self.motion_constraints = moveit_msgs.msg.Constraints();
+		self.motion_constraints = moveit_msgs.msg.Constraints()
 		self.motion_constraints.name = "main_constraints"
 
-		joint_constraint = moveit_msgs.msg.JointConstraint();
+		joint_constraint = moveit_msgs.msg.JointConstraint()
 		joint_constraint.joint_name = "joint_6"
 		joint_constraint.position = 0
-		joint_constraint.tolerance_above = 0.785398 # 45 deg
-		joint_constraint.tolerance_below = 0.785398
+		joint_constraint.tolerance_above = 0.5 # 0.785398 # 45 deg
+		joint_constraint.tolerance_below = 0.5 #joint_constraint.tolerance_above
 		joint_constraint.weight = 1
 
+		# orientation_constraint = moveit_msgs.msg.OrientationConstraint()
+		# orientation_constraint.header.seq = 0
+		# orientation_constraint.header.stamp = rospy.Time.now()
+		# orientation_constraint.header.frame_id = "base_link"
+
+		# target_orientation = quaternion_from_euler(0,0,0)
+
+		# orientation_constraint.orientation.x = target_orientation[0]
+		# orientation_constraint.orientation.y = target_orientation[1]
+		# orientation_constraint.orientation.z = target_orientation[2]
+		# orientation_constraint.orientation.w = target_orientation[3]
+		# orientation_constraint.link_name = "link_7"
+		# orientation_constraint.absolute_x_axis_tolerance = 3.2# 0.001
+		# orientation_constraint.absolute_y_axis_tolerance = 0.001
+		# orientation_constraint.absolute_z_axis_tolerance = 0.001
+		# orientation_constraint.weight = 1
+
+		#self.group.set_goal_orientation_tolerance(3.2)
+
 		self.motion_constraints.joint_constraints = [joint_constraint]
+		#self.motion_constraints.orientation_constraints = [orientation_constraint]
 		self.group.set_path_constraints(self.motion_constraints)
 
 		#print "CURRENT get_joint_angles",self.get_joint_angles()

@@ -123,6 +123,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/ros/artbot_ws/build/abb/abb_irb120_support/cmake_install.cmake")
   include("/home/ros/artbot_ws/build/abb/abb_driver/cmake_install.cmake")
   include("/home/ros/artbot_ws/build/abb/abb_irb120_moveit_config/cmake_install.cmake")
+  include("/home/ros/artbot_ws/build/abb/abb_irb120_with_end_effector_moveit_config/cmake_install.cmake")
 
 endif()
 

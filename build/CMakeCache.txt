@@ -280,6 +280,12 @@ abb_irb120_support_BINARY_DIR:STATIC=/home/ros/artbot_ws/build/abb/abb_irb120_su
 abb_irb120_support_SOURCE_DIR:STATIC=/home/ros/artbot_ws/src/abb/abb_irb120_support
 
 //Value Computed by CMake
+abb_irb120_with_end_effector_moveit_config_BINARY_DIR:STATIC=/home/ros/artbot_ws/build/abb/abb_irb120_with_end_effector_moveit_config
+
+//Value Computed by CMake
+abb_irb120_with_end_effector_moveit_config_SOURCE_DIR:STATIC=/home/ros/artbot_ws/src/abb/abb_irb120_with_end_effector_moveit_config
+
+//Value Computed by CMake
 abb_resources_BINARY_DIR:STATIC=/home/ros/artbot_ws/build/abb/abb_resources
 
 //Value Computed by CMake
@@ -381,6 +387,12 @@ lib:FILEPATH=/opt/ros/kinetic/lib/libindustrial_utils.so
 
 //The directory containing a CMake configuration file for message_runtime.
 message_runtime_DIR:PATH=/opt/ros/kinetic/share/message_runtime/cmake
+
+//Value Computed by CMake
+move_file_BINARY_DIR:STATIC=/home/ros/artbot_ws/build/abb/abb_irb120_with_end_effector_moveit_config
+
+//Value Computed by CMake
+move_file_SOURCE_DIR:STATIC=/home/ros/artbot_ws/src/abb/abb_irb120_with_end_effector_moveit_config
 
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/kinetic/share/rosconsole/cmake
@@ -526,7 +538,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=10
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
