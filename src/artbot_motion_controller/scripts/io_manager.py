@@ -31,7 +31,7 @@ class IOManager(object):
 		self.port = port
 		self.baudrate = baudrate
 		self.serial_device = None
-		self.pressure = 0
+		self.pressure = 100
 
 	def start(self):
 		try:
@@ -58,15 +58,18 @@ class IOManager(object):
 		data = self.serial_device.read(self.serial_device.in_waiting)
 		data = data[:data.rfind(']')]
 		data = data[data.rfind('[')+1:]
+		
 		try:
 			foo = float(data)
-			if foo > 100:
-				print "HUGE ERROR IN DATA ---------_______", foo, " VS ", data, "!"
-			else:
+
+			if foo >= 0 and foo <= 100:
 				self.pressure = foo
-			return self.pressure
+			else:
+				print "HUGE ERROR IN DATA ---------_______", foo, " VS ", data, "!"
 		except:
-			return self.pressure
+			pass
+		
+		return self.pressure
 
 def main():
 	foo = IOManager()

@@ -11,8 +11,8 @@ from io_manager import IOManager
 from tf.transformations import quaternion_from_euler
 
 workarea_limits = {
-	"x" : (0.24 ,  0.41),
-	"y" : (-0.12,  0.12),
+	"x" : (0.24 ,  0.46),
+	"y" : (-0.15,  0.15),
 	"z" : (0.25 ,  0.5)
 }
 
@@ -30,6 +30,7 @@ class MotionController(object):
 		self.group = None
 
 		self.name = name
+
 		self.io_manager = IOManager()
 
 		self.group_name = group_name
@@ -53,15 +54,14 @@ class MotionController(object):
 		self.target.orientation.y = foo[1]
 		self.target.orientation.z = foo[2]
 		self.target.orientation.w = foo[3]
-		self.target.position.x = 0.324 # towards you
-		self.target.position.y = 0.0   # sidewards
-		self.target.position.z = 0.45  # height
+		self.target.position.x = 0.46 # towards you
+		self.target.position.y = 0.0  # sidewards
+		self.target.position.z = 0.45 # height
 
-		self.home_pose = copy.deepcopy(self.target)
-
-		self.pen_hover_offset = 0.02
+		self.pen_hover_offset = 0.04
 		self.pen_writing_position = 0.281
 		self.pen_hover_position = self.pen_writing_position + self.pen_hover_offset
+		self.pressure_constants = []
 
 	def __loginfo(self, name="", info=""):
 		rospy.loginfo("MotionController::{name} -> {info}".format(name=name, info=info))
@@ -98,15 +98,6 @@ class MotionController(object):
 	def __constrain(self, x, x_min, x_max):
 		return min(x_max, max(x, x_min))
 
-	def __linspace(self, start=0.0, end=1.0, howmany=5):
-		values = []
-		total_range = float(end - start)
-		n = howmany - 1
-		for i in xrange(n):
-			values.append(start + (total_range * float(i) / float(n)))
-		values.append(end)
-		return values
-
 	def __validate_pose(self, pose):
 		pose.orientation.x = self.__constrain(pose.orientation.x, self.orientation_limits["x"][0], self.orientation_limits["x"][1])
 		pose.orientation.y = self.__constrain(pose.orientation.y, self.orientation_limits["y"][0], self.orientation_limits["y"][1])
@@ -141,18 +132,18 @@ class MotionController(object):
 		rospy.sleep(3)
 		self.home()
 
-		self.motion_constraints = moveit_msgs.msg.Constraints()
-		self.motion_constraints.name = "main_constraints"
+		# self.motion_constraints = moveit_msgs.msg.Constraints()
+		# self.motion_constraints.name = "main_constraints"
 
-		joint_constraint = moveit_msgs.msg.JointConstraint()
-		joint_constraint.joint_name = "joint_6"
-		joint_constraint.position = -0.1744
-		joint_constraint.tolerance_above = 0.785398 # 45 deg
-		joint_constraint.tolerance_below = 0.785398 #joint_constraint.tolerance_above
-		joint_constraint.weight = 1
+		# joint_constraint = moveit_msgs.msg.JointConstraint()
+		# joint_constraint.joint_name = "joint_6"
+		# joint_constraint.position = -0.1749
+		# joint_constraint.tolerance_above = 0.2 # 0.785398 # 45 deg
+		# joint_constraint.tolerance_below = 0.2 # 0.785398 #joint_constraint.tolerance_above
+		# joint_constraint.weight = 1
 
-		self.motion_constraints.joint_constraints = [joint_constraint]
-		self.group.set_path_constraints(self.motion_constraints)
+		# self.motion_constraints.joint_constraints = [joint_constraint]
+		# self.group.set_path_constraints(self.motion_constraints)
 
 		print self.get_joint_angles()
 
@@ -180,9 +171,9 @@ class MotionController(object):
 		return new_trajectory
 
 	def home(self):
-		return self.move_to(self.home_pose.position.x, self.home_pose.position.y, self.home_pose.position.z, speed=1, wait=True)
+		return self.move_to(x=0.46, y=0.0, z=0.45, speed=1, wait=True)
 
-	def move_to(self, x=0.324, y=0.0, z=0.45, speed=2, wait=True):
+	def move_to(self, x=0.46, y=0.0, z=0.45, speed=2, wait=True):
 		self.target.position.x = x
 		self.target.position.y = y
 		self.target.position.z = z
@@ -247,10 +238,6 @@ class MotionController(object):
 			self.__loginfo("follow", "Path planning failed with only {fraction} success after {attempts} trails".format(attempts=attempts, fraction=fraction))
 		return completed
 
-	def follow_reverse(self, xs=[], ys=[], zs=[], speed=1.0, interpolate_resolution=0.3, jump_threshold=0.0, wait=True):
-		xs.reverse(); ys.reverse(); zs.reverse()
-		return self.follow(xs, ys, zs, speed, interpolate_resolution, jump_threshold, wait)
-
 	def set_joint_angle(self, joint_index=0, joint_angle=1.0, wait=True):
 		self.group.clear_pose_targets()
 		group_variable_values = self.group.get_current_joint_values()
@@ -275,7 +262,21 @@ class MotionController(object):
 	def get_current_pose(self):
 		return self.group.get_current_pose().pose
 
-	def calibrate(self, min_x, min_y, max_x, max_y, default_z=0.45, total_compression_length=0.032, max_pressure=30, move_speed=1.0, pick_speed=0.05, max_tries=3):
+	def get_z_depth(self, current_x, current_y, min_x, min_y, max_x, max_y, pressure_constants):
+		a,b,c,d = pressure_constants
+
+		total_x = abs(max_x - min_x)
+		total_y = abs(max_y - min_y)
+
+		percent_of_x = (total_y - current_y - abs(min_y)) / total_y
+		percent_of_y = (total_x - current_x - abs(min_x)) / total_x
+
+		f = lambda k, m : (percent_of_x * k) + ((1 - percent_of_x) * m)
+		z = (percent_of_y * f(a,b)) + ((1 - percent_of_y) * f(c,d))
+
+		return z
+
+	def calibrate(self, min_x, min_y, max_x, max_y, default_z=0.40, total_compression_length=0.032, max_pressure=30, move_speed=1.2, pick_speed=0.05, max_tries=3):
 		def __move_to(x, y, z):
 			success = False
 			for i in xrange(max_tries):
@@ -284,22 +285,21 @@ class MotionController(object):
 					break
 			return success
 
-		def __get_pressure():
-			pressure = 0.0
-			for i in range(5):
-				pressure += self.io_manager.get_pressure()
-				rospy.sleep(0.1)
-
-			pressure = pressure / 5.0
-			return pressure
-
 		def __calculate_depth(x,y):
+			def __get_pressure():
+				pressure = 0.0
+				for i in range(5):
+					pressure += self.io_manager.get_pressure()
+					rospy.sleep(0.1)
+
+				pressure = pressure / 5.0
+				return pressure
+
 			if not __move_to(x,y,default_z):
 				raise Exception("could not move to point x: {x}, y: {y}, z: {z}".format(x=x,y=y,z=default_z))
 
-			xs = self.__linspace(x, x, 10)
-			ys = self.__linspace(y, y, 10)
-			zs = self.__linspace(default_z, self.position_limits["z"][0], 10)
+			xs = [x, x]; ys = [y, y]
+			zs = [default_z, self.position_limits["z"][0]]
 			self.follow(xs, ys, zs, speed=pick_speed, wait=False)
 
 			while True:
@@ -309,32 +309,41 @@ class MotionController(object):
 					if __get_pressure() >= max_pressure:
 						break
 					else:
-						zs = self.__linspace(self.get_current_pose().position.z, self.position_limits["z"][0], 10)
+						zs = [self.get_current_pose().position.z, self.position_limits["z"][0]]
 						self.follow(xs, ys, zs, speed=pick_speed, wait=False)
 			
 			pressure = __get_pressure()
 			print "PRESSURE ", pressure, " VS ", max_pressure
 			
 			pressure = self.__constrain(pressure/100.0, 0.0, 1.0)
-			increment = total_compression_length * pressure
+			increment = (total_compression_length * pressure)
 
-			depth = self.get_current_pose().position.z + increment + 0.0025
-			# depth = self.get_current_pose().position.z + increment + 0.0029
+			z = self.get_current_pose().position.z + increment
 
 			if not __move_to(x,y,default_z):
 				raise Exception("could not move to point x: {x}, y: {y}, z: {z}".format(x=x,y=y,z=default_z))
 			
-			return depth
+			return z
+
+		self.pressure_constants = []
+		self.pressure_constants.append(__calculate_depth(min_x, min_y))
+		self.pressure_constants.append(__calculate_depth(min_x, max_y))
+		self.pressure_constants.append(__calculate_depth(max_x, min_y))
+		self.pressure_constants.append(__calculate_depth(max_x, max_y))
 
 		get_middle = lambda mn, mx : mx - ((mx - mn)/2.0)
 		middle_x = get_middle(min_x, max_x)
 		middle_y = get_middle(min_y, max_y)
 
-		self.pen_writing_position = __calculate_depth(middle_x, middle_y)
-		self.pen_hover_position = self.pen_writing_position + self.pen_hover_offset
+		def __print_pressure_point(point_x, point_y):
+			p = self.get_z_depth(point_x, point_y, min_x, min_y, max_x, max_y, self.pressure_constants)
+			print "*********** pressure @ ({0}, {1}) = {2}".format(point_x, point_y, p)
 
 		def __test_point(point_x, point_y):
-			self.__loginfo("calculate_z_depth", "Moving to point on page")
+			self.pen_writing_position = self.get_z_depth(point_x, point_y, min_x, min_y, max_x, max_y, self.pressure_constants)
+			self.pen_hover_position = self.pen_writing_position + self.pen_hover_offset
+
+			self.__loginfo("calculate_z_depth", "Moving to center of page")
 			if not __move_to(point_x, point_y, default_z):
 				raise Exception("could not move to point x: {x}, y: {y}, z: {z}".format(x=point_x,y=point_y,z=default_z))
 
@@ -355,7 +364,19 @@ class MotionController(object):
 
 
 		__test_point(middle_x, middle_y)
-		print "*********** depth @ middle = {0}".format(self.pen_writing_position)
+		# __test_point(middle_x - 0.1, middle_y)
+		# __test_point(middle_x + 0.1, middle_y)
+		# __test_point(middle_x, middle_y - 0.1)
+		# __test_point(middle_x, middle_y + 0.1)
+
+		print "pressure_constants = ", self.pressure_constants
+		print "middle_x, middle_y = ", middle_x, middle_y
+
+		__print_pressure_point(middle_x, middle_y)
+		__print_pressure_point(middle_x - 0.1, middle_y)
+		__print_pressure_point(middle_x + 0.1, middle_y)
+		__print_pressure_point(middle_x, middle_y - 0.1)
+		__print_pressure_point(middle_x, middle_y + 0.1) 
 
 		return True
 
