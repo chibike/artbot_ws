@@ -216,7 +216,16 @@ image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o
  /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_arithmetic.h
  /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_color.h
  /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_color_space.h
+ /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_line_header.h
+ /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_line_object.h
+ /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_object_header_file.h
  /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_objects.h
+ /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_path_header.h
+ /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_path_object.h
+ /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_pathfinder_header.h
+ /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_pathfinder_object.h
+ /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_point_header.h
+ /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_point_object.h
  /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_tests.hpp
  /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_video.h
  /home/odroid/artbot_ws/src/image_processing_pkg/src/test.cpp

@@ -215,7 +215,16 @@ image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_arithmetic.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_color.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_color_space.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_line_header.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_line_object.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_object_header_file.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_objects.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_path_header.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_path_object.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_pathfinder_header.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_pathfinder_object.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_point_header.h
+image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_point_object.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_tests.hpp
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/pi_video.h
 image_processing_pkg/CMakeFiles/image_processing_node_test.dir/src/test.cpp.o: /home/odroid/artbot_ws/src/image_processing_pkg/src/test.cpp
