@@ -161,6 +161,11 @@ double Line::get_angle()
 	double angle = atan2(dy, dx);
 	return angle;
 }
+	
+double Line::get_angle_from_line(Line &other_line)
+{
+	return std::atan((get_gradient() - other_line.get_gradient()) / (1 + (get_gradient() * other_line.get_gradient())));
+}
 
 Point Line::get_midpoint()
 {
