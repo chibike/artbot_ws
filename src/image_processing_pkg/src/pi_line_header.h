@@ -30,6 +30,7 @@ public:
 	double get_length();
 	double get_gradient();
 	double get_angle();
+	double get_angle_from_line(Line &other_line);
 	Point  get_midpoint();
 	Point  get_point(double position); // returns a point at that position on the line; ranges from 0..1
 	void   plot();
